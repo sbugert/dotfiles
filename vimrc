@@ -90,6 +90,11 @@ hi CursorLine cterm=none
 "set hlsearch
 " Invisible characters
 autocmd BufEnter * set listchars=tab:▸\ ,eol:¬
+" Syntastic coderwall.com/p/zneomg
+let g:syntastic_error_symbol = '✗✗'
+let g:syntastic_style_error_symbol = '✠✠'
+let g:syntastic_warning_symbol = '∆∆'
+let g:syntastic_style_warning_symbol = '≈≈'
 
 " -----------------------------------------------------------------------------
 " Tabs vs. Spaces
@@ -127,7 +132,7 @@ nmap <silent> <leader>s :set spell!<CR>
 " In addition to <esc>, jj will exit to normal mode.
 inoremap jj <ESC>
 
-" vim-unimpared
+" vim-unimpared vimcasts.org/episodes/bubbling-text/
 " Bubble single lines
 nmap <C-Up> [e
 nmap <C-Down> ]e
