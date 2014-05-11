@@ -12,6 +12,8 @@ filetype plugin indent on
 "filetype plugin on
 " Share OS clipboard
 set clipboard=unnamed
+" make backspace work like most other apps
+set backspace=2
 " Allow mouse usage in terminal vim
 set hlsearch
 " Invisible characters
@@ -118,6 +120,8 @@ let g:snippets_dir="~/.vim/snippets"
 " -----------------------------------------------------------------------------
 " NERDCommenter
 map <Leader>c <plug>NERDCommenterToggle
+" unmap all other bindings
+let g:NERDCreateDefaultMappings=0
 
 " Edit user .vimrc
 nmap <Leader>v :e ~/.vimrc<CR>
