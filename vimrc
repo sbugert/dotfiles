@@ -80,6 +80,7 @@ syntax on
 colorscheme summerfruit256
 " Show Line numbers
 set number
+set relativenumber
 " Visual line marking 80 characters (vim 7.3)
 if v:version >= 703
   set colorcolumn=80
