@@ -32,7 +32,7 @@ Plugin 'garbas/vim-snipmate'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 
-call vundle#end() 
+call vundle#end()
 
 " Better % command
 runtime macros/matchit.vim
@@ -159,6 +159,9 @@ let g:snippets_dir="~/.vim/snippets"
 " -----------------------------------------------------------------------------
 " Key bindings
 " -----------------------------------------------------------------------------
+" Saves time; maps the spacebar to colon
+nmap <space> :
+
 " Get off my lawn
 nnoremap <Left> :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
