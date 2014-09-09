@@ -198,8 +198,8 @@ vmap <C-Down> ]egv
 nnoremap <Leader>b :bp<CR>
 nnoremap <Leader>f :bn<CR>
 
-" Clear search results when hitting space
-nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+" Clear search results when hitting tab
+nnoremap <silent> <Tab> :nohlsearch<Bar>:echo<CR>
 
 " Show current file as HTML
 nmap <Leader>h :TOhtml<CR>:w<cr>:!open %<CR>:q<CR>
