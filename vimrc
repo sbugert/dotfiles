@@ -16,6 +16,7 @@ Plugin 'gmarik/Vundle.vim'
 
 " Plugins
 Plugin 'kien/ctrlp.vim'
+Plugin 'mileszs/ack.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ervandew/supertab.git'
@@ -118,9 +119,12 @@ let g:solarized_termcolors=256
 "set background=light
 "colorscheme solarized
 
+"set relativenumber
+if exists('+relativenumber')
+  set relativenumber
+end
 " Show Line numbers
 set number
-"set relativenumber
 " Visual line marking 80 characters (vim 7.3)
 if v:version >= 703
   set colorcolumn=80
@@ -155,6 +159,8 @@ set shiftwidth=2
 " Configure snipmate dir
 let g:snippets_dir="~/.vim/snippets"
 
+" make ack.vim use ag (the silver surfer) instead
+ let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " -----------------------------------------------------------------------------
 " Key bindings
