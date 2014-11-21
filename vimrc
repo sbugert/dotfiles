@@ -23,7 +23,7 @@ Plugin 'bling/vim-airline' " lean & mean status/tabline for vim that's light as 
 Plugin 'tpope/vim-fugitive' " a Git wrapper so awesome, it should be illegal
 Plugin 'tpope/vim-surround' " quoting/parenthesizing made simple
 Plugin 'tpope/vim-unimpaired' " pairs of handy bracket mappings
-Plugin 'airblade/vim-gitgtter' " shows a git diff in the gutter (sign column) and stages/reverts hunks
+Plugin 'airblade/vim-gitgutter' " shows a git diff in the gutter (sign column) and stages/reverts hunks
 Plugin 'pangloss/vim-javascript' " Vastly improved Javascript indentation and syntax support in Vim
 Plugin 'tomtom/tlib_vim' " snipmate dependency
 Plugin 'MarcWeber/vim-addon-mw-utils' " snipmate dependency
