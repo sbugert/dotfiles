@@ -100,7 +100,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
 "shorten pause when leaving insert mode
-"set ttimeoutlen=50
+set ttimeoutlen=50
 
 " -----------------------------------------------------------------------------
 " Styling
