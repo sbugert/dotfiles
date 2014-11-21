@@ -28,7 +28,7 @@ Plugin 'pangloss/vim-javascript' " Vastly improved Javascript indentation and sy
 Plugin 'tomtom/tlib_vim' " snipmate dependency
 Plugin 'MarcWeber/vim-addon-mw-utils' " snipmate dependency
 Plugin 'garbas/vim-snipmate' " implements some of TextMate's snippets features
-Plugin 'lokaltog/vim-distinguished' " Color scheme
+Plugin 'Lokaltog/vim-distinguished' " Color scheme
 Plugin 'vim-scripts/summerfruit256.vim' " Color scheme
 
 call vundle#end()
