@@ -39,6 +39,8 @@ runtime macros/matchit.vim
 " Recognize file types / set indent mode
 filetype plugin indent on
 filetype plugin on
+" Switch between buffers without saving
+set hidden
 " Share OS clipboard
 set clipboard=unnamed
 " make backspace work like most other apps
