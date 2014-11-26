@@ -51,6 +51,8 @@ set mouse=a
 set laststatus=2
 " Indention
 set autoindent
+" make auto completion on command line work like in shell
+set wildmode=longest,list
 " Scroll cursor offset
 set scrolloff=3
 "change terminal's title and revert it on exit
@@ -172,6 +174,13 @@ let mapleader = ","
 
 " Saves time; maps the spacebar to colon
 nmap <space> :
+
+" Keep curson in place when using J to join two lines
+nnoremap J mzJ`z
+
+" change rows not lines which is useful on wrapped lines
+nnoremap j gj
+nnoremap k gk
 
 " Get off my lawn
 nnoremap <Left> :echoe "Use h"<CR>
