@@ -1,5 +1,5 @@
 " Launch in Fullscreen
-set fu
+"set fu
 
 set guifont=Monaco\ for\ Powerline
 set linespace=-2
