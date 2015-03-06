@@ -30,6 +30,7 @@ Plugin 'MarcWeber/vim-addon-mw-utils' " snipmate dependency
 Plugin 'garbas/vim-snipmate' " implements some of TextMate's snippets features
 Plugin 'Lokaltog/vim-distinguished' " Color scheme
 Plugin 'vim-scripts/summerfruit256.vim' " Color scheme
+Plugin 'tpope/vim-repeat' " enable repeating supported plugin maps with .
 
 call vundle#end()
 
@@ -114,6 +115,9 @@ set ttimeoutlen=50
 syntax on
 " Color Scheme
 set t_Co=256
+"if match($TERM, "screen")!=-1
+  "set term=xterm
+"endif
 "colorscheme summerfruit256
 colorscheme distinguished
 
@@ -233,4 +237,9 @@ autocmd BufEnter *.js nmap <Leader><Leader> :w<CR>:!node %:p<CR>
 " Recognise file by extension
 autocmd BufEnter *.json set filetype=javascript
 autocmd BufEnter *.dust set filetype=html
+
+" in makefiles, don't expand tabs to spaces, since actual tab characters are
+" needed, and have indentation at 8 chars to be sure that all indents are tabs
+" (despite the mappings later):
+autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
 
