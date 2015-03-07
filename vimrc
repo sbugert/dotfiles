@@ -209,6 +209,10 @@ nmap <silent> <leader>s :set spell!<CR>
 
 " In addition to <esc>, jj will exit to normal mode.
 inoremap jj <ESC>
+"
+" maintain Visual Mode after shifting > and <
+vmap < <gv
+vmap > >gv
 
 " vim-unimpared vimcasts.org/episodes/bubbling-text/
 " Bubble single lines
