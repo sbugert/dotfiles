@@ -45,7 +45,8 @@ set hidden
 " Share OS clipboard
 set clipboard=unnamed
 " make backspace work like most other apps
-set backspace=2
+"set backspace=2
+set backspace=indent,eol,start
 " Allow mouse usage in terminal vim
 set mouse=a
 " Always show status line
@@ -143,6 +144,9 @@ let g:syntastic_error_symbol = '✗✗'
 let g:syntastic_style_error_symbol = '✠✠'
 let g:syntastic_warning_symbol = '∆∆'
 let g:syntastic_style_warning_symbol = '≈≈'
+" Use eslint
+let g:syntastic_javascript_checkers = ['eslint']
+
 
 " -----------------------------------------------------------------------------
 " Tabs vs. Spaces
@@ -225,6 +229,24 @@ vmap <C-Down> ]egv
 " Switch between buffers
 nnoremap <Leader>b :bp<CR>
 nnoremap <Leader>f :bn<CR>
+
+" Navigate between windows
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+
+" https://technotales.wordpress.com/2010/04/29/vim-splits-a-guide-to-doing-exactly-what-you-want/
+" split window
+nmap <leader>swh :topleft  vnew<CR>
+nmap <leader>swl :botright vnew<CR>
+nmap <leader>swk :topleft  new<CR>
+nmap <leader>swj :botright new<CR>
+" split buffer
+nmap <leader>sh :leftabove  vnew<CR>
+nmap <leader>sl :rightbelow vnew<CR>
+nmap <leader>sk :leftabove  new<CR>
+nmap <leader>sj :rightbelow new<CR>
 
 " Clear search results when hitting tab
 nnoremap <silent> <Tab> :nohlsearch<Bar>:echo<CR>
