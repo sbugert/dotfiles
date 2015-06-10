@@ -1,8 +1,9 @@
+scriptencoding utf-8
 " -----------------------------------------------------------------------------
 " Basics
 " -----------------------------------------------------------------------------
 " Be IMproved
-set nocompatible
+if &compatible | set nocompatible | endif
 
 " Vundle setup
 filetype off
@@ -13,24 +14,23 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " Plugins
+Plugin 'bling/vim-airline' " lean & mean status/tabline for vim that's light as air
+Plugin 'airblade/vim-gitgutter' " shows a git diff in the gutter (sign column) and stages/reverts hunks
+Plugin 'tpope/vim-fugitive' " a Git wrapper so awesome, it should be illegal
+Plugin 'garbas/vim-snipmate' " implements some of TextMate's snippets features
+  Plugin 'tomtom/tlib_vim'
+  Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'kien/ctrlp.vim' " Fuzzy file, buffer, mru, tag, etc finder.
+Plugin 'Lokaltog/vim-distinguished' " Color scheme
+Plugin 'Valloric/YouCompleteMe' " A code-completion engine for Vim
+Plugin 'marijnh/tern_for_vim' " provides Tern-based JavaScript editing support.
+Plugin 'pangloss/vim-javascript' " Vastly improved Javascript indentation and syntax support in Vim
 Plugin 'mileszs/ack.vim' " Vim plugin for the Perl module / CLI script 'ack'
 Plugin 'scrooloose/nerdcommenter' " Vim plugin for intensely orgasmic commenting
-Plugin 'scrooloose/nerdtree' " A tree explorer plugin for vim.
 Plugin 'scrooloose/syntastic' " Syntax checking hacks for vim
-Plugin 'ervandew/supertab.git' " Perform all your vim insert mode completions with Tab
-Plugin 'bling/vim-airline' " lean & mean status/tabline for vim that's light as air
-Plugin 'tpope/vim-fugitive' " a Git wrapper so awesome, it should be illegal
+Plugin 'tpope/vim-repeat' " enable repeating supported plugin maps with .
 Plugin 'tpope/vim-surround' " quoting/parenthesizing made simple
 Plugin 'tpope/vim-unimpaired' " pairs of handy bracket mappings
-Plugin 'airblade/vim-gitgutter' " shows a git diff in the gutter (sign column) and stages/reverts hunks
-Plugin 'pangloss/vim-javascript' " Vastly improved Javascript indentation and syntax support in Vim
-Plugin 'tomtom/tlib_vim' " snipmate dependency
-Plugin 'MarcWeber/vim-addon-mw-utils' " snipmate dependency
-Plugin 'garbas/vim-snipmate' " implements some of TextMate's snippets features
-Plugin 'Lokaltog/vim-distinguished' " Color scheme
-Plugin 'vim-scripts/summerfruit256.vim' " Color scheme
-Plugin 'tpope/vim-repeat' " enable repeating supported plugin maps with .
 
 call vundle#end()
 
@@ -45,7 +45,6 @@ set hidden
 " Share OS clipboard
 set clipboard=unnamed
 " make backspace work like most other apps
-"set backspace=2
 set backspace=indent,eol,start
 " Allow mouse usage in terminal vim
 set mouse=a
@@ -80,10 +79,6 @@ set ignorecase
 set smartcase
 set incsearch
 
-" Automatically safe files when switchin between them / leaving vim
-"set autowriteall
-"autocmd FocusLost * silent! :wa
-"autocmd TabLeave * silent! :wa
 " Store temporary files in a central spot
 set undodir=~/.vim/.vim-tmp//,/var/tmp//,/tmp//,.
 " Do not create swap files, we're using git after all
@@ -94,7 +89,6 @@ set noswapfile
 if v:version >= 703
   set undofile
 endif
-"set completeopt=menuone,longest
 " Ignore certain things
 set wildignore+=.git,*/node_modules/*,*/deps/build/*,*/stack/*,*/deps/go/*,*/deps/node/*,*/_site/*
 
@@ -112,14 +106,12 @@ set ttimeoutlen=50
 " Styling
 " -----------------------------------------------------------------------------
 " Syntax highlighting
-"syntax enable
 syntax on
 " Color Scheme
 set t_Co=256
 "if match($TERM, "screen")!=-1
   "set term=xterm
 "endif
-"colorscheme summerfruit256
 colorscheme distinguished
 
 "set relativenumber
@@ -132,20 +124,24 @@ set number
 if v:version >= 703
   set colorcolumn=80
 endif
-" Display whitespace
-set list
 " Highlight active line
 set cursorline
-"hi CursorLine cterm=none
 " Invisible characters
-autocmd BufEnter * set listchars=tab:▸\ ,eol:¬
+set list
+autocmd BufEnter * set list listchars=tab:▸\ ,trail:≈,eol:¬
+highlight SpecialKey ctermfg=88 guifg=88
+
 " Syntastic coderwall.com/p/zneomg
 let g:syntastic_error_symbol = '✗✗'
 let g:syntastic_style_error_symbol = '✠✠'
 let g:syntastic_warning_symbol = '∆∆'
 let g:syntastic_style_warning_symbol = '≈≈'
+" Don't lint on :wq
+let g:syntastic_check_on_wq = 0
 " Use eslint
 let g:syntastic_javascript_checkers = ['eslint']
+
+autocmd FileType javascript setlocal omnifunc=tern#Complete
 
 
 " -----------------------------------------------------------------------------
@@ -158,8 +154,16 @@ set tabstop=2
 " 2 spaces for indention
 set shiftwidth=2
 
+" in makefiles, don't expand tabs to spaces, since actual tab characters are
+" needed, and have indentation at 8 chars to be sure that all indents are tabs
+" (despite the mappings later):
+autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
+
 " Use The Silver Searcher if available
 if executable('ag')
+  " Use ag in ack.vim
+  "
+  let g:ackprg = 'ag --nogroup --nocolor --column'
   " Use ag in CtrlP
   let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 
@@ -172,6 +176,9 @@ endif
 " -----------------------------------------------------------------------------
 " Configure snipmate dir
 let g:snippets_dir="~/.vim/snippets"
+" Remap key
+imap <C-J> <Plug>snipMateNextOrTrigger
+smap <C-J> <Plug>snipMateNextOrTrigger
 
 " -----------------------------------------------------------------------------
 " Key bindings
@@ -214,10 +221,6 @@ nmap <silent> <leader>s :set spell!<CR>
 " In addition to <esc>, jj will exit to normal mode.
 inoremap jj <ESC>
 "
-" maintain Visual Mode after shifting > and <
-vmap < <gv
-vmap > >gv
-
 " vim-unimpared vimcasts.org/episodes/bubbling-text/
 " Bubble single lines
 nmap <C-Up> [e
@@ -263,9 +266,3 @@ autocmd BufEnter *.js nmap <Leader><Leader> :w<CR>:!node %:p<CR>
 " Recognise file by extension
 autocmd BufEnter *.json set filetype=javascript
 autocmd BufEnter *.dust set filetype=html
-
-" in makefiles, don't expand tabs to spaces, since actual tab characters are
-" needed, and have indentation at 8 chars to be sure that all indents are tabs
-" (despite the mappings later):
-autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
-
