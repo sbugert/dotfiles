@@ -133,7 +133,7 @@ set cursorline
 " Invisible characters
 set list
 autocmd BufEnter * set list listchars=tab:▸\ ,trail:≈,eol:¬
-highlight SpecialKey ctermfg=88 guifg=88
+highlight SpecialKey ctermfg=88 guifg=#870000
 
 " Syntastic coderwall.com/p/zneomg
 let g:syntastic_error_symbol = '✗✗'
