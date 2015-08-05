@@ -25,6 +25,7 @@ Plugin 'Lokaltog/vim-distinguished' " Color scheme
 Plugin 'Valloric/YouCompleteMe' " A code-completion engine for Vim
 Plugin 'marijnh/tern_for_vim' " provides Tern-based JavaScript editing support.
 Plugin 'pangloss/vim-javascript' " Vastly improved Javascript indentation and syntax support in Vim
+Plugin 'mxw/vim-jsx' " React JSX syntax highlighting and indenting
 Plugin 'mileszs/ack.vim' " Vim plugin for the Perl module / CLI script 'ack'
 Plugin 'scrooloose/nerdcommenter' " Vim plugin for intensely orgasmic commenting
 Plugin 'scrooloose/syntastic' " Syntax checking hacks for vim
@@ -113,6 +114,9 @@ set t_Co=256
   "set term=xterm
 "endif
 colorscheme distinguished
+
+" activate jsx syntax highlighting for .js files
+let g:jsx_ext_required = 0
 
 "set relativenumber
 if exists('+relativenumber')
