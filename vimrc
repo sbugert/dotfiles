@@ -81,11 +81,8 @@ set smartcase
 set incsearch
 
 " Store temporary files in a central spot
-set undodir=~/.vim/.vim-tmp//,/var/tmp//,/tmp//,.
-" Do not create swap files, we're using git after all
-set nobackup
-set nowritebackup
-set noswapfile
+set dir=~/.vim/.vim-tmp/swap//,/var/tmp//,/tmp//,.
+set undodir=~/.vim/.vim-tmp/undo//,/var/tmp//,/tmp//,.
 " Enable vim to remember undo chains between sessions (vim 7.3)
 if v:version >= 703
   set undofile
@@ -110,9 +107,6 @@ set ttimeoutlen=50
 syntax on
 " Color Scheme
 set t_Co=256
-"if match($TERM, "screen")!=-1
-  "set term=xterm
-"endif
 colorscheme distinguished
 
 " activate jsx syntax highlighting for .js files
