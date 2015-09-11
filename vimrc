@@ -94,9 +94,9 @@ set wildignore+=.git,*/node_modules/*,*/deps/build/*,*/stack/*,*/deps/go/*,*/dep
 set noshowmode
 "enable airline's smarter tab line extension
 let g:airline#extensions#tabline#enabled = 1
-"enable symbols of patched font
-let g:airline_powerline_fonts = 1
-
+" Don't show seperators
+let g:airline_left_sep=''
+let g:airline_right_sep=''
 "shorten pause when leaving insert mode
 set ttimeoutlen=50
 
