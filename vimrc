@@ -21,6 +21,7 @@ Plugin 'garbas/vim-snipmate' " implements some of TextMate's snippets features
   Plugin 'tomtom/tlib_vim'
   Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'kien/ctrlp.vim' " Fuzzy file, buffer, mru, tag, etc finder.
+Plugin 'ctrlpvim/ctrlp.vim' " Fuzzy file, buffer, mru, tag, etc finder.
 Plugin 'Lokaltog/vim-distinguished' " Color scheme
 Plugin 'Valloric/YouCompleteMe' " A code-completion engine for Vim
 Plugin 'marijnh/tern_for_vim' " provides Tern-based JavaScript editing support.
