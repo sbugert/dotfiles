@@ -287,6 +287,8 @@ nmap <Leader>h :TOhtml<CR>:w<cr>:!open %<CR>:q<CR>
 " -----------------------------------------------------------------------------
 " Execute current file with node.js
 autocmd BufEnter *.js nmap <Leader><Leader> :w<CR>:!node %:p<CR>
+" Compile c++14 files and execute
+autocmd BufEnter *.cpp nmap <Leader><Leader> :w<CR>:! c++ -std=c++14 -O2 -Wall -pedantic -pthread %:p -o main && ./main <CR>
 
 " Recognise file by extension
 autocmd BufEnter *.json set filetype=javascript
