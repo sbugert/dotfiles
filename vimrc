@@ -17,16 +17,18 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'vim-airline/vim-airline' " lean & mean status/tabline for vim that's light as air
 Plugin 'airblade/vim-gitgutter' " shows a git diff in the gutter (sign column) and stages/reverts hunks
 Plugin 'tpope/vim-fugitive' " a Git wrapper so awesome, it should be illegal
-Plugin 'garbas/vim-snipmate' " implements some of TextMate's snippets features
-  Plugin 'tomtom/tlib_vim'
-  Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'kien/ctrlp.vim' " Fuzzy file, buffer, mru, tag, etc finder.
+"Plugin 'garbas/vim-snipmate' " implements some of TextMate's snippets features
+"Plugin 'SirVer/ultisnips' " implements some of TextMate's snippets features
+"Plugin 'honza/vim-snippets'
+  "Plugin 'tomtom/tlib_vim'
+  "Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'ctrlpvim/ctrlp.vim' " Fuzzy file, buffer, mru, tag, etc finder.
 Plugin 'Lokaltog/vim-distinguished' " Color scheme
 Plugin 'Valloric/YouCompleteMe' " A code-completion engine for Vim
 Plugin 'marijnh/tern_for_vim' " provides Tern-based JavaScript editing support.
 Plugin 'pangloss/vim-javascript' " Vastly improved Javascript indentation and syntax support in Vim
 Plugin 'mxw/vim-jsx' " React JSX syntax highlighting and indenting
+Plugin 'b4winckler/vim-objc' " Objective-C config for Vim
 Plugin 'mileszs/ack.vim' " Vim plugin for the Perl module / CLI script 'ack'
 Plugin 'scrooloose/nerdcommenter' " Vim plugin for intensely orgasmic commenting
 Plugin 'scrooloose/syntastic' " Syntax checking hacks for vim
