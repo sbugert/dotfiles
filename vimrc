@@ -176,8 +176,8 @@ autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
 " Use The Silver Searcher if available
 if executable('ag')
   " Use ag in ack.vim
-  "
   let g:ackprg = 'ag --nogroup --nocolor --column'
+
   " Use ag in CtrlP
   let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 
@@ -189,10 +189,12 @@ endif
 " snipmate
 " -----------------------------------------------------------------------------
 " Configure snipmate dir
-let g:snippets_dir="~/.vim/snippets"
+"let g:UltiSnipsSnippetsDir="~/.vim/snips"
 " Remap key
-imap <C-J> <Plug>snipMateNextOrTrigger
-smap <C-J> <Plug>snipMateNextOrTrigger
+"imap <C-J> <Plug>snipMateNextOrTrigger
+"smap <C-J> <Plug>snipMateNextOrTrigger
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsSnippetDirectories=["snips"]
 
 " -----------------------------------------------------------------------------
 " Key bindings
