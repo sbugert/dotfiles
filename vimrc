@@ -144,11 +144,15 @@ let g:syntastic_style_warning_symbol = '≈≈'
 " Don't lint on :wq
 let g:syntastic_check_on_wq = 0
 
-" Add npm-exec-eslint script to PATH
-let $PATH .= ':' . $HOME . '/.vim/scripts'
 " Use eslint
 let g:syntastic_javascript_checkers = ['eslint']
+" Use npm-exec-eslint
+let $PATH .= ':' . $HOME . '/.vim/scripts'
 let g:syntastic_javascript_eslint_exec = 'npm-exec-eslint'
+" prefer eslint_d if available
+if executable('eslint_d')
+  let g:syntastic_javascript_eslint_exec = 'eslint_d'
+endif
 
 autocmd FileType javascript setlocal omnifunc=tern#Complete
 
