@@ -106,6 +106,7 @@ set ttimeoutlen=50
 " -----------------------------------------------------------------------------
 " Styling
 " -----------------------------------------------------------------------------
+
 " Syntax highlighting
 syntax on
 " Color Scheme
@@ -131,6 +132,9 @@ set cursorline
 set list
 autocmd BufEnter * set list listchars=tab:▸\ ,trail:≈,eol:¬
 highlight SpecialKey ctermfg=88 guifg=#870000
+
+" c++11 lambda
+let c_no_curly_error = 1
 
 " Syntastic coderwall.com/p/zneomg
 let g:syntastic_error_symbol = '✗✗'
