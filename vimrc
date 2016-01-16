@@ -154,7 +154,8 @@ if executable('eslint_d')
   let g:syntastic_javascript_eslint_exec = 'eslint_d'
 endif
 
-autocmd FileType javascript setlocal omnifunc=tern#Complete
+" Disable YouCompleteMe preview window
+set completeopt-=preview
 
 
 " -----------------------------------------------------------------------------
