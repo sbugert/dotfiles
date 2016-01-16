@@ -287,6 +287,8 @@ nmap <Leader>h :TOhtml<CR>:w<cr>:!open %<CR>:q<CR>
 " -----------------------------------------------------------------------------
 " Execute current file with node.js
 autocmd BufEnter *.js nmap <Leader><Leader> :w<CR>:!node %:p<CR>
+" Autofix current file with eslint
+autocmd BufEnter *.js nmap <Leader>e :w<CR>:silent exec "!npm-exec-eslint % --fix"<CR>:redraw!<CR>:e<CR>:w<CR>
 " Compile c++14 files and execute
 autocmd BufEnter *.cpp nmap <Leader><Leader> :w<CR>:! c++ -std=c++14 -O2 -Wall -pedantic -pthread %:p -o main && ./main <CR>
 
