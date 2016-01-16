@@ -221,6 +221,8 @@ nnoremap <Down> :echoe "Use j"<CR>
 map <Leader>c <plug>NERDCommenterToggle
 " unmap all other bindings
 let g:NERDCreateDefaultMappings=0
+" insert space before comment
+let NERDSpaceDelims=1
 
 " Edit user .vimrc
 nmap <Leader>v :e ~/.vimrc<CR>
