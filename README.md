@@ -6,7 +6,7 @@ Installing on another machine
     git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
     vim +PluginInstall +qall
     cd ~/.vim/bundle/YouCompleteMe
-    ./install.sh --clang-completer --tern-completer
+    ./install.py --clang-completer --tern-completer
 
 Upgrading all bundled plugins
 =============================

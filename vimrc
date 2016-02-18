@@ -25,7 +25,6 @@ Plugin 'tpope/vim-fugitive' " a Git wrapper so awesome, it should be illegal
 Plugin 'ctrlpvim/ctrlp.vim' " Fuzzy file, buffer, mru, tag, etc finder.
 Plugin 'Lokaltog/vim-distinguished' " Color scheme
 Plugin 'Valloric/YouCompleteMe' " A code-completion engine for Vim
-Plugin 'marijnh/tern_for_vim' " provides Tern-based JavaScript editing support.
 Plugin 'pangloss/vim-javascript' " Vastly improved Javascript indentation and syntax support in Vim
 Plugin 'mxw/vim-jsx' " React JSX syntax highlighting and indenting
 Plugin 'b4winckler/vim-objc' " Objective-C config for Vim
@@ -35,6 +34,7 @@ Plugin 'scrooloose/syntastic' " Syntax checking hacks for vim
 Plugin 'tpope/vim-repeat' " enable repeating supported plugin maps with .
 Plugin 'tpope/vim-surround' " quoting/parenthesizing made simple
 Plugin 'tpope/vim-unimpaired' " pairs of handy bracket mappings
+Plugin 'ap/vim-css-color'
 
 call vundle#end()
 
@@ -206,12 +206,18 @@ let mapleader = ","
 " Saves time; maps the spacebar to colon
 nmap <space> :
 
+" Toggle paste mode
+nnoremap <Leader>p :set paste!<CR>
+
 " Keep curson in place when using J to join two lines
 nnoremap J mzJ`z
 
 " change rows not lines which is useful on wrapped lines
 nnoremap j gj
 nnoremap k gk
+
+" In addition to <esc>, jj will exit to normal mode.
+inoremap jj <ESC>
 
 " Get off my lawn
 nnoremap <Left> :echoe "Use h"<CR>
@@ -227,18 +233,16 @@ let g:NERDCreateDefaultMappings=0
 let NERDSpaceDelims=1
 
 " Edit user .vimrc
-nmap <Leader>v :e ~/.vimrc<CR>
+nmap <Leader>v :e $MYVIMRC<CR>
+
 " Source the vimrc file after saving it
 if has("autocmd")
-  autocmd bufwritepost .vimrc source ~/.vimrc
+  autocmd bufwritepost vimrc source $MYVIMRC | AirlineRefresh
 endif
 
 " Toggle spell checking on and off with `,s`
 nmap <silent> <leader>s :set spell!<CR>
 
-" In addition to <esc>, jj will exit to normal mode.
-inoremap jj <ESC>
-"
 " vim-unimpared vimcasts.org/episodes/bubbling-text/
 " Bubble single lines
 nmap <C-Up> [e
