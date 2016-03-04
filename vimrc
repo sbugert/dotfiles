@@ -15,6 +15,7 @@ Plugin 'gmarik/Vundle.vim'
 
 " Plugins
 Plugin 'vim-airline/vim-airline' " lean & mean status/tabline for vim that's light as air
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'airblade/vim-gitgutter' " shows a git diff in the gutter (sign column) and stages/reverts hunks
 Plugin 'tpope/vim-fugitive' " a Git wrapper so awesome, it should be illegal
 "Plugin 'garbas/vim-snipmate' " implements some of TextMate's snippets features
@@ -95,6 +96,8 @@ set wildignore+=.git,*/node_modules/*,*/deps/build/*,*/stack/*,*/deps/go/*,*/dep
 
 "get rid of the default mode indicator because we use airline
 set noshowmode
+" change theme
+let g:airline_theme = 'base16_default'
 "enable airline's smarter tab line extension
 let g:airline#extensions#tabline#enabled = 1
 " Don't show seperators
@@ -300,4 +303,4 @@ autocmd BufEnter *.cpp nmap <Leader><Leader> :w<CR>:! c++ -std=c++14 -O2 -Wall -
 
 " Recognise file by extension
 autocmd BufEnter *.json set filetype=javascript
-autocmd BufEnter *.dust set filetype=html
+autocmd BufEnter *.hbt set filetype=html
