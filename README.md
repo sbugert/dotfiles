@@ -2,12 +2,8 @@ Installing on another machine
 =============================
     git clone http://github.com/sbugert/dotvim.git ~/.vim
     ln -s ~/.vim/vimrc ~/.vimrc
-    ln -s ~/.vim/gvimrc ~/.gvimrc
-    git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-    vim +PluginInstall +qall
-    cd ~/.vim/bundle/YouCompleteMe
-    ./install.py --clang-completer --tern-completer
+    vim +PlugInstall +qall
 
 Upgrading all bundled plugins
 =============================
-`vim +PluginInstall +qall` or `:PluginInstall` inside vim
+`vim +PlugUpgrade +PlugUpdate +qall` or `:PluginInstall` and `PlugUpgrade` inside vim

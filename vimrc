@@ -5,39 +5,38 @@ scriptencoding utf-8
 " Be IMproved
 if &compatible | set nocompatible | endif
 
-" Vundle setup
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" Install vim-plug if not available
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
 
-" let Vundle manage Vundle
-Plugin 'gmarik/Vundle.vim'
+call plug#begin('~/.vim/plugged')
 
-" Plugins
-Plugin 'vim-airline/vim-airline' " lean & mean status/tabline for vim that's light as air
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'airblade/vim-gitgutter' " shows a git diff in the gutter (sign column) and stages/reverts hunks
-Plugin 'tpope/vim-fugitive' " a Git wrapper so awesome, it should be illegal
-"Plugin 'garbas/vim-snipmate' " implements some of TextMate's snippets features
-"Plugin 'SirVer/ultisnips' " implements some of TextMate's snippets features
-"Plugin 'honza/vim-snippets'
-  "Plugin 'tomtom/tlib_vim'
-  "Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'ctrlpvim/ctrlp.vim' " Fuzzy file, buffer, mru, tag, etc finder.
-Plugin 'Lokaltog/vim-distinguished' " Color scheme
-Plugin 'Valloric/YouCompleteMe' " A code-completion engine for Vim
-Plugin 'pangloss/vim-javascript' " Vastly improved Javascript indentation and syntax support in Vim
-Plugin 'mxw/vim-jsx' " React JSX syntax highlighting and indenting
-Plugin 'b4winckler/vim-objc' " Objective-C config for Vim
-Plugin 'mileszs/ack.vim' " Vim plugin for the Perl module / CLI script 'ack'
-Plugin 'scrooloose/nerdcommenter' " Vim plugin for intensely orgasmic commenting
-Plugin 'scrooloose/syntastic' " Syntax checking hacks for vim
-Plugin 'tpope/vim-repeat' " enable repeating supported plugin maps with .
-Plugin 'tpope/vim-surround' " quoting/parenthesizing made simple
-Plugin 'tpope/vim-unimpaired' " pairs of handy bracket mappings
-Plugin 'ap/vim-css-color'
+Plug 'vim-airline/vim-airline' " lean & mean status/tabline for vim that's light as air
+Plug 'vim-airline/vim-airline-themes'
+Plug 'airblade/vim-gitgutter' " shows a git diff in the gutter (sign column)
+Plug 'SirVer/ultisnips' " implements some of TextMate's snippets features
+Plug 'ervandew/supertab'
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+Plug 'ctrlpvim/ctrlp.vim' " Fuzzy file, buffer, mru, tag, etc finder.
+" Plug 'Lokaltog/vim-distinguished' " Color scheme
+Plug 'chriskempson/base16-vim'
+Plug 'pangloss/vim-javascript', { 'branch': 'develop' }
+Plug 'mxw/vim-jsx' " React JSX syntax highlighting and indenting
+Plug 'b4winckler/vim-objc' " Objective-C config for Vim
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'mileszs/ack.vim' " Vim plugin for the Perl module / CLI script 'ack'
+Plug 'tpope/vim-commentary'
+Plug 'scrooloose/syntastic' " Syntax checking hacks for vim
+Plug 'tpope/vim-repeat' " enable repeating supported plugin maps with .
+Plug 'tpope/vim-surround' " quoting/parenthesizing made simple
+Plug 'tpope/vim-unimpaired' " pairs of handy bracket mappings
+Plug 'ap/vim-css-color'
+Plug 'wavded/vim-stylus'
 
-call vundle#end()
+call plug#end()
 
 " Better % command
 runtime macros/matchit.vim
@@ -60,7 +59,7 @@ set autoindent
 " make auto completion on command line work like in shell
 set wildmode=longest,list
 " Scroll cursor offset
-set scrolloff=3
+set scrolloff=5
 "change terminal's title and revert it on exit
 set title
 let &titleold=""
@@ -96,15 +95,37 @@ set wildignore+=.git,*/node_modules/*,*/deps/build/*,*/stack/*,*/deps/go/*,*/dep
 
 "get rid of the default mode indicator because we use airline
 set noshowmode
-" change theme
-let g:airline_theme = 'base16_default'
-"enable airline's smarter tab line extension
+
+" Leader key
+let mapleader = ","
+
+" let g:airline_extensions = []
+" enable airline's smarter tab line extension
+"
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+nmap <leader>b <Plug>AirlineSelectPrevTab
+nmap <leader>f <Plug>AirlineSelectNextTab
+
 " Don't show seperators
 let g:airline_left_sep=''
 let g:airline_right_sep=''
+
 "shorten pause when leaving insert mode
 set ttimeoutlen=50
+" Open help pages in new tab
+cabbrev help tab help
 
 " -----------------------------------------------------------------------------
 " Styling
@@ -112,9 +133,22 @@ set ttimeoutlen=50
 
 " Syntax highlighting
 syntax on
+
+" enable 24 bit color support
+if has("termguicolors")
+  set termguicolors
+endif
+
 " Color Scheme
-set t_Co=256
-colorscheme distinguished
+" set t_Co=256
+set background=dark
+" if !empty(glob("~/.vim/plugged/vim-distinguished/colors/distinguished.vim"))
+  " colorscheme distinguished
+" endif
+if !empty(glob("~/.vim/plugged/base16-vim/colors/base16-default.vim"))
+  let base16colorspace = 256
+  colorscheme base16-default
+endif
 
 " activate jsx syntax highlighting for .js files
 let g:jsx_ext_required = 0
@@ -188,29 +222,25 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 
-" -----------------------------------------------------------------------------
-" snipmate
-" -----------------------------------------------------------------------------
-" Configure snipmate dir
-"let g:UltiSnipsSnippetsDir="~/.vim/snips"
-" Remap key
-"imap <C-J> <Plug>snipMateNextOrTrigger
-"smap <C-J> <Plug>snipMateNextOrTrigger
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsSnippetDirectories=["snips"]
+" UltiSnips
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/snips']
+
+" Supertab chained completions: file path -> omni completion -> keyword completion
+let g:SuperTabDefaultCompletionType = 'context'
+autocmd FileType *
+      \ if &omnifunc != '' |
+      \   call SuperTabChain(&omnifunc, "<c-p>") |
+      \ endif
 
 " -----------------------------------------------------------------------------
 " Key bindings
 " -----------------------------------------------------------------------------
 
-" Leader key
-let mapleader = ","
-
 " Saves time; maps the spacebar to colon
 nmap <space> :
 
 " Toggle paste mode
-nnoremap <Leader>p :set paste!<CR>
+set pastetoggle=<leader>p
 
 " Keep curson in place when using J to join two lines
 nnoremap J mzJ`z
@@ -228,19 +258,15 @@ nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
 
-" NERDCommenter
-map <Leader>c <plug>NERDCommenterToggle
-" unmap all other bindings
-let g:NERDCreateDefaultMappings=0
-" insert space before comment
-let NERDSpaceDelims=1
+" vim-commentary
+map <Leader>c gcc<ESC>
 
 " Edit user .vimrc
 nmap <Leader>v :e $MYVIMRC<CR>
 
 " Source the vimrc file after saving it
 if has("autocmd")
-  autocmd bufwritepost vimrc source $MYVIMRC | AirlineRefresh
+  autocmd bufwritepost vimrc source $MYVIMRC | AirlineRefresh | echo "~/.vimrc reloaded!"
 endif
 
 " Toggle spell checking on and off with `,s`
@@ -254,37 +280,6 @@ nmap <C-Down> ]e
 vmap <C-Up> [egv
 vmap <C-Down> ]egv
 
-" Make <C-*Arrow*> work in tmux
-if &term =~ '^screen'
-    " tmux will send xterm-style keys when its xterm-keys option is on
-    execute "set <xUp>=\e[1;*A"
-    execute "set <xDown>=\e[1;*B"
-    execute "set <xRight>=\e[1;*C"
-    execute "set <xLeft>=\e[1;*D"
-endif
-
-" Switch between buffers
-nnoremap <Leader>b :bp<CR>
-nnoremap <Leader>f :bn<CR>
-
-" Navigate between windows
-nmap <C-h> <C-w>h
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
-nmap <C-l> <C-w>l
-
-" https://technotales.wordpress.com/2010/04/29/vim-splits-a-guide-to-doing-exactly-what-you-want/
-" split window
-nmap <leader>swh :topleft  vnew<CR>
-nmap <leader>swl :botright vnew<CR>
-nmap <leader>swk :topleft  new<CR>
-nmap <leader>swj :botright new<CR>
-" split buffer
-nmap <leader>sh :leftabove  vnew<CR>
-nmap <leader>sl :rightbelow vnew<CR>
-nmap <leader>sk :leftabove  new<CR>
-nmap <leader>sj :rightbelow new<CR>
-
 " Clear search results when hitting tab
 nnoremap <silent> <Tab> :nohlsearch<Bar>:echo<CR>
 
@@ -292,7 +287,7 @@ nnoremap <silent> <Tab> :nohlsearch<Bar>:echo<CR>
 nmap <Leader>h :TOhtml<CR>:w<cr>:!open %<CR>:q<CR>
 
 " -----------------------------------------------------------------------------
-" File type specifics *
+" File type specifics
 " -----------------------------------------------------------------------------
 " Execute current file with node.js
 autocmd BufEnter *.js nmap <Leader><Leader> :w<CR>:!node %:p<CR>
@@ -300,7 +295,7 @@ autocmd BufEnter *.js nmap <Leader><Leader> :w<CR>:!node %:p<CR>
 autocmd BufEnter *.js nmap <Leader>e :w<CR>:silent exec "!npm-exec-eslint % --fix"<CR>:redraw!<CR>:e<CR>:w<CR>
 " Compile c++14 files and execute
 autocmd BufEnter *.cpp nmap <Leader><Leader> :w<CR>:! c++ -std=c++14 -O2 -Wall -pedantic -pthread %:p -o main && ./main <CR>
+autocmd BufEnter *.c nmap <Leader><Leader> :w<CR>:! make %< && ./%< <CR>
 
 " Recognise file by extension
-autocmd BufEnter *.json set filetype=javascript
-autocmd BufEnter *.hbt set filetype=html
+autocmd BufEnter *.hbt set filetype=mustache
