@@ -268,6 +268,7 @@ nmap <Leader>v :e $MYVIMRC<CR>
 " Source the vimrc file after saving it
 if has("autocmd")
   autocmd bufwritepost vimrc source $MYVIMRC | AirlineRefresh | echo "~/.vimrc reloaded!"
+  autocmd bufwritepost .vimrc source $MYVIMRC | AirlineRefresh | echo "~/.vimrc reloaded!"
 endif
 
 " Toggle spell checking on and off with `,s`
