@@ -292,12 +292,12 @@ nmap <Leader>h :TOhtml<CR>:w<cr>:!open %<CR>:q<CR>
 " File type specifics
 " -----------------------------------------------------------------------------
 " Execute current file with node.js
-autocmd BufEnter *.js nmap <Leader><Leader> :w<CR>:!node %:p<CR>
+autocmd BufEnter *.js nmap <Leader><Leader> :w<CR>:!clear; node %:p<CR>
 " Autofix current file with eslint
-autocmd BufEnter *.js nmap <Leader>e :w<CR>:silent exec "!npm-exec-eslint % --fix"<CR>:redraw!<CR>:e<CR>:w<CR>
+autocmd BufEnter *.js nmap <Leader>e :w<CR>:silent exec "!clear; npm-exec-eslint % --fix"<CR>:redraw!<CR>:e<CR>:w<CR>
 " Compile c++14 files and execute
-autocmd BufEnter *.cpp nmap <Leader><Leader> :w<CR>:! c++ -std=c++14 -O2 -Wall -pedantic -pthread %:p -o main && ./main <CR>
-autocmd BufEnter *.c nmap <Leader><Leader> :w<CR>:! make %< && ./%< <CR>
+autocmd BufEnter *.cpp nmap <Leader><Leader> :w<CR>:!clear; c++ -std=c++14 -O2 -Wall -pedantic -pthread %:p -o main && ./main <CR>
+autocmd BufEnter *.c nmap <Leader><Leader> :w<CR>:!clear; make %< && ./%< <CR>
 
 " Recognise file by extension
 autocmd BufEnter *.hbt set filetype=mustache
