@@ -146,9 +146,9 @@ set background=dark
 " if !empty(glob("~/.vim/plugged/vim-distinguished/colors/distinguished.vim"))
   " colorscheme distinguished
 " endif
-if !empty(glob("~/.vim/plugged/base16-vim/colors/base16-default.vim"))
+if !empty(glob("~/.vim/plugged/base16-vim/colors/base16-chalk.vim"))
   let base16colorspace = 256
-  colorscheme base16-default
+  colorscheme base16-chalk
 endif
 
 " activate jsx syntax highlighting for .js files
