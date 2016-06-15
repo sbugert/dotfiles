@@ -33,6 +33,7 @@ Plug 'scrooloose/syntastic' " Syntax checking hacks for vim
 Plug 'tpope/vim-repeat' " enable repeating supported plugin maps with .
 Plug 'tpope/vim-surround' " quoting/parenthesizing made simple
 Plug 'tpope/vim-unimpaired' " pairs of handy bracket mappings
+Plug 'wellle/targets.vim'
 Plug 'ap/vim-css-color'
 Plug 'wavded/vim-stylus'
 
