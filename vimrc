@@ -206,6 +206,10 @@ set tabstop=2
 " 2 spaces for indention
 set shiftwidth=2
 
+if has("linebreak")
+  set breakindent
+endif
+
 " in makefiles, don't expand tabs to spaces, since actual tab characters are
 " needed, and have indentation at 8 chars to be sure that all indents are tabs
 " (despite the mappings later):
@@ -260,6 +264,7 @@ nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
 
 " vim-commentary
+autocmd FileType c set commentstring=//\ %s
 map <Leader>c gcc<ESC>
 
 " Edit user .vimrc
@@ -297,7 +302,17 @@ autocmd BufEnter *.js nmap <Leader><Leader> :w<CR>:!clear; node %:p<CR>
 autocmd BufEnter *.js nmap <Leader>e :w<CR>:silent exec "!clear; npm-exec-eslint % --fix"<CR>:redraw!<CR>:e<CR>:w<CR>
 " Compile c++14 files and execute
 autocmd BufEnter *.cpp nmap <Leader><Leader> :w<CR>:!clear; c++ -std=c++14 -O2 -Wall -pedantic -pthread %:p -o main && ./main <CR>
-autocmd BufEnter *.c nmap <Leader><Leader> :w<CR>:!clear; make %< && ./%< <CR>
+
+function MakeAndRun()
+  if !empty(glob("Makefile"))
+    " nmap <Leader><Leader> :w<CR>:!clear; make && ./bin/%:t:r <CR>
+    nmap <Leader><Leader> :w<CR>:!clear; make && make run <CR>
+  else
+    nmap <Leader><Leader> :w<CR>:!clear; make %< && ./%< <CR>
+  endif
+endfunction
+
+autocmd BufEnter *.c :call MakeAndRun()
 
 " Recognise file by extension
 autocmd BufEnter *.hbt set filetype=mustache
