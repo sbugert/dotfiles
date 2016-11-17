@@ -170,6 +170,7 @@ let g:syntastic_error_symbol = '✗✗'
 let g:syntastic_style_error_symbol = '✠✠'
 let g:syntastic_warning_symbol = '∆∆'
 let g:syntastic_style_warning_symbol = '≈≈'
+let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0 " Don't lint on :wq
 
 let g:syntastic_javascript_checkers = ['eslint'] " Use eslint
@@ -179,13 +180,15 @@ if executable('eslint_d') " prefer eslint_d if available
   let g:syntastic_javascript_eslint_exec = 'eslint_d'
 endif
 
+" CtrlP
+let g:ctrlp_working_path_mode = 'r' " Use the nearest .git directory as the cwd
 
 " Use The Silver Searcher for :ack if available
 if executable('ag')
   " Use ag in ack.vim
   let g:ackprg = 'ag --nogroup --nocolor --column'
   " Use ag in CtrlP
-  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g "" --ignore .git'
   " Skip caching since ag is so fast
   let g:ctrlp_use_caching = 0
 endif
