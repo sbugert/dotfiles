@@ -1,5 +1,5 @@
 ﻿" Basics {{{
-if &compatible | set nocompatible | endif " Be IMproved
+" if &compatible | set nocompatible | endif " Be IMproved
 
 filetype plugin indent on " Recognize file types / set indent mode
 
@@ -22,9 +22,10 @@ set viminfo='10,\"100,:50,%,n~/.viminfo
 set scrolloff=5 " Scroll cursor offset
 
 " remember cursor position
-if has("autocmd")
+augroup CursorPosition
+  autocmd!
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
+augroup END
 
 set hlsearch " highlight search results
 set ignorecase " ignore case in searches ... (\c\C override)
@@ -34,7 +35,7 @@ set incsearch " show where the pattern, as it was typed so far, matches
 set lazyredraw " redraw only when we need to
 
 " Store temporary files in a central spot
-set dir=~/.vim/.vim-tmp/swap//,/var/tmp//,/tmp//,.
+set directory=~/.vim/.vim-tmp/swap//,/var/tmp//,/tmp//,.
 set undodir=~/.vim/.vim-tmp/undo//,/var/tmp//,/tmp//,.
 
 set undofile " Enable vim to remember undo chains between sessions
@@ -45,7 +46,7 @@ set wildignore+=.git,*/node_modules/*,*/deps/build/*,*/stack/*,*/deps/go/*,*/dep
 set noshowmode "get rid of the default mode indicator because we use airline
 
 
-let mapleader = "," " Leader key
+let g:mapleader = ',' " Leader key
 
 set ttimeoutlen=50 "shorten pause when leaving insert mode
 
@@ -54,38 +55,40 @@ cabbrev help tab help
 " }}}
 " Plugins {{{
 " Install vim-plug if not available
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall | source $MYVIMRC
+augroup InstallPlug
+  autocmd!
+  if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+          \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
+augroup END
 
 call plug#begin('~/.vim/plugged')
 
 Plug 'vim-airline/vim-airline' " lean & mean status/tabline for vim that's light as air
-Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter' " shows a git diff in the gutter (sign column)
 Plug 'SirVer/ultisnips' " implements some of TextMate's snippets features
-Plug 'ervandew/supertab'
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 Plug 'sjl/gundo.vim'
 Plug 'ctrlpvim/ctrlp.vim' " Fuzzy file, buffer, mru, tag, etc finder.
-" Plug 'Lokaltog/vim-distinguished' " Color scheme
-Plug 'chriskempson/base16-vim'
 Plug 'jacoborus/tender'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer',
+                               \ 'for': [ 'cpp', 'c' ] }
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'pangloss/vim-javascript', { 'branch': 'develop' }
 Plug 'mxw/vim-jsx' " React JSX syntax highlighting and indenting
-Plug 'b4winckler/vim-objc' " Objective-C config for Vim
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'mileszs/ack.vim' " Vim plugin for the Perl module / CLI script 'ack'
 Plug 'tpope/vim-commentary'
-Plug 'scrooloose/syntastic' " Syntax checking hacks for vim
 Plug 'tpope/vim-repeat' " enable repeating supported plugin maps with .
 Plug 'tpope/vim-surround' " quoting/parenthesizing made simple
 Plug 'tpope/vim-unimpaired' " pairs of handy bracket mappings
 Plug 'wellle/targets.vim'
 Plug 'ap/vim-css-color'
 Plug 'wavded/vim-stylus'
+Plug 'JamshedVesuna/vim-markdown-preview'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'w0rp/ale'
 
 call plug#end()
 
@@ -96,20 +99,13 @@ runtime macros/matchit.vim
 syntax on " Syntax highlighting
 
 " Color Scheme
-" set t_Co=256
 set background=dark
-if !empty(glob("~/.vim/plugged/base16-vim/colors/base16-chalk.vim"))
-  let base16colorspace = 256
-  colorscheme base16-chalk
+if !empty(glob('~/.vim/plugged/tender'))
+  colorscheme tender
 endif
 
 " activate jsx syntax highlighting for .js files
 let g:jsx_ext_required = 0
-
-" relativenumber and cursorline slow?
-" if exists('+relativenumber')
-  " set relativenumber
-" end
 
 " Highlight active line
 set cursorline
@@ -121,12 +117,16 @@ set number
 set colorcolumn=80
 
 " Invisible characters
-set list
-autocmd BufEnter * set list listchars=tab:▸\ ,trail:≈,eol:¬
+augroup InvisibleCharacters
+  autocmd!
+  set list
+  autocmd BufEnter * set list listchars=tab:▸\ ,trail:≈,eol:¬
+augroup END
+
 highlight SpecialKey ctermfg=88 guifg=#870000
 
-" c++11 lambda
-let c_no_curly_error = 1
+" c++11 syntax
+let g:c_no_curly_error = 1
 
 " }}}
 " tabs vs. spaces, line breaks {{{
@@ -134,19 +134,21 @@ set expandtab " Spaces instead of tabs
 set tabstop=2 " 2 spaces for each tab
 set shiftwidth=2 " 2 spaces for indention
 
-if has("linebreak")
+if has('linebreak')
   set breakindent
 endif
-
-" in makefiles, don't expand tabs to spaces
-autocmd FileType make setlocal noexpandtab shiftwidth=8 softtabstop=0
 
 " }}}
 " Plugin configuration and mappings {{{
 " Airline
-let g:airline#extensions#tabline#enabled = 1 " enable airline's smarter tab line extension
+let g:airline_extensions = ['tabline']
+let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#show_buffers = 1
+
 let g:airline#extensions#tabline#buffer_idx_mode = 1
+
+let g:airline_theme = 'tender'
 
 nmap <leader>1 <Plug>AirlineSelectTab1
 nmap <leader>2 <Plug>AirlineSelectTab2
@@ -164,14 +166,32 @@ nmap <leader>f <Plug>AirlineSelectNextTab
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 
+" YouCompleteMe
+let g:ycm_confirm_extra_conf = 0
 
 " Syntastic coderwall.com/p/zneomg
 let g:syntastic_error_symbol = '✗✗'
 let g:syntastic_style_error_symbol = '✠✠'
 let g:syntastic_warning_symbol = '∆∆'
 let g:syntastic_style_warning_symbol = '≈≈'
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0 " Don't lint on :wq
+let g:syntastic_check_on_wq = 0
+
+" ale
+ let g:ale_linters = {
+\   'javascript': ['eslint'],
+\    'c': [],
+\    'cpp': [],
+\}
+let g:ale_sign_error = '✗✗'
+let g:ale_sign_warning = '∆∆'
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '']
+
+call airline#parts#define_function('ALE', 'ALEGetStatusLine')
+call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
+let g:airline_section_error = airline#section#create_right(['ALE'])
 
 let g:syntastic_javascript_checkers = ['eslint'] " Use eslint
 let $PATH .= ':' . $HOME . '/.vim/scripts' " Use npm-exec-eslint
@@ -179,6 +199,11 @@ let g:syntastic_javascript_eslint_exec = 'npm-exec-eslint'
 if executable('eslint_d') " prefer eslint_d if available
   let g:syntastic_javascript_eslint_exec = 'eslint_d'
 endif
+
+" clang-rename
+let g:clang_rename_path = '/usr/local/opt/llvm/bin/clang-rename'
+noremap <leader>ref :pyf ~/.vim/scripts/clang-rename.py<cr>
+
 
 " CtrlP
 let g:ctrlp_working_path_mode = 'r' " Use the nearest .git directory as the cwd
@@ -196,14 +221,15 @@ endif
 
 " UltiSnips
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/snips']
+let g:UltiSnipsExpandTrigger='<c-j>'
 
 
 " Supertab chained completions: file path -> omni completion -> keyword completion
-let g:SuperTabDefaultCompletionType = 'context'
-autocmd FileType *
-      \ if &omnifunc != '' |
-      \   call SuperTabChain(&omnifunc, "<c-p>") |
-      \ endif
+" let g:SuperTabDefaultCompletionType = 'context'
+" autocmd FileType *
+"       \ if &omnifunc != '' |
+"       \   call SuperTabChain(&omnifunc, "<c-p>") |
+"       \ endif
 
 
 " vim-unimpaired vimcasts.org/episodes/bubbling-text/
@@ -216,12 +242,14 @@ vmap <C-Down> ]egv
 
 
 " vim-commentary
-autocmd FileType c set commentstring=//\ %s
 map <Leader>c gcc<ESC>
 
 
 " toggle gundo
 nnoremap <leader>u :GundoToggle<CR>
+
+" vim-markdown-preview
+let g:vim_markdown_preview_hotkey='<C-m>'
 
 " }}}
 " General mappings {{{
@@ -246,10 +274,6 @@ inoremap jj <ESC>
 nnoremap gV `[v`]
 
 " Get off my lawn
-" noremap <Left> :echoe "Use h"<CR>
-" noremap <Right> :echoe "Use l"<CR>
-" noremap <Up> :echoe "Use k"<CR>
-" noremap <Down> :echoe "Use j"<CR>
 noremap <Left> <nop>
 noremap <Right> <nop>
 noremap <Up> <nop>
@@ -260,41 +284,81 @@ noremap <Down> <nop>
 nmap <Leader>v :e $MYVIMRC<CR>
 
 " Source the vimrc file after saving it
-if has("autocmd")
-  autocmd bufwritepost vimrc source $MYVIMRC | AirlineRefresh | echo "~/.vimrc reloaded!"
-  autocmd bufwritepost .vimrc source $MYVIMRC | AirlineRefresh | echo "~/.vimrc reloaded!"
-endif
+augroup ReloadVimrc
+  autocmd!
+  autocmd bufwritepost *vimrc source $MYVIMRC |
+        \ AirlineRefresh |
+        \ redraw |
+        \ echo '~/.vimrc reloaded!'
+augroup END
 
 " Toggle spell checking on and off with `,s`
 nmap <silent> <leader>s :set spell!<CR>
 
-" Clear search results when hitting tab
-nnoremap <silent> <Tab> :nohlsearch<Bar>:echo<CR>
+" Clear search results and quicklist when hitting control-space
+inoremap <C-@> <c-x><c-o>
+nnoremap <silent> <C-@> :nohlsearch<Bar>:echo<CR>:ccl<CR>
 
 " Show current file as HTML
 nmap <Leader>h :TOhtml<CR>:w<cr>:!open %<CR>:q<CR>
 " }}}
 " File type specific autocmds {{{
-" Execute current file with node.js
-autocmd BufEnter *.js nmap <Leader><Leader> :w<CR>:!clear; node %:p<CR>
-" Autofix current file with eslint on <Leader>e
-autocmd BufEnter *.js nmap <Leader>e :w<CR>:silent exec "!clear; npm-exec-eslint % --fix"<CR>:redraw!<CR>:e<CR>:w<CR>
-" Compile c++14 files and execute
-autocmd BufEnter *.cpp nmap <Leader><Leader> :w<CR>:!clear; c++ -std=c++14 -O2 -Wall -pedantic -pthread %:p -o main && ./main <CR>
 
-function MakeAndRun()
-  if !empty(glob("Makefile"))
-    " nmap <Leader><Leader> :w<CR>:!clear; make && ./bin/%:t:r <CR>
-    nmap <Leader><Leader> :w<CR>:!clear; make && make run <CR>
-  else
-    nmap <Leader><Leader> :w<CR>:!clear; make %< && ./%< <CR>
+nnoremap <F5> :call <SID>compile_and_run()<CR>
+nnoremap <F6> call AsyncStop<CR>:call asyncrun#quickfix_toggle(10, 0)<CR>
+
+augroup ASYNCRUN
+    autocmd!
+    " Automatically open the quickfix window
+    autocmd User AsyncRunStart call asyncrun#quickfix_toggle(10, 1)
+augroup END
+
+function! s:compile_and_run()
+  exec 'w'
+  if &filetype ==# 'c'
+    call MakeAndRun()
+  elseif &filetype ==# 'cpp'
+    call MakeAndRun()
+  elseif &filetype ==# 'javascript.jsx'
+    call RunWithNode()
+  elseif &filetype ==# 'tex'
+    exec 'AsyncRun latexmk % -pdf'
   endif
 endfunction
 
-autocmd BufEnter *.c :call MakeAndRun()
+function! RunWithNode()
+  let l:prefix = join(split(system('npm prefix'), '\n'), '')
+  let l:pkgpath = l:prefix.'/package.json'
+  " if there is a package.json file
+  if !empty(glob(l:pkgpath))
+    let l:pkg = json_decode(join(readfile(l:pkgpath), "\n"))
+    if (index(keys(l:pkg), 'main') >= 0) " if there is a key 'main'
+      exec 'AsyncRun time node ' . l:prefix . '/' . l:pkg.main
+      return
+    endif
+  endif
+  " else fallback to currently opened file
+  exec 'AsyncRun time node %<'
+endfunction
 
-" Recognise file by extension
-autocmd BufEnter *.hbt set filetype=mustache
+function! MakeAndRun()
+  if !empty(glob('Makefile')) " if a Makefile exists use it
+    exec 'AsyncRun make && time make run'
+  else
+    exec 'AsyncRun make %< && time ./%<'
+  endif
+endfunction
+
+" File type specific autocommands
+augroup Filetypes
+    autocmd!
+    autocmd BufEnter *.hbt set filetype=mustache
+    " in makefiles, don't expand tabs to spaces
+    autocmd FileType make setlocal noexpandtab shiftwidth=8 softtabstop=0
+    " vim-commentary
+    autocmd FileType c set commentstring=//\ %s
+    autocmd FileType cpp set commentstring=//\ %s
+augroup END
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0
