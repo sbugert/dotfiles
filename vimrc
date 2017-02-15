@@ -45,7 +45,6 @@ set wildignore+=.git,*/node_modules/*,*/deps/build/*,*/stack/*,*/deps/go/*,*/dep
 
 set noshowmode "get rid of the default mode indicator because we use airline
 
-
 let g:mapleader = ',' " Leader key
 
 set ttimeoutlen=50 "shorten pause when leaving insert mode
@@ -67,17 +66,14 @@ augroup END
 call plug#begin('~/.vim/plugged')
 
 Plug 'vim-airline/vim-airline' " lean & mean status/tabline for vim that's light as air
+Plug 'jacoborus/tender' " colorscheme
 Plug 'airblade/vim-gitgutter' " shows a git diff in the gutter (sign column)
 Plug 'SirVer/ultisnips' " implements some of TextMate's snippets features
-Plug 'sjl/gundo.vim'
+Plug 'sjl/gundo.vim' " undo tree
 Plug 'ctrlpvim/ctrlp.vim' " Fuzzy file, buffer, mru, tag, etc finder.
-Plug 'jacoborus/tender'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer',
                                \ 'for': [ 'cpp', 'c' ] }
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-Plug 'pangloss/vim-javascript', { 'branch': 'develop' }
-Plug 'mxw/vim-jsx' " React JSX syntax highlighting and indenting
-Plug 'mustache/vim-mustache-handlebars'
+  Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'mileszs/ack.vim' " Vim plugin for the Perl module / CLI script 'ack'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat' " enable repeating supported plugin maps with .
@@ -86,6 +82,9 @@ Plug 'tpope/vim-unimpaired' " pairs of handy bracket mappings
 Plug 'wellle/targets.vim'
 Plug 'ap/vim-css-color'
 Plug 'wavded/vim-stylus'
+Plug 'pangloss/vim-javascript', { 'branch': 'develop' }
+Plug 'mxw/vim-jsx' " React JSX syntax highlighting and indenting
+Plug 'mustache/vim-mustache-handlebars'
 Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'w0rp/ale'
@@ -102,6 +101,16 @@ syntax on " Syntax highlighting
 set background=dark
 if !empty(glob('~/.vim/plugged/tender'))
   colorscheme tender
+  hi SignColumn guifg=#282828 ctermfg=235 guibg=#282828 ctermbg=235 gui=NONE cterm=NONE
+  hi VertSplit guifg=#808080 guibg=#282828
+  hi Visual term=reverse cterm=reverse
+endif
+
+if &term =~# '256color'
+  " disable Background Color Erase (BCE) so that color schemes
+  " render properly when inside 256-color tmux and GNU screen.
+  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+  set t_ut=
 endif
 
 " activate jsx syntax highlighting for .js files
@@ -140,15 +149,39 @@ endif
 
 " }}}
 " Plugin configuration and mappings {{{
+
+let g:ycm_confirm_extra_conf = 0
+" YouCompleteMe
+let g:ycm_error_symbol = '✗✗'
+let g:ycm_warning_symbol = '∆∆'
+
+" ale
+ let g:ale_linters = {
+  \   'javascript': ['eslint'],
+  \    'c': [],
+  \    'cpp': [],
+  \}
+let g:ale_sign_error = '✗✗'
+let g:ale_sign_warning = '∆∆'
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '']
+
 " Airline
-let g:airline_extensions = ['tabline']
+let g:airline_theme = 'tender'
+
+let g:airline_extensions = ['tabline', 'ycm', 'ale']
+
+let g:airline#extensions#ycm#enabled = 1
+let g:airline#extensions#ycm#error_symbol = '⨉ '
+let g:airline#extensions#ycm#warning_symbol = '⚠ '
+
+let g:airline#extensions#ale = 1
+let g:airline#extensions#ale#error_symbol = '⨉ '
+let g:airline#extensions#ale#warning_symbol = '⚠ '
+
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tabline#show_buffers = 1
-
 let g:airline#extensions#tabline#buffer_idx_mode = 1
-
-let g:airline_theme = 'tender'
 
 nmap <leader>1 <Plug>AirlineSelectTab1
 nmap <leader>2 <Plug>AirlineSelectTab2
@@ -165,40 +198,6 @@ nmap <leader>f <Plug>AirlineSelectNextTab
 " Don't show seperators
 let g:airline_left_sep=''
 let g:airline_right_sep=''
-
-" YouCompleteMe
-let g:ycm_confirm_extra_conf = 0
-
-" Syntastic coderwall.com/p/zneomg
-let g:syntastic_error_symbol = '✗✗'
-let g:syntastic_style_error_symbol = '✠✠'
-let g:syntastic_warning_symbol = '∆∆'
-let g:syntastic_style_warning_symbol = '≈≈'
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" ale
- let g:ale_linters = {
-\   'javascript': ['eslint'],
-\    'c': [],
-\    'cpp': [],
-\}
-let g:ale_sign_error = '✗✗'
-let g:ale_sign_warning = '∆∆'
-let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '']
-
-call airline#parts#define_function('ALE', 'ALEGetStatusLine')
-call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
-let g:airline_section_error = airline#section#create_right(['ALE'])
-
-let g:syntastic_javascript_checkers = ['eslint'] " Use eslint
-let $PATH .= ':' . $HOME . '/.vim/scripts' " Use npm-exec-eslint
-let g:syntastic_javascript_eslint_exec = 'npm-exec-eslint'
-if executable('eslint_d') " prefer eslint_d if available
-  let g:syntastic_javascript_eslint_exec = 'eslint_d'
-endif
 
 " clang-rename
 let g:clang_rename_path = '/usr/local/opt/llvm/bin/clang-rename'
@@ -223,15 +222,6 @@ endif
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/snips']
 let g:UltiSnipsExpandTrigger='<c-j>'
 
-
-" Supertab chained completions: file path -> omni completion -> keyword completion
-" let g:SuperTabDefaultCompletionType = 'context'
-" autocmd FileType *
-"       \ if &omnifunc != '' |
-"       \   call SuperTabChain(&omnifunc, "<c-p>") |
-"       \ endif
-
-
 " vim-unimpaired vimcasts.org/episodes/bubbling-text/
 " Bubble single lines
 nmap <C-Up> [e
@@ -240,10 +230,8 @@ nmap <C-Down> ]e
 vmap <C-Up> [egv
 vmap <C-Down> ]egv
 
-
 " vim-commentary
 map <Leader>c gcc<ESC>
-
 
 " toggle gundo
 nnoremap <leader>u :GundoToggle<CR>
@@ -305,7 +293,7 @@ nmap <Leader>h :TOhtml<CR>:w<cr>:!open %<CR>:q<CR>
 " File type specific autocmds {{{
 
 nnoremap <F5> :call <SID>compile_and_run()<CR>
-nnoremap <F6> call AsyncStop<CR>:call asyncrun#quickfix_toggle(10, 0)<CR>
+nnoremap <F6> :AsyncStop<CR>:call asyncrun#quickfix_toggle(10, 0)<CR>
 
 augroup ASYNCRUN
     autocmd!
@@ -360,5 +348,4 @@ augroup Filetypes
     autocmd FileType cpp set commentstring=//\ %s
 augroup END
 " }}}
-
 " vim:foldmethod=marker:foldlevel=0
