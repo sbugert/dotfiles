@@ -71,9 +71,11 @@ Plug 'airblade/vim-gitgutter' " shows a git diff in the gutter (sign column)
 Plug 'SirVer/ultisnips' " implements some of TextMate's snippets features
 Plug 'sjl/gundo.vim' " undo tree
 Plug 'ctrlpvim/ctrlp.vim' " Fuzzy file, buffer, mru, tag, etc finder.
+if executable('cmake')
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer',
                                \ 'for': [ 'cpp', 'c' ] }
   Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+endif
 Plug 'mileszs/ack.vim' " Vim plugin for the Perl module / CLI script 'ack'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat' " enable repeating supported plugin maps with .
