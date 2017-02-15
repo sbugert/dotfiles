@@ -84,7 +84,7 @@ Plug 'tpope/vim-unimpaired' " pairs of handy bracket mappings
 Plug 'wellle/targets.vim'
 Plug 'ap/vim-css-color'
 Plug 'wavded/vim-stylus'
-Plug 'pangloss/vim-javascript', { 'branch': 'develop' }
+Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx' " React JSX syntax highlighting and indenting
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'JamshedVesuna/vim-markdown-preview'
