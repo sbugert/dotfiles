@@ -1,0 +1,69 @@
+#!/usr/bin/env sh
+
+function installnode
+{
+  # download newest node version
+  if [ "$(uname)" == "Darwin" ]; then
+    FILENAME="node-$NEWVERSION-darwin-x64"
+  elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+    FILENAME="node-$NEWVERSION-linux-x64"
+  fi
+
+  curl "https://nodejs.org/dist/latest/$FILENAME.tar.xz" > "$HOME/opt/node/latest.tar.xz"
+
+  # extract new node to latest/
+  echo "Extracting new version..."
+  tar xf "$HOME/opt/node/latest.tar.xz" -C "$HOME/opt/node"
+  mv "$HOME/opt/node/$FILENAME" "$HOME/opt/node/latest"
+}
+
+function updatenode
+{
+  # save installed version number
+  OLDVERSION=$(node -v)
+
+  if [ "$NEWVERSION" == "$OLDVERSION" ]; then
+    echo "Your node version ($OLDVERSION) is up to date."
+    exit 0
+  fi
+
+  # save globally installed modules list
+  GLOBPKGS=$(ls $(npm root -g))
+
+  read -p "Update node from version $OLDVERSION to $NEWVERSION? (y/n) " answer
+  case ${answer:0:1} in
+      y|Y )
+        # make backup of old directory
+        echo "Moving old node to $HOME/opt/node/$OLDVERSION..."
+        mv "$HOME/opt/node/latest" "$HOME/opt/node/$OLDVERSION"
+
+        installnode
+        ;;
+      * )
+          exit 0
+      ;;
+  esac
+
+  read -p "Reinstall previously installed global modules? (y/n) ($GLOBPKGS) " answer
+  case ${answer:0:1} in
+      y|Y )
+        npm i -g $GLOBPKGS
+      ;;
+      * )
+          exit 0
+      ;;
+  esac
+}
+
+# find out what the newest version is
+NEWVERSION=$(wget -qO- https://nodejs.org/dist/latest/ | sed -nE 's|.*>node-(.*)\.pkg</a>.*|\1|p')
+
+if hash node 2>/dev/null; then # if node is installed, update
+  updatenode
+else
+  echo "No installation found, installing version $NEWVERSION to $HOME/opt/node/latest..."
+  mkdir -p "$HOME/opt/node"
+  installnode
+  echo "Add to path by running:"
+  echo " echo \"export PATH=\$PATH:\$HOME/opt/node/latest/bin\" >> $HOME/.bashrc"
+fi
