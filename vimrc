@@ -176,14 +176,20 @@ let g:ycm_error_symbol = '✗✗'
 let g:ycm_warning_symbol = '∆∆'
 
 " ale
- let g:ale_linters = {
-  \   'javascript': ['eslint', 'flow'],
-  \    'tex': ['chktex'],
-  \    'c': [],
-  \    'cpp': [],
-  \    'python': [],
-  \    'java': [],
-  \}
+let g:ale_linters = {
+\  'javascript': ['eslint', 'flow'],
+\  'tex': ['chktex'],
+\  'c': [],
+\  'cpp': [],
+\  'python': [],
+\  'java': [],
+\}
+let g:ale_fixers = {
+\  'javascript': ['prettier'],
+\}
+let g:ale_javascript_prettier_options = '--trailing-comma es5 --single-quote'
+nnoremap gp :ALEFix<CR>
+
 let g:ale_sign_error = '✗✗'
 let g:ale_sign_warning = '∆∆'
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '']
@@ -329,9 +335,6 @@ augroup END
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
-" Run prettier on buffer
-nnoremap gp :silent %!prettier --stdin --trailing-comma es5 --single-quote<CR>
 
 " }}}
 " File type specific autocmds {{{
