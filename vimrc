@@ -7,6 +7,7 @@ set hidden " Switch between buffers without saving
 set clipboard^=unnamedplus,unnamed " Share OS/XServer clipboard
 set backspace=indent,eol,start " make backspace work like most other apps
 set mouse=a " Allow mouse usage in terminal vim
+set ttymouse=sgr " Allow mouse usage in tmux and ssh sessions
 set laststatus=2 " Always show status line
 set autoindent " Copy indent from current line when starting a new line
 set wildmode=longest,list " make auto completion on command line work like in shell
@@ -86,10 +87,14 @@ Plug 'ap/vim-css-color'
 Plug 'wavded/vim-stylus'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx' " React JSX syntax highlighting and indenting
+Plug 'hail2u/vim-css3-syntax'
 Plug 'mustache/vim-mustache-handlebars'
-Plug 'JamshedVesuna/vim-markdown-preview'
+Plug 'plasticboy/vim-markdown'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'w0rp/ale'
+Plug 'johngrib/vim-game-code-break'
+
+Plug 'lervag/vimtex'
 
 call plug#end()
 
@@ -99,13 +104,26 @@ runtime macros/matchit.vim
 " UI and colors {{{
 syntax on " Syntax highlighting
 
+if (has('termguicolors'))
+ set termguicolors
+endif
+
 " Color Scheme
 set background=dark
 if !empty(glob('~/.vim/plugged/tender'))
   colorscheme tender
+  let g:airline_theme = 'tender'
   hi SignColumn guifg=#282828 ctermfg=235 guibg=#282828 ctermbg=235 gui=NONE cterm=NONE
   hi VertSplit guifg=#808080 guibg=#282828
   hi Visual term=reverse cterm=reverse
+  hi Search guifg=#eeeeee ctermfg=255 guibg=#f43753 ctermbg=203 gui=NONE cterm=NONE
+
+  highlight Comment cterm=italic " Italic comments.
+  highlight Comment gui=italic " Italic comments in gui.
+  highlight Todo cterm=italic " Italic comments.
+  highlight Todo gui=italic " Italic comments in gui.
+  " highlight xmlAttrib cterm=italic
+  " highlight xmlAttrib gui=italic
 endif
 
 if &term =~# '256color'
@@ -119,7 +137,7 @@ endif
 let g:jsx_ext_required = 0
 
 " Highlight active line
-set cursorline
+" set cursorline
 
 " Show Line numbers
 set number
@@ -159,16 +177,18 @@ let g:ycm_warning_symbol = '∆∆'
 
 " ale
  let g:ale_linters = {
-  \   'javascript': ['eslint'],
+  \   'javascript': ['eslint', 'flow'],
+  \    'tex': ['chktex'],
   \    'c': [],
   \    'cpp': [],
+  \    'python': [],
+  \    'java': [],
   \}
 let g:ale_sign_error = '✗✗'
 let g:ale_sign_warning = '∆∆'
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '']
 
 " Airline
-let g:airline_theme = 'tender'
 
 let g:airline_extensions = ['tabline', 'ycm', 'ale']
 
@@ -241,6 +261,12 @@ nnoremap <leader>u :GundoToggle<CR>
 " vim-markdown-preview
 let g:vim_markdown_preview_hotkey='<C-m>'
 
+" vim-markdown
+let g:vim_markdown_folding_disabled = 1
+set conceallevel=2
+let g:vim_markdown_math = 1
+let g:vim_markdown_new_list_item_indent = 2
+
 " }}}
 " General mappings {{{
 
@@ -259,6 +285,7 @@ nnoremap k gk
 
 " In addition to <esc>, jj will exit to normal mode.
 inoremap jj <ESC>
+inoremap jk <ESC>
 
 " highlight last inserted text
 nnoremap gV `[v`]
@@ -291,9 +318,25 @@ nnoremap <silent> <C-@> :nohlsearch<Bar>:echo<CR>:ccl<CR>
 
 " Show current file as HTML
 nmap <Leader>h :TOhtml<CR>:w<cr>:!open %<CR>:q<CR>
+
+augroup qf
+    autocmd!
+    " automatically close corresponding loclist when quitting a window
+    autocmd QuitPre * if &filetype != 'qf' | silent! lclose | endif
+augroup END
+
+" http://vim.wikia.com/wiki/Identify_the_syntax_highlighting_group_used_at_the_cursor
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+" Run prettier on buffer
+nnoremap gp :silent %!prettier --stdin --trailing-comma es5 --single-quote<CR>
+
 " }}}
 " File type specific autocmds {{{
 
+let g:tex_flavor = 'latex'
 nnoremap <F5> :call <SID>compile_and_run()<CR>
 nnoremap <F6> :AsyncStop<CR>:call asyncrun#quickfix_toggle(10, 0)<CR>
 
@@ -313,6 +356,8 @@ function! s:compile_and_run()
     call RunWithNode()
   elseif &filetype ==# 'tex'
     exec 'AsyncRun latexmk % -pdf'
+  elseif &filetype ==# 'python'
+    exec 'AsyncRun python3 %'
   endif
 endfunction
 
