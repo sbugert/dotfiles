@@ -78,7 +78,7 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer',
   Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 endif
 Plug 'mileszs/ack.vim' " Vim plugin for the Perl module / CLI script 'ack'
-Plug 'tpope/vim-commentary'
+Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-repeat' " enable repeating supported plugin maps with .
 Plug 'tpope/vim-surround' " quoting/parenthesizing made simple
 Plug 'tpope/vim-unimpaired' " pairs of handy bracket mappings
@@ -258,7 +258,7 @@ nmap <C-Down> ]e
 vmap <C-Up> [egv
 vmap <C-Down> ]egv
 
-" vim-commentary
+" comment line
 map <Leader>c gcc<ESC>
 
 " toggle gundo
