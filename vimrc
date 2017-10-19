@@ -186,8 +186,10 @@ let g:ale_linters = {
 \}
 let g:ale_fixers = {
 \  'javascript': ['prettier'],
+\  'cpp': ['clang-format'],
 \}
 let g:ale_javascript_prettier_options = '--trailing-comma es5 --single-quote'
+let g:ale_c_clangformat_options = '-style="{BasedOnStyle: llvm, IndentWidth: 2, ColumnLimit: 100, AllowShortFunctionsOnASingleLine: None, KeepEmptyLinesAtTheStartOfBlocks: false}"'
 nnoremap gp :ALEFix<CR>
 
 let g:ale_sign_error = '✗✗'
