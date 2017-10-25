@@ -1,5 +1,5 @@
 ﻿" Basics {{{
-" if &compatible | set nocompatible | endif " Be IMproved
+set nocompatible
 
 filetype plugin indent on " Recognize file types / set indent mode
 
@@ -93,7 +93,7 @@ Plug 'plasticboy/vim-markdown'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'w0rp/ale'
 Plug 'johngrib/vim-game-code-break'
-
+Plug 'exu/pgsql.vim'
 Plug 'lervag/vimtex'
 
 call plug#end()
