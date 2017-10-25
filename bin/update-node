@@ -1,6 +1,7 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
+set -e
 
-function installnode
+installnode()
 {
   # download newest node version
   if [ "$(uname)" == "Darwin" ]; then
@@ -17,12 +18,12 @@ function installnode
   mv "$HOME/opt/node/$FILENAME" "$HOME/opt/node/latest"
 }
 
-function updatenode
+updatenode()
 {
   # save installed version number
   OLDVERSION=$(node -v)
 
-  if [ "$NEWVERSION" == "$OLDVERSION" ]; then
+  if [ "$NEWVERSION" = "$OLDVERSION" ]; then
     echo "Your node version ($OLDVERSION) is up to date."
     exit 0
   fi
