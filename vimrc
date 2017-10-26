@@ -272,7 +272,6 @@ let g:vim_markdown_preview_hotkey='<C-m>'
 
 " vim-markdown
 let g:vim_markdown_folding_disabled = 1
-set conceallevel=2
 let g:vim_markdown_math = 1
 let g:vim_markdown_new_list_item_indent = 2
 
@@ -399,6 +398,9 @@ augroup Filetypes
     " vim-commentary
     autocmd FileType c set commentstring=//\ %s
     autocmd FileType cpp set commentstring=//\ %s
+    " turn on concealing for markdonw and latex
+    autocmd FileType markdown set conceallevel=2
+    autocmd FileType tex set conceallevel=2
 augroup END
 " }}}
 " vim:foldmethod=marker:foldlevel=0
