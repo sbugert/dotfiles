@@ -342,6 +342,7 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 " File type specific autocmds {{{
 
 let g:tex_flavor = 'latex'
+let g:vimtex_compiler_latexmk = {'callback' : 0}
 nnoremap <F5> :call <SID>compile_and_run()<CR>
 nnoremap <F6> :AsyncStop<CR>:call asyncrun#quickfix_toggle(10, 0)<CR>
 
