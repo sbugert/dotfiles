@@ -181,12 +181,13 @@ let g:ale_linters = {
 \  'tex': ['chktex'],
 \  'c': [],
 \  'cpp': [],
-\  'python': [],
+\  'python': ['flake8'],
 \  'java': [],
 \}
 let g:ale_fixers = {
 \  'javascript': ['prettier'],
 \  'cpp': ['clang-format'],
+\  'python': ['autopep8'],
 \}
 let g:ale_javascript_prettier_options = '--trailing-comma es5 --single-quote'
 let g:ale_c_clangformat_options = '-style="{BasedOnStyle: llvm, IndentWidth: 2, ColumnLimit: 100, AllowShortFunctionsOnASingleLine: None, KeepEmptyLinesAtTheStartOfBlocks: false}"'
