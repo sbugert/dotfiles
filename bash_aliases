@@ -55,8 +55,6 @@ function finder_path {
         -e 'end tell';
 }
 
-
-
 # log vim keystrokes for science
 alias vim='vim -w ~/.vimlog "$@"'
 alias v='vim'

@@ -17,6 +17,7 @@ base16_default-dark
 . $DOTFILES/scripts/sensible.bash
 
 . $DOTFILES/bash_aliases
+. $DOTFILES/private/bash_aliases 2> /dev/null
 
 # get random emoji for prompt 💩
 . ~/.dotfiles/emojis
