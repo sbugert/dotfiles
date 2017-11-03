@@ -28,12 +28,13 @@ updatenode()
     exit 0
   fi
 
-  # save globally installed modules list
-  GLOBPKGS=$(ls $(npm root -g))
-
   read -p "Update node from version $OLDVERSION to $NEWVERSION? (y/n) " answer
   case ${answer:0:1} in
       y|Y )
+
+        # save globally installed modules list
+        GLOBPKGS=$(npm list -g --depth 0 --parseable | sed -e "1d; s|$(npm root -g)/||")
+
         # make backup of old directory
         echo "Moving old node to $HOME/opt/node/$OLDVERSION..."
         mv "$HOME/opt/node/latest" "$HOME/opt/node/$OLDVERSION"
