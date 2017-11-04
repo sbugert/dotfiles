@@ -15,6 +15,7 @@ installnode()
   # extract new node to latest/
   echo "Extracting new version..."
   tar xf "$HOME/opt/node/latest.tar.xz" -C "$HOME/opt/node"
+  rm "$HOME/opt/node/latest.tar.xz"
   mv "$HOME/opt/node/$FILENAME" "$HOME/opt/node/latest"
 }
 

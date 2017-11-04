@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-set -e
-
-ln -sfn ~/.dotfiles/git/gitconfig ~/.gitconfig

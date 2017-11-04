@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+##################################
+#                                #
+#  tow – like GNU stow but less  #
+#                                #
+##################################
+
+set -e
+
+if [[ $# -eq 0 ]] || ([[ $1 == "--unlink" ]] && [[ $# -eq 1 ]]); then
+  echo 'Usage: tow [--unlink] path [path ...]'
+  exit 0
+fi
+
+pwd=$(pwd) # save current dir
+
+if [[ $1 == "--unlink" ]]; then # if unlink
+  shift # skip "--unlink" argument
+  for d in "$@"; do
+    cd $pwd/$d
+    for f in *; do
+      dest=$HOME/.$f
+      if [ "$(pwd)/$f" -ef "$dest" ]; then # is dest still a symlink to f?
+        rm $dest # unlink f
+      fi
+    done
+  done
+else
+  for d in "$@"; do
+    cd $pwd/$d
+    for f in *; do
+      dest=$HOME/.$f
+      if [ ! "$f" -ef "$dest" ]; then # is dest not a symlink to f?
+        if [ -e "$dest" ]; then
+          mv $dest "$dest"_old # if dest exists, make backup
+        fi
+        ln -s "$(pwd)/$f" $dest # link file
+      fi
+    done
+  done
+fi
+
+# TODO: cleanup all dead symlinks from home to $1

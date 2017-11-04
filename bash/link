@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-set -e
-
-ln -sfn ~/.dotfiles/bash/bashrc ~/.bashrc
-ln -sfn ~/.dotfiles/bash/bash_profile ~/.bash_profile

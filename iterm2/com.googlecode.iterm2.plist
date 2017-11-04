@@ -562,31 +562,33 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>302 143 675 587 0 0 1280 777 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>223 566 796 473 0 0 1920 1057 </string>
+	<string>223 488 918 512 0 0 1920 1057 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>154 473 592 584 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1063 152 640 719 0 0 1920 1057 </string>
+	<string>1217 225 640 719 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>1170 89 640 719 0 0 1920 1057 </string>
+	<string>289 181 795 731 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 10</key>
-	<string>385 62 777 710 0 0 1280 777 </string>
+	<string>137 288 640 719 0 0 1920 1057 </string>
+	<key>NSWindow Frame iTerm Window 11</key>
+	<string>751 187 640 719 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>884 332 992 705 0 0 1920 1057 </string>
+	<string>1119 158 640 719 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
-	<string>216 275 640 719 0 0 1920 1057 </string>
+	<string>443 223 640 719 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 4</key>
-	<string>465 147 640 719 0 0 1920 1057 </string>
+	<string>877 242 640 719 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 5</key>
-	<string>1062 251 640 719 0 0 1920 1057 </string>
+	<string>451 270 640 719 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 6</key>
-	<string>1075 126 640 719 0 0 1920 1057 </string>
+	<string>242 330 640 719 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 7</key>
-	<string>887 235 640 719 0 0 1920 1057 </string>
+	<string>453 299 640 719 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 8</key>
-	<string>1045 277 640 719 0 0 1920 1057 </string>
+	<string>303 189 640 719 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 9</key>
-	<string>791 238 640 719 0 0 1920 1057 </string>
+	<string>1165 151 640 719 0 0 1920 1057 </string>
 	<key>NeverWarnAboutShortLivedSessions_2B6DD11D-986F-4E8D-87EE-079F51C5039E</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_2B6DD11D-986F-4E8D-87EE-079F51C5039E_selection</key>
@@ -1558,7 +1560,7 @@
 			<key>Columns</key>
 			<integer>105</integer>
 			<key>Command</key>
-			<string></string>
+			<string>/bin/bash</string>
 			<key>Cursor Boost</key>
 			<real>0.0</real>
 			<key>Cursor Color</key>
@@ -3835,7 +3837,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-11-02T11:56:04Z</date>
+	<date>2017-11-04T11:56:05Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Secure Input</key>

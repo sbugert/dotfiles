@@ -1,15 +1,9 @@
-Installation
+Usage
 ============
 
-    git clone http://github.com/sbugert/dotfiles.git ~/.dotfiles
-    ln -s ~/.dotfiles/bashrc ~/.bashrc
-    ln -s ~/.dotfiles/bash_profile ~/.bash_profile
-    ln -s ~/.dotfiles/tmux.conf ~/.tmux.conf
-    ln -s ~/.dotfiles/gitconfig ~/.gitconfig
-    ln -s ~/.dotfiles/iterm2 ~/.iterm2
-    source ~/.bashrc
-    base16_default-dark
-
+  `make` to list possible commands
+  `make install` to link dotfiles
+  `make installmac` to link dotfiles, decrypt private files and install iTerm2 config
 
 enable italics
 ==============
