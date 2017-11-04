@@ -1,0 +1,33 @@
+[user]
+	name = Simon Bugert
+	email = simon.bugert@gmail.com
+[core]
+  editor = vim
+  excludesfile = ~/.dotfiles/git/gitignore_global
+
+[alias]
+  latest = for-each-ref --sort=-committerdate --format='%(committerdate:short) %(refname:short) [%(committername)]'
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset' --abbrev-commit
+  co = checkout
+  ds = diff --staged
+  st = status -sb
+  amend = commit --amend -C HEAD
+  undo = reset --soft HEAD^
+  ls = log --pretty=format:'%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]' --decorate --date=short
+  standup = log --since '1 day ago' --oneline --author duncankolba@gmail.com
+  graph = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
+  goddammit = !git reset --soft HEAD^
+  pull = pull --ff-only
+  assume   = update-index --assume-unchanged
+  unassume = update-index --no-assume-unchanged
+  assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
+  snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
+  save = !git add -A && git commit -m 'SAVEPOINT'
+  wip = commit -am "WIP" 
+  undo = reset HEAD~1 --mixed
+  amend = commit -a --amend
+  wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
+[color]
+  ui = auto
+[diff]
+  algorithm = patience

@@ -1,0 +1,60 @@
+# If not running interactively, don't do anything
+if [[ $- != *i* ]]; then return; fi
+
+DOTFILES="$HOME/.dotfiles"
+
+# source fasd from dotfiles if not installed globally
+if hash fasd 2>/dev/null; then :
+else
+  . "$DOTFILES/bash/fasd"
+fi
+
+# set color scheme
+BASE16_THEME='base16-default-dark'
+BASE16_SHELL="$DOTFILES/bash/base16-shell/scripts/${BASE16_THEME}.sh"
+[[ -f $BASE16_SHELL ]] && source $BASE16_SHELL
+
+# https://github.com/mrzool/bash-sensible
+. $DOTFILES/bash/sensible.bash
+
+# source bash aliases
+. $DOTFILES/bash/bash_aliases
+. $DOTFILES/private/bash/bash_aliases 2> /dev/null
+
+# get random emoji for prompt 💩
+. "$DOTFILES/bash/emojis"
+EMOJI="$(getRandomEmoji)  "
+
+# https://github.com/git/git/tree/master/contrib/completion
+. "$DOTFILES/bash/git-completion.bash"
+. "$DOTFILES/bash/git-prompt.sh"
+export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWUNTRACKEDFILES=1
+export GIT_PS1_DESCRIBE_STYLE=branch
+export GIT_PS1_SHOWCOLORHINTS=1
+export GIT_PS1_SHOWUPSTREAM="auto git"
+
+# show number of jobs backgrounded via 'ctrl-z' in bash prompt
+function getBackgroundJobs {
+  JOBS_COUNT=$(jobs -s | wc -l | xargs)
+  [ "$JOBS_COUNT" == "1" ] && printf "\b₁"
+  [ "$JOBS_COUNT" == "2" ] && printf "\b₂"
+  [ "$JOBS_COUNT" == "3" ] && printf "\b₃"
+  [ "$JOBS_COUNT" -gt "3" ] && printf "\b₊"
+}
+
+# TODO: is \001...\002 for color escaping needed?
+YELLOW=$(tput setaf 3) MAGENTA=$(tput setaf 5) CYAN=$(tput setaf 6) RESET=$(tput sgr0)
+PROMPT_COMMAND+='&& __git_ps1 "\[$(iterm2_prompt_mark)\]$EMOJI\[$MAGENTA\]$(getBackgroundJobs)\[$YELLOW\]\[$CYAN\]\w\[$RESET\]" "\[$YELLOW\] \\\$ \[$RESET\]" " |%s|"'
+
+# https://github.com/clvv/fasd
+eval "$(fasd --init auto)"
+
+# setup MacOS specific config
+if [ "$(uname)" == "Darwin" ]; then
+  . "$DOTFILES/macos/bash_macos"
+fi
+
+export PATH=$PATH:$DOTFILES/bin
+
+export EDITOR=vim

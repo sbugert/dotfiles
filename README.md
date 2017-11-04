@@ -14,7 +14,6 @@ Installation
 enable italics
 ==============
 
-
     infocmp xterm-256color > /tmp/xterm-256color.terminfo
     printf '\tsitm=\\E[3m, ritm=\\E[23m,\n' >> /tmp/xterm-256color.terminfo
     tic /tmp/xterm-256color.terminfo

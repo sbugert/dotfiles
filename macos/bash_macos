@@ -1,0 +1,23 @@
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
+fi
+
+# add android-sdk path installed by homebrew
+export ANDROID_HOME=/usr/local/opt/android-sdk
+export PATH="/usr/local/sbin:$PATH"
+
+# . $HOME/.iterm2/.iterm2_shell_integration.bash
+# export PATH="$PATH:$HOME/.dotfiles/iterm2"
+
+
+export PATH=$PATH:$HOME/opt/node/latest/bin:$HOME/opt/memusg
+
+export PATH=$PATH:/usr/local/CrossPack-AVR/bin
+
+# add repos to cd path to jump to project
+CDPATH=".:~/repos"
+
+export PATH=$PATH:/usr/local/opt/llvm/bin
+export PATH="$PATH:$HOME/Library/Python/3.6/bin"
