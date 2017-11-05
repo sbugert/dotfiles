@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-installnode()
-{
+installnode() {
   # download newest node version
   if [ "$(uname)" == "Darwin" ]; then
     FILENAME="node-$NEWVERSION-darwin-x64"
@@ -10,7 +9,7 @@ installnode()
     FILENAME="node-$NEWVERSION-linux-x64"
   fi
 
-  curl "https://nodejs.org/dist/latest/$FILENAME.tar.xz" > "$HOME/opt/node/latest.tar.xz"
+  curl "https://nodejs.org/dist/latest/$FILENAME.tar.xz" >"$HOME/opt/node/latest.tar.xz"
 
   # extract new node to latest/
   echo "Extracting new version..."
@@ -19,8 +18,7 @@ installnode()
   mv "$HOME/opt/node/$FILENAME" "$HOME/opt/node/latest"
 }
 
-updatenode()
-{
+updatenode() {
   # save installed version number
   OLDVERSION=$(node -v)
 
@@ -31,30 +29,30 @@ updatenode()
 
   read -p "Update node from version $OLDVERSION to $NEWVERSION? (y/n) " answer
   case ${answer:0:1} in
-      y|Y )
+  y | Y)
 
-        # save globally installed modules list
-        GLOBPKGS=$(npm list -g --depth 0 --parseable | sed -e "1d; s|$(npm root -g)/||")
+    # save globally installed modules list
+    GLOBPKGS=$(npm list -g --depth 0 --parseable | sed -e "1d; s|$(npm root -g)/||")
 
-        # make backup of old directory
-        echo "Moving old node to $HOME/opt/node/$OLDVERSION..."
-        mv "$HOME/opt/node/latest" "$HOME/opt/node/$OLDVERSION"
+    # make backup of old directory
+    echo "Moving old node to $HOME/opt/node/$OLDVERSION..."
+    mv "$HOME/opt/node/latest" "$HOME/opt/node/$OLDVERSION"
 
-        installnode
-        ;;
-      * )
-          exit 0
-      ;;
+    installnode
+    ;;
+  *)
+    exit 0
+    ;;
   esac
 
   read -p "Reinstall previously installed global modules? (y/n) ($GLOBPKGS) " answer
   case ${answer:0:1} in
-      y|Y )
-        npm i -g $GLOBPKGS
-      ;;
-      * )
-          exit 0
-      ;;
+  y | Y)
+    npm i -g $GLOBPKGS
+    ;;
+  *)
+    exit 0
+    ;;
   esac
 }
 

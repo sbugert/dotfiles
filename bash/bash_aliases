@@ -7,9 +7,9 @@ alias ....='cd ../../..'
 alias -- -='cd -'
 alias sl=ls
 if [ "$(uname)" == "Darwin" ]; then
-   alias ls='ls -G'
+  alias ls='ls -G'
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-   alias ls='ls --color=auto'
+  alias ls='ls --color=auto'
 fi
 alias la='ls -AF'
 alias ll='ls -alh'
@@ -21,19 +21,17 @@ alias gs='git status'
 
 alias resetsound='sudo killall coreaudiod'
 
-function swap()
-{
-  tmpfile=$(mktemp $(dirname "$1")/XXXXXX)
-  mv "$1" "$tmpfile" && mv "$2" "$1" &&  mv "$tmpfile" "$2"
+function swap() {
+  tmpfile="$(mktemp $(dirname "$1")/XXXXXX)"
+  mv "$1" "$tmpfile" && mv "$2" "$1" && mv "$tmpfile" "$2"
 }
 
-function eject()
-{
+function eject() {
   osascript -e 'tell application "Finder" to eject (every disk whose ejectable is true)'
 }
 
 selected() {
-    osascript <<EOT
+  osascript <<EOT
         tell application "Finder"
             set theFiles to selection
             set theList to ""
@@ -45,14 +43,14 @@ selected() {
 EOT
 }
 
-function finder_path {
-    osascript -e 'tell application "Finder"'\
-        -e "if (${1-1} <= (count Finder windows)) then"\
-        -e "get POSIX path of (target of window ${1-1} as alias)"\
-        -e 'else' \
-        -e 'get POSIX path of (desktop as alias)'\
-        -e 'end if' \
-        -e 'end tell';
+function finder_path() {
+  osascript -e 'tell application "Finder"' \
+    -e "if (${1-1} <= (count Finder windows)) then" \
+    -e "get POSIX path of (target of window ${1-1} as alias)" \
+    -e 'else' \
+    -e 'get POSIX path of (desktop as alias)' \
+    -e 'end if' \
+    -e 'end tell'
 }
 
 # log vim keystrokes for science

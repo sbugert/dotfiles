@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 ##################################
 #                                #
 #  tow – like GNU stow but less  #

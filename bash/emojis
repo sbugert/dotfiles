@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # get random emoji (But... why?)
 # source: http://unicode.org/Public/emoji/1.0/emoji-data.txt
 declare -a emojis=(
@@ -20,6 +22,6 @@ declare -a emojis=(
   '🐏 💨' '💩'
 )
 
-function getRandomEmoji {
-   echo ${emojis[$RANDOM % ${#emojis[@]} ]}
+getRandomEmoji() {
+  echo ${emojis[RANDOM % ${#emojis[@]}]}
 }
