@@ -14,7 +14,7 @@ eval "$(fasd --init auto)" 2> /dev/null
 
 # set color scheme
 BASE16_THEME='base16-default-dark'
-BASE16_SHELL="$DOTFILES/bash/base16-shell/scripts/${BASE16_THEME}.sh"
+BASE16_SHELL="$DOTFILES/bash/${BASE16_THEME}.sh"
 [[ -f $BASE16_SHELL ]] && source $BASE16_SHELL
 
 # https://github.com/mrzool/bash-sensible
