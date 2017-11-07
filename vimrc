@@ -1,8 +1,6 @@
 ﻿" Basics {{{
 set nocompatible
 
-filetype plugin indent on " Recognize file types / set indent mode
-
 set hidden " Switch between buffers without saving
 set clipboard^=unnamedplus,unnamed " Share OS/XServer clipboard
 set backspace=indent,eol,start " make backspace work like most other apps
@@ -57,11 +55,11 @@ cabbrev help tab help
 " Install vim-plug if not available
 augroup InstallPlug
   autocmd!
-  if empty(glob('~/.vim/autoload/plug.vim'))
-    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-          \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall | source $MYVIMRC
-endif
+    if empty(glob('~/.vim/autoload/plug.vim'))
+      silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+      autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+      endif
 augroup END
 
 call plug#begin('~/.vim/plugged')
@@ -102,8 +100,6 @@ call plug#end()
 runtime macros/matchit.vim
 " }}}
 " UI and colors {{{
-syntax on " Syntax highlighting
-
 if (has('termguicolors'))
  set termguicolors
 endif
