@@ -82,17 +82,9 @@ Plug 'tpope/vim-surround' " quoting/parenthesizing made simple
 Plug 'tpope/vim-unimpaired' " pairs of handy bracket mappings
 Plug 'wellle/targets.vim'
 Plug 'ap/vim-css-color'
-Plug 'wavded/vim-stylus'
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx' " React JSX syntax highlighting and indenting
-Plug 'hail2u/vim-css3-syntax'
-Plug 'mustache/vim-mustache-handlebars'
-Plug 'plasticboy/vim-markdown'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'w0rp/ale'
-Plug 'johngrib/vim-game-code-break'
-Plug 'exu/pgsql.vim'
-Plug 'lervag/vimtex'
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
@@ -390,7 +382,7 @@ endfunction
 " File type specific autocommands
 augroup Filetypes
     autocmd!
-    autocmd BufEnter *.hbt set filetype=mustache
+    autocmd BufEnter *.hbt set filetype=html.handlebars syntax=mustache
     " in makefiles, don't expand tabs to spaces
     autocmd FileType make setlocal noexpandtab shiftwidth=8 softtabstop=0
     " vim-commentary
