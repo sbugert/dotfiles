@@ -75,7 +75,9 @@ call plug#begin(s:vimdir . '/plugged')
 Plug 'vim-airline/vim-airline' " lean & mean status/tabline for vim that's light as air
 Plug 'jacoborus/tender' " colorscheme
 Plug 'airblade/vim-gitgutter' " shows a git diff in the gutter (sign column)
-Plug 'SirVer/ultisnips' " implements some of TextMate's snippets features
+Plug 'SirVer/ultisnips'
+Plug 'epilande/vim-es2015-snippets'
+Plug 'epilande/vim-react-snippets'
 Plug 'mbbill/undotree' " undo tree
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -264,10 +266,6 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 
-
-" UltiSnips
-let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/snips']
-let g:UltiSnipsExpandTrigger='<c-j>'
 
 " vim-unimpaired vimcasts.org/episodes/bubbling-text/
 " Bubble single lines
