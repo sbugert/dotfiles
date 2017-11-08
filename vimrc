@@ -68,10 +68,11 @@ Plug 'vim-airline/vim-airline' " lean & mean status/tabline for vim that's light
 Plug 'jacoborus/tender' " colorscheme
 Plug 'airblade/vim-gitgutter' " shows a git diff in the gutter (sign column)
 Plug 'SirVer/ultisnips' " implements some of TextMate's snippets features
-Plug 'ctrlpvim/ctrlp.vim' " Fuzzy file, buffer, mru, tag, etc finder.
 Plug 'mbbill/undotree' " undo tree
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 if executable('cmake')
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer',
+  Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer',
                                \ 'for': [ 'cpp', 'c' ] }
   Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 endif
@@ -224,8 +225,22 @@ let g:clang_rename_path = '/usr/local/opt/llvm/bin/clang-rename'
 noremap <leader>ref :pyf ~/.vim/scripts/clang-rename.py<cr>
 
 
-" CtrlP
-let g:ctrlp_working_path_mode = 'r' " Use the nearest .git directory as the cwd
+" fzf
+nnoremap <C-p> :Files<CR>
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
 
 " Use The Silver Searcher for :ack if available
 if executable('ag')
