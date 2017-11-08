@@ -3,15 +3,6 @@ if [[ $- != *i* ]]; then return; fi
 
 DOTFILES="$HOME/.dotfiles"
 
-# source fasd from dotfiles if not installed globally
-if hash fasd 2>/dev/null; then :
-else
-  . "$DOTFILES/bash/fasd"
-fi
-
-# https://github.com/clvv/fasd
-eval "$(fasd --init auto)" 2>/dev/null
-
 # set color scheme
 BASE16_THEME='base16-default-dark'
 BASE16_SHELL="$DOTFILES/bash/${BASE16_THEME}.sh"
@@ -23,10 +14,6 @@ BASE16_SHELL="$DOTFILES/bash/${BASE16_THEME}.sh"
 # source bash aliases
 . $DOTFILES/bash/bash_aliases
 . $DOTFILES/private/bash/bash_aliases 2>/dev/null
-
-# get random emoji for prompt 💩
-. "$DOTFILES/bash/emojis"
-EMOJI="$(getRandomEmoji) "
 
 # https://github.com/git/git/tree/master/contrib/completion
 . "$DOTFILES/bash/git-completion.bash"
@@ -48,14 +35,41 @@ getBackgroundJobs() {
 }
 
 # TODO: is \001...\002 needed for color escaping?
-YELLOW=$(tput setaf 3) MAGENTA=$(tput setaf 5) CYAN=$(tput setaf 6) RESET=$(tput sgr0)
-PROMPT_COMMAND+='&& __git_ps1 "\[$(iterm2_prompt_mark 2> /dev/null)\]$EMOJI \[$MAGENTA\]$(getBackgroundJobs)\[$YELLOW\]\[$CYAN\]\w\[$RESET\]" "\[$YELLOW\] \\\$ \[$RESET\]" " |%s|"'
+setPromptCommand() {
+  # get random emoji for prompt 💩
+  . "$DOTFILES/bash/emojis"
+  EMOJI="$(getRandomEmoji) "
+
+  YELLOW=$(tput setaf 3)
+  MAGENTA=$(tput setaf 5)
+  CYAN=$(tput setaf 6)
+  RESET=$(tput sgr0)
+  PROMPT_COMMAND+='&& __git_ps1 "\[$(iterm2_prompt_mark 2> /dev/null)\]$EMOJI \[$MAGENTA\]$(getBackgroundJobs)\[$YELLOW\]\[$CYAN\]\w\[$RESET\]" "\[$YELLOW\] \\\$ \[$RESET\]" " |%s|"'
+}
+
+setPromptCommand
 
 # setup MacOS specific config
 if [ "$(uname)" == "Darwin" ]; then
   . "$DOTFILES/macos/bashrc"
 fi
 
+# https://github.com/clvv/fasd
+if hash fasd 2>/dev/null; then :
+else
+  # source fasd from dotfiles if not installed globally
+  . "$DOTFILES/bash/fasd"
+fi
+eval "$(fasd --init auto)"
+
 export PATH=$PATH:$DOTFILES/bash/bin
 
 export EDITOR=vim
+
+# fzf configuration
+export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -100'"
+export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+[[ -f $BASE16_SHELL ]] && source $DOTFILES/bash/${BASE16_THEME}.config
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

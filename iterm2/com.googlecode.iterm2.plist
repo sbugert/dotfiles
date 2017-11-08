@@ -562,33 +562,45 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>302 143 675 587 0 0 1280 777 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>223 488 918 512 0 0 1920 1057 </string>
+	<string>96 242 958 451 0 0 1280 777 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>154 473 592 584 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1217 225 640 719 0 0 1920 1057 </string>
+	<string>421 34 640 719 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>289 181 795 731 0 0 1920 1057 </string>
+	<string>110 14 620 750 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 10</key>
-	<string>137 288 640 719 0 0 1920 1057 </string>
+	<string>274 338 640 719 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 11</key>
-	<string>751 187 640 719 0 0 1920 1057 </string>
+	<string>543 164 640 719 0 0 1920 1057 </string>
+	<key>NSWindow Frame iTerm Window 12</key>
+	<string>956 338 640 719 0 0 1920 1057 </string>
+	<key>NSWindow Frame iTerm Window 13</key>
+	<string>998 338 640 719 0 0 1920 1057 </string>
+	<key>NSWindow Frame iTerm Window 14</key>
+	<string>1040 338 640 719 0 0 1920 1057 </string>
+	<key>NSWindow Frame iTerm Window 15</key>
+	<string>1082 338 640 719 0 0 1920 1057 </string>
+	<key>NSWindow Frame iTerm Window 16</key>
+	<string>1256 323 640 719 0 0 1920 1057 </string>
+	<key>NSWindow Frame iTerm Window 17</key>
+	<string>570 105 640 719 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>1119 158 640 719 0 0 1920 1057 </string>
+	<string>12 324 640 719 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
-	<string>443 223 640 719 0 0 1920 1057 </string>
+	<string>405 338 640 719 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 4</key>
-	<string>877 242 640 719 0 0 1920 1057 </string>
+	<string>699 316 640 719 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 5</key>
-	<string>451 270 640 719 0 0 1920 1057 </string>
+	<string>872 200 640 719 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 6</key>
-	<string>242 330 640 719 0 0 1920 1057 </string>
+	<string>484 217 851 840 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 7</key>
-	<string>453 299 640 719 0 0 1920 1057 </string>
+	<string>906 338 640 719 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 8</key>
-	<string>303 189 640 719 0 0 1920 1057 </string>
+	<string>1102 261 640 719 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 9</key>
-	<string>1165 151 640 719 0 0 1920 1057 </string>
+	<string>1078 338 640 719 0 0 1920 1057 </string>
 	<key>NeverWarnAboutShortLivedSessions_2B6DD11D-986F-4E8D-87EE-079F51C5039E</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_2B6DD11D-986F-4E8D-87EE-079F51C5039E_selection</key>
@@ -1560,7 +1572,7 @@
 			<key>Columns</key>
 			<integer>105</integer>
 			<key>Command</key>
-			<string>/bin/bash</string>
+			<string></string>
 			<key>Cursor Boost</key>
 			<real>0.0</real>
 			<key>Cursor Color</key>
@@ -3837,7 +3849,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-11-04T11:56:05Z</date>
+	<date>2017-11-05T21:46:54Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Secure Input</key>

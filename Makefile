@@ -5,7 +5,7 @@ RESET=\033[0;0m
 
 installdotfiles: ## Symlink dotfiles
 		@echo "$(PURPLE)Linking dotfiles$(RESET)"
-		@./tow bash/home git/home tmux/home
+		@./tow link bash/home git/gitconfig tmux/tmux.conf
 		@echo "$(PURPLE)Restart session or run $(YELLOW)source bashrc$(RESET) $(PURPLE)for changes to take effect$(RESET)"
 
 installnode: ## Install Node.js
@@ -23,7 +23,7 @@ setupmac: decrypt installdotfiles installnode ## Setup MacOS
 
 uninstalldotfiles: ## Delete symlinked dotfiles
 		@echo "$(PURPLE)Unlinking dofiles$(RESET)"
-		@./tow --unlink bash/home git/home tmux/home
+		@./tow unlink bash/home git/gitconfig tmux/tmux.conf
 		@-rm -rf ~/.dotfiles/${PRIVATE_DIR}
 
 # ‘private’ task for echoing instructions

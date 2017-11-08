@@ -8,37 +8,44 @@
 
 set -e
 
-if [[ $# -eq 0 ]] || ([[ $1 == "--unlink" ]] && [[ $# -eq 1 ]]); then
-  echo 'Usage: tow [--unlink] path [path ...]'
+if [[ $# -lt 2 ]] || ([[ $1 != "link" ]] && [[ $1 != "unlink" ]]); then
+  echo 'Usage: tow link|unlink path [path ...]'
   exit 0
 fi
 
-pwd=$(pwd) # save current dir
+# link $1 and backup existing file if it does not point to $2
+function tow_link() {
+  if [ ! "$1" -ef "$2" ]; then # is dest not a symlink to f?
+    if [ -e "$1" ]; then
+      mv $1 "$1"_old # if dest exists, make backup
+    fi
+    ln -sf $2 $1 # link file
+  fi
+}
 
-if [[ $1 == "--unlink" ]]; then # if unlink
-  shift # skip "--unlink" argument
-  for d in "$@"; do
-    cd $pwd/$d
-    for f in *; do
-      dest=$HOME/.$f
-      if [ "$(pwd)/$f" -ef "$dest" ]; then # is dest still a symlink to f?
-        rm $dest # unlink f
+# unlink $1 if it points to $2
+function tow_unlink() {
+  if [ "$1" -ef "$2" ]; then # is dest still a symlink to f?
+    rm $1 # unlink f
+  fi
+}
+
+for d in "${@:2}"; do
+  if [[ -d $d ]]; then # if d is directory
+    for f in ${d%/}/*; do
+      if [[ $1 == "link" ]]; then # if unlink
+        tow_link "$HOME/.$(basename $f)" "$PWD/$f"
+      elif [[ $1 == "link" ]]; then
+        tow_unlink "$HOME/.$(basename $f)" "$PWD/$f"
       fi
     done
-  done
-else
-  for d in "$@"; do
-    cd $pwd/$d
-    for f in *; do
-      dest=$HOME/.$f
-      if [ ! "$f" -ef "$dest" ]; then # is dest not a symlink to f?
-        if [ -e "$dest" ]; then
-          mv $dest "$dest"_old # if dest exists, make backup
-        fi
-        ln -s "$(pwd)/$f" $dest # link file
-      fi
-    done
-  done
-fi
+  else # if d is a file
+    if [[ $1 == "link" ]]; then # if unlink
+      tow_link "$HOME/.$(basename $d)" "$PWD/$d"
+    elif [[ $1 == "link" ]]; then
+      tow_unlink "$HOME/.$(basename $d)" "$PWD/$d"
+    fi
+  fi
+done
 
 # TODO: cleanup all dead symlinks from home to $1
