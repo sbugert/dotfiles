@@ -1,8 +1,6 @@
-Installing on another machine
+Installing all plugins
 =============================
-    git clone http://github.com/sbugert/dotvim.git ~/.vim
-    ln -s ~/.vim/vimrc ~/.vimrc
-    vim +PlugInstall +qall
+`vim +PlugInstall +qall`
 
 Upgrading all bundled plugins
 =============================

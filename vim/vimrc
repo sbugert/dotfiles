@@ -34,8 +34,16 @@ set incsearch " show where the pattern, as it was typed so far, matches
 set lazyredraw " redraw only when we need to
 
 " Store temporary files in a central spot
-set directory=~/.vim/.vim-tmp/swap//,/var/tmp//,/tmp//,.
-set undodir=~/.vim/.vim-tmp/undo//,/var/tmp//,/tmp//,.
+let s:vimdir=fnamemodify(resolve(expand('<sfile>:p')), ':h')
+
+if !isdirectory(s:vimdir . '/.vim-tmp/swap')
+  call mkdir(s:vimdir . '/.vim-tmp/swap', 'p')
+endif
+if !isdirectory(s:vimdir . '/.vim-tmp/undo')
+call mkdir(s:vimdir . '/.vim-tmp/undo', 'p')
+endif
+let &directory=s:vimdir . '/.vim-tmp/swap//,/var/tmp//,/tmp//,.'
+let &undodir=s:vimdir . '/.vim-tmp/undo//,/var/tmp//,/tmp//,.'
 
 set undofile " Enable vim to remember undo chains between sessions
 
@@ -55,14 +63,14 @@ cabbrev help tab help
 " Install vim-plug if not available
 augroup InstallPlug
   autocmd!
-    if empty(glob('~/.vim/autoload/plug.vim'))
-      silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    if empty(s:vimdir . '/autoload/plug.vim')
+      silent exe '!curl -fLo ' . s:vimdir . '/autoload/plug.vim --create-dirs ' .
+        \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
       autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
       endif
 augroup END
 
-call plug#begin('~/.vim/plugged')
+call plug#begin(s:vimdir . '/plugged')
 
 Plug 'vim-airline/vim-airline' " lean & mean status/tabline for vim that's light as air
 Plug 'jacoborus/tender' " colorscheme
@@ -99,7 +107,7 @@ endif
 
 " Color Scheme
 set background=dark
-if !empty(glob('~/.vim/plugged/tender'))
+if !empty(glob(s:vimdir . '/plugged/tender'))
   colorscheme tender
   let g:airline_theme = 'tender'
   hi SignColumn guifg=#282828 ctermfg=235 guibg=#282828 ctermbg=235 gui=NONE cterm=NONE
@@ -324,7 +332,7 @@ augroup ReloadVimrc
   autocmd bufwritepost *vimrc source $MYVIMRC |
         \ AirlineRefresh |
         \ redraw |
-        \ echo '~/.vimrc reloaded!'
+        \ echo 'vimrc reloaded!'
 augroup END
 
 " Toggle spell checking on and off with `,s`
