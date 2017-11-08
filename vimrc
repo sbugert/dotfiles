@@ -225,7 +225,12 @@ noremap <leader>ref :pyf ~/.vim/scripts/clang-rename.py<cr>
 
 
 " fzf
-nnoremap <C-p> :Files<CR>
+function! s:find_git_root()
+  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+endfunction
+
+command! ProjectFiles execute 'Files' s:find_git_root()
+nnoremap <C-p> :ProjectFiles<CR>
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
