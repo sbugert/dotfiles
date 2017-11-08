@@ -188,7 +188,7 @@ let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '']
 
 " Airline
 
-let g:airline_extensions = ['tabline', 'ycm', 'ale']
+let g:airline_extensions = ['hunks', 'whitespace', 'tabline', 'ycm', 'ale']
 
 let g:airline#extensions#ycm#enabled = 1
 let g:airline#extensions#ycm#error_symbol = '⨉ '
