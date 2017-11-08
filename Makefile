@@ -4,31 +4,31 @@ YELLOW=\033[3;33m
 RESET=\033[0;0m
 
 installdotfiles: ## Symlink dotfiles
-		@echo "$(PURPLE)Linking dotfiles$(RESET)"
+		@printf "$(PURPLE)Linking dotfiles$(RESET)\n"
 		@./tow link bash/home git/gitconfig tmux/tmux.conf
-		@echo "$(PURPLE)Restart session or run $(YELLOW)source bashrc$(RESET) $(PURPLE)for changes to take effect$(RESET)"
+		@printf "$(PURPLE)Restart session or run $(YELLOW)source bashrc$(RESET) $(PURPLE)for changes to take effect$(RESET)\n"
 
 installnode: ## Install Node.js
-		@echo "$(PURPLE)Installing Node.js$(RESET)"
+		@printf "$(PURPLE)Installing Node.js$(RESET)\n"
 		@./bash/bin/update-node
 
 setupmac: decrypt installdotfiles installnode ## Setup MacOS
-		@echo "$(PURPLE)Setting up MacOS$(RESET)"
+		@printf "$(PURPLE)Setting up MacOS$(RESET)\n"
 		@./macos/setup
-		@echo "$(PURPLE)Setting up iTerm2$(RESET)"
+		@printf "$(PURPLE)Setting up iTerm2$(RESET)\n"
 		@curl -s -L https://iterm2.com/shell_integration/bash -o ~/.iterm2_shell_integration.bash
 		@defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/.dotfiles/iterm2"
 		@defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
 		@tic iterm2/xterm-256color-italic.terminfo
 
 uninstalldotfiles: ## Delete symlinked dotfiles
-		@echo "$(PURPLE)Unlinking dofiles$(RESET)"
+		@printf "$(PURPLE)Unlinking dofiles$(RESET)\n"
 		@./tow unlink bash/home git/gitconfig tmux/tmux.conf
 		@-rm -rf ~/.dotfiles/${PRIVATE_DIR}
 
 # ‘private’ task for echoing instructions
 _pwd_prompt:
-		@echo "$(PURPLE)If you don't know the password you probably shouldn't.$(RESET)"
+		@printf "$(PURPLE)If you don't know the password you probably shouldn't.$(RESET)\n"
 
 decrypt: _pwd_prompt ## Decrypt private directory
 		@printf "$(YELLOW)"
