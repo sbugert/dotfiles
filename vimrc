@@ -68,8 +68,8 @@ Plug 'vim-airline/vim-airline' " lean & mean status/tabline for vim that's light
 Plug 'jacoborus/tender' " colorscheme
 Plug 'airblade/vim-gitgutter' " shows a git diff in the gutter (sign column)
 Plug 'SirVer/ultisnips' " implements some of TextMate's snippets features
-Plug 'sjl/gundo.vim' " undo tree
 Plug 'ctrlpvim/ctrlp.vim' " Fuzzy file, buffer, mru, tag, etc finder.
+Plug 'mbbill/undotree' " undo tree
 if executable('cmake')
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer',
                                \ 'for': [ 'cpp', 'c' ] }
@@ -253,8 +253,10 @@ vmap <C-Down> ]egv
 " comment line
 map <Leader>c gcc<ESC>
 
-" toggle gundo
-nnoremap <leader>u :GundoToggle<CR>
+" toggle undotree
+nnoremap <leader>u :UndotreeToggle<CR>
+let g:undotree_SetFocusWhenToggle = 1
+let g:undotree_WindowLayout = 2
 
 " vim-markdown-preview
 let g:vim_markdown_preview_hotkey='<C-m>'
