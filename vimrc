@@ -107,12 +107,10 @@ if !empty(glob('~/.vim/plugged/tender'))
   hi Visual term=reverse cterm=reverse
   hi Search guifg=#eeeeee ctermfg=255 guibg=#f43753 ctermbg=203 gui=NONE cterm=NONE
 
-  highlight Comment cterm=italic " Italic comments.
-  highlight Comment gui=italic " Italic comments in gui.
-  highlight Todo cterm=italic " Italic comments.
-  highlight Todo gui=italic " Italic comments in gui.
-  " highlight xmlAttrib cterm=italic
-  " highlight xmlAttrib gui=italic
+  hi Comment cterm=italic gui=italic " Italic comments.
+  hi Todo gui=italic gui=italic " Italic comments in gui.
+  " TODO: this somehow changes the colorscheme to white
+  " highlight xmlAttrib cterm=italic gui=italic
 endif
 
 if &term =~# '256color'
@@ -142,9 +140,6 @@ augroup InvisibleCharacters
 augroup END
 
 highlight SpecialKey ctermfg=88 guifg=#870000
-
-" c++11 syntax
-let g:c_no_curly_error = 1
 
 " }}}
 " tabs vs. spaces, line breaks {{{
