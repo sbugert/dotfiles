@@ -1,0 +1,6 @@
+.vim-tmp/
+vimrc.html
+.netrwhist
+plugged/
+autoload/
+spell/

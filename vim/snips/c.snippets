@@ -1,0 +1,9 @@
+snippet printf "printf .. (printf)"
+printf("${1:%s}\n"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet
+
+snippet fun "function" b
+${1:void} ${2:function_name}(${3}) {
+  ${VISUAL}${0}
+}
+endsnippet
