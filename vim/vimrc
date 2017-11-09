@@ -1,6 +1,5 @@
-﻿" Basics {{{
-set nocompatible
-
+scriptencoding utf8
+" Basics {{{
 " store path to vim folder in local variable
 let s:vimdir=fnamemodify(resolve(expand('<sfile>:p')), ':h')
 " set default 'runtimepath' (without ~/.vim folders)
