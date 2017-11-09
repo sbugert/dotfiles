@@ -1,6 +1,13 @@
 ﻿" Basics {{{
 set nocompatible
 
+" store path to vim folder in local variable
+let s:vimdir=fnamemodify(resolve(expand('<sfile>:p')), ':h')
+" set default 'runtimepath' (without ~/.vim folders)
+let &runtimepath = printf('%s/vimfiles,%s,%s/vimfiles/after', $VIM, $VIMRUNTIME, $VIM)
+" add the directory to 'runtimepath'
+let &runtimepath = printf('%s,%s,%s/after', s:vimdir, &runtimepath, s:vimdir)
+
 set hidden " Switch between buffers without saving
 set clipboard^=unnamedplus,unnamed " Share OS/XServer clipboard
 set backspace=indent,eol,start " make backspace work like most other apps
@@ -10,13 +17,15 @@ set laststatus=2 " Always show status line
 set autoindent " Copy indent from current line when starting a new line
 set wildmode=longest,list " make auto completion on command line work like in shell
 
-" Tell vim to remember certain things when we exit
-" "  '10  :  marks will be remembered for up to 10 previously edited files
-" "  "100 :  will save up to 100 lines for each register
-" "  :50  :  up to 50 lines of command-line history will be remembered
-" "  %    :  saves and restores the buffer list
-" "  n... :  where to save the viminfo files
-set viminfo='10,\"100,:50,%,n~/.viminfo
+" f1  store file marks
+" '   # of previously edited files to remember marks for
+" :   # of lines of command history
+" /   # of lines of search pattern history
+" <   max # of lines for each register to be saved
+" s   max # of Kb for each register to be saved
+" h   don't restore hlsearch behavior
+if !isdirectory(s:vimdir . '/.tmp') | call mkdir(s:vimdir . '/.tmp') | endif
+let &viminfo="'10,\"100,:50,%,n" . s:vimdir . '/.tmp/viminfo'
 
 set scrolloff=5 " Scroll cursor offset
 
@@ -34,16 +43,10 @@ set incsearch " show where the pattern, as it was typed so far, matches
 set lazyredraw " redraw only when we need to
 
 " Store temporary files in a central spot
-let s:vimdir=fnamemodify(resolve(expand('<sfile>:p')), ':h')
-
-if !isdirectory(s:vimdir . '/.vim-tmp/swap')
-  call mkdir(s:vimdir . '/.vim-tmp/swap', 'p')
-endif
-if !isdirectory(s:vimdir . '/.vim-tmp/undo')
-call mkdir(s:vimdir . '/.vim-tmp/undo', 'p')
-endif
-let &directory=s:vimdir . '/.vim-tmp/swap//,/var/tmp//,/tmp//,.'
-let &undodir=s:vimdir . '/.vim-tmp/undo//,/var/tmp//,/tmp//,.'
+if !isdirectory(s:vimdir . '/.tmp/swap') | call mkdir(s:vimdir . '/.tmp/swap') | endif
+let &directory=s:vimdir . '/.tmp/swap//,/var/tmp//,/tmp//,.'
+if !isdirectory(s:vimdir . '/.tmp/undo') | call mkdir(s:vimdir . '/.tmp/undo') | endif
+let &undodir=s:vimdir . '/.tmp/undo//,/var/tmp//,/tmp//,.'
 
 set undofile " Enable vim to remember undo chains between sessions
 
@@ -63,11 +66,11 @@ cabbrev help tab help
 " Install vim-plug if not available
 augroup InstallPlug
   autocmd!
-    if empty(s:vimdir . '/autoload/plug.vim')
+    if empty(glob(s:vimdir . '/autoload/plug.vim'))
       silent exe '!curl -fLo ' . s:vimdir . '/autoload/plug.vim --create-dirs ' .
         \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
       autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-      endif
+    endif
 augroup END
 
 call plug#begin(s:vimdir . '/plugged')
