@@ -19,6 +19,7 @@ brew update
 echo "> Installing brews"
 cd macos
 brew bundle
+brew bundle check
 
 if [ "$SHELL" == '/bin/bash' ]; then
   echo "> Setting up bash"

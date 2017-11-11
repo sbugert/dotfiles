@@ -15,8 +15,10 @@ brew "dos2unix"
 brew "esniper"
 brew "fasd"
 brew "ffmpeg"
+brew "fzf"
 brew "graphicsmagick"
 brew "hadolint"
+brew "highlight"
 brew "htop"
 brew "id3v2"
 brew "python"
@@ -31,6 +33,7 @@ brew "pinentry-mac"
 brew "radare2"
 brew "ranger"
 brew "shellcheck"
+brew "shfmt"
 brew "smartmontools"
 brew "socat"
 brew "testdisk"
@@ -90,5 +93,6 @@ cask "vlc"
 cask "whatsapp"
 mas "Colors", id: 581915465
 mas "ForkLift", id: 412448059
+mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Xcode", id: 497799835
