@@ -341,8 +341,7 @@ augroup END
 nmap <silent> <leader>s :set spell!<CR>
 
 " Clear search results and quicklist when hitting control-space
-inoremap <C-@> <c-x><c-o>
-nnoremap <silent> <C-@> :nohlsearch<Bar>:echo<CR>:ccl<CR>
+nnoremap <silent> <tab> :nohlsearch<Bar>:echo<CR>:ccl<CR>
 
 " Show current file as HTML
 nmap <Leader>h :TOhtml<CR>:w<cr>:!open %<CR>:q<CR>
