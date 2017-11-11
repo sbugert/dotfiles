@@ -27,7 +27,7 @@ set wildmode=longest,list " make auto completion on command line work like in sh
 " s   max # of Kb for each register to be saved
 " h   don't restore hlsearch behavior
 " %   save and restore the buffer list
-" if !isdirectory(s:vimdir . '/.tmp') | call mkdir(s:vimdir . '/.tmp') | endif
+if !isdirectory(s:vimdir . '/.tmp') | call mkdir(s:vimdir . '/.tmp') | endif
 let &viminfo="'10,\"100,:50,n" . s:vimdir . '/.tmp/viminfo'
 
 set scrolloff=5 " Scroll cursor offset
