@@ -12,7 +12,9 @@ set hidden " Switch between buffers without saving
 set clipboard^=unnamedplus,unnamed " Share OS/XServer clipboard
 set backspace=indent,eol,start " make backspace work like most other apps
 set mouse=a " Allow mouse usage in terminal vim
-set ttymouse=sgr " Allow mouse usage in tmux and ssh sessions
+if has('mouse_sgr')
+  set ttymouse=sgr " Allow mouse usage in tmux and ssh sessions
+endif
 set laststatus=2 " Always show status line
 set autoindent " Copy indent from current line when starting a new line
 set wildmode=longest,list " make auto completion on command line work like in shell
@@ -100,6 +102,10 @@ Plug 'ap/vim-css-color'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'w0rp/ale'
 Plug 'sheerun/vim-polyglot'
+
+if has('nvim')
+  Plug 'Floobits/floobits-neovim'
+endif
 
 call plug#end()
 
