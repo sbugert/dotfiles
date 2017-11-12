@@ -67,7 +67,35 @@ export EDITOR=vim
 # fzf configuration
 export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -100'"
 export FZF_DEFAULT_COMMAND="ag -g ''"
-export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
+export FZF_DEFAULT_OPTS='--height 50% --reverse --border'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-[[ -f $BASE16_SHELL ]] && source $DOTFILES/bash/${BASE16_THEME}.config
+
+# b - browse chrome history with fzf
+b() {
+  local cols sep google_history open
+  cols=$((COLUMNS / 3))
+  sep='{::}'
+
+  if [ "$(uname)" = "Darwin" ]; then
+    google_history="$HOME/Library/Application Support/Google/Chrome/Profile 1/History"
+    open=open
+  else
+    google_history="$HOME/.config/google-chrome/Default/History"
+    open=xdg-open
+  fi
+
+  if [ -e "$google_history/Default" ]; then
+    google_history="$HOME/Library/Application Support/Google/Chrome/Default/History"
+  else
+    google_history="$HOME/Library/Application Support/Google/Chrome/Profile 1/History"
+  fi
+  cp -f "$google_history" /tmp/h
+  sqlite3 -separator $sep /tmp/h \
+    "select substr(title, 1, $cols), url
+     from urls order by last_visit_time desc" |
+    awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
+    fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs $open >/dev/null 2>/dev/null
+}
+
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[[ -f $BASE16_SHELL ]] && source $DOTFILES/bash/${BASE16_THEME}.config
