@@ -3,7 +3,7 @@ set nocompatible
 " Basics {{{
 set encoding=utf-8
 " store path to vim folder in local variable
-let s:vimdir=fnamemodify(resolve(expand('<sfile>:p')), ':h')
+let s:vimdir = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 " set default 'runtimepath' (without ~/.vim folders)
 let &runtimepath = printf('%s/vimfiles,%s,%s/vimfiles/after', $VIM, $VIMRUNTIME, $VIM)
 " add the directory to 'runtimepath'
@@ -186,7 +186,7 @@ let g:ale_linters = {
 \  'tex': ['chktex'],
 \  'c': [],
 \  'cpp': [],
-\  'python': ['flake8'],
+\  'python': ['flake8', 'pyls'],
 \  'java': [],
 \}
 let g:ale_fixers = {
@@ -349,6 +349,11 @@ nmap <silent> <leader>s :set spell!<CR>
 
 " Clear search results and quicklist when hitting control-space
 nnoremap <silent> <tab> :nohlsearch<Bar>:echo<CR>:ccl<CR>
+
+" Close preview window after completion
+augroup closeprev
+  autocmd CompleteDone * pclose
+augroup END
 
 " Show current file as HTML
 nmap <Leader>h :TOhtml<CR>:w<cr>:!open %<CR>:q<CR>
