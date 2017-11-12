@@ -25,6 +25,7 @@ function tow_link() {
 
 # unlink $1 if it points to $2
 function tow_unlink() {
+  echo unlink $1
   if [ "$1" -ef "$2" ]; then # is dest still a symlink to f?
     rm $1 # unlink f
   fi
@@ -35,14 +36,14 @@ for d in "${@:2}"; do
     for f in ${d%/}/*; do
       if [[ $1 == "link" ]]; then # if unlink
         tow_link "$HOME/.$(basename $f)" "$PWD/$f"
-      elif [[ $1 == "link" ]]; then
+      elif [[ $1 == "unlink" ]]; then
         tow_unlink "$HOME/.$(basename $f)" "$PWD/$f"
       fi
     done
   else # if d is a file
     if [[ $1 == "link" ]]; then # if unlink
       tow_link "$HOME/.$(basename $d)" "$PWD/$d"
-    elif [[ $1 == "link" ]]; then
+    elif [[ $1 == "unlink" ]]; then
       tow_unlink "$HOME/.$(basename $d)" "$PWD/$d"
     fi
   fi
