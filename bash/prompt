@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+# https://github.com/git/git/tree/master/contrib/completion
+. "$DOTFILES/bash/git-completion.bash"
+. "$DOTFILES/bash/git-prompt.sh"
+export GIT_PS1_SHOW{DIRTYSTATE,STASHSTATE,UNTRACKEDFILES,COLORHINTS}=1
+export GIT_PS1_DESCRIBE_STYLE="branch"
+export GIT_PS1_SHOWUPSTREAM="auto git"
+
+# show number of jobs backgrounded via 'ctrl-z' in bash prompt
+_promptGetBackgroundJobs() {
+  JOBS_COUNT=$(jobs -s | wc -l | xargs)
+  [ $JOBS_COUNT == 1 ] && printf "\b₁"
+  [ $JOBS_COUNT == 2 ] && printf "\b₂"
+  [ $JOBS_COUNT == 3 ] && printf "\b₃"
+  [ $JOBS_COUNT -gt 3 ] && printf "\b₊"
+}
+
+# TODO: is \001...\002 needed for color escaping?
+_setPromptCommand() {
+  if [ ! $PROMPT_EMOJI = 0 ]; then
+    # get random emoji for prompt 💩
+    . "$DOTFILES/bash/emojis"
+    local -r EMOJI="$(_getRandomEmoji) "
+  fi
+  # local -r EMOJI="$(_getRandomEmoji)  "
+  local -r YELLOW='\001'$(tput setaf 3)'\002'
+  local -r MAGENTA='\001'$(tput setaf 5)'\002'
+  local -r CYAN='\001'$(tput setaf 6)'\002'
+  local -r RESET='\001'$(tput sgr0)'\002'
+  local -r SSHUSER=$([ -n "$SSH_CLIENT" ] && echo '\u ' || echo '')
+  local -r ITERM2='\[$(iterm2_prompt_mark 2> /dev/null)\]'
+  PROMPT_COMMAND+='; __git_ps1 "'$ITERM2$EMOJI' '$MAGENTA'$(_promptGetBackgroundJobs)'$YELLOW$SSHUSER$CYAN'\w'$RESET'" "'$YELLOW' \\\$ '$RESET'" " |%s|"'
+}
+
+_setPromptCommand
+unset -f _setPromptCommand

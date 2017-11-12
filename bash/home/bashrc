@@ -1,7 +1,7 @@
 # If not running interactively, don't do anything
 if [[ $- != *i* ]]; then return; fi
 
-DOTFILES="$HOME/.dotfiles"
+DOTFILES="$(dirname $(readlink ${BASH_SOURCE%}))/../.."
 
 # set color scheme
 BASE16_THEME='base16-default-dark'
@@ -15,37 +15,9 @@ BASE16_SHELL="$DOTFILES/bash/${BASE16_THEME}.sh"
 . $DOTFILES/bash/bash_aliases
 . $DOTFILES/private/bash/bash_aliases 2>/dev/null
 
-# https://github.com/git/git/tree/master/contrib/completion
-. "$DOTFILES/bash/git-completion.bash"
-. "$DOTFILES/bash/git-prompt.sh"
-export GIT_PS1_SHOW{DIRTYSTATE,STASHSTATE,UNTRACKEDFILES,COLORHINTS}=1
-export GIT_PS1_DESCRIBE_STYLE="branch"
-export GIT_PS1_SHOWUPSTREAM="auto git"
-
-# show number of jobs backgrounded via 'ctrl-z' in bash prompt
-getBackgroundJobs() {
-  JOBS_COUNT=$(jobs -s | wc -l | xargs)
-  [ $JOBS_COUNT == 1 ] && printf "\b₁"
-  [ $JOBS_COUNT == 2 ] && printf "\b₂"
-  [ $JOBS_COUNT == 3 ] && printf "\b₃"
-  [ $JOBS_COUNT -gt 3 ] && printf "\b₊"
-}
-
-# TODO: is \001...\002 needed for color escaping?
-setPromptCommand() {
-  # get random emoji for prompt 💩
-  . "$DOTFILES/bash/emojis"
-  local -r EMOJI="$(getRandomEmoji)  "
-  local -r YELLOW='\001'$(tput setaf 3)'\002'
-  local -r MAGENTA='\001'$(tput setaf 5)'\002'
-  local -r CYAN='\001'$(tput setaf 6)'\002'
-  local -r RESET='\001'$(tput sgr0)'\002'
-  local -r SSHUSER=$([ -n "$SSH_CLIENT" ] && echo '\u ' || echo '')
-  local -r ITERM2='\[$(iterm2_prompt_mark 2> /dev/null)\]'
-  PROMPT_COMMAND+='; __git_ps1 "'$ITERM2$EMOJI$MAGENTA'$(getBackgroundJobs)'$YELLOW$SSHUSER$CYAN'\w'$RESET'" "'$YELLOW' \\\$ '$RESET'" " |%s|"'
-}
-
-setPromptCommand
+# set prompt
+export PROMPT_EMOJI=1
+. $DOTFILES/bash/prompt
 
 # setup MacOS specific config
 if [ "$(uname)" == "Darwin" ]; then
@@ -64,38 +36,7 @@ export PATH=$PATH:$DOTFILES/bash/bin
 
 export EDITOR=vim
 
-# fzf configuration
-export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -100'"
-export FZF_DEFAULT_COMMAND="ag -g ''"
-export FZF_DEFAULT_OPTS='--height 50% --reverse --border'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
-# b - browse chrome history with fzf
-b() {
-  local cols sep google_history open
-  cols=$((COLUMNS / 3))
-  sep='{::}'
-
-  if [ "$(uname)" = "Darwin" ]; then
-    google_history="$HOME/Library/Application Support/Google/Chrome/Profile 1/History"
-    open=open
-  else
-    google_history="$HOME/.config/google-chrome/Default/History"
-    open=xdg-open
-  fi
-
-  if [ -e "$google_history/Default" ]; then
-    google_history="$HOME/Library/Application Support/Google/Chrome/Default/History"
-  else
-    google_history="$HOME/Library/Application Support/Google/Chrome/Profile 1/History"
-  fi
-  cp -f "$google_history" /tmp/h
-  sqlite3 -separator $sep /tmp/h \
-    "select substr(title, 1, $cols), url
-     from urls order by last_visit_time desc" |
-    awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
-    fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs $open >/dev/null 2>/dev/null
-}
-
+. $DOTFILES/bash/fzf-config
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-[[ -f $BASE16_SHELL ]] && source $DOTFILES/bash/${BASE16_THEME}.config
+
+unset DOTFILES

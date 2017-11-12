@@ -3,7 +3,7 @@
 	email = simon.bugert@gmail.com
 [core]
   editor = vim
-  excludesfile = ~/.dotfiles/git/gitignore_global
+  excludesfile = ~/.gitignore_global
 
 [alias]
   latest = for-each-ref --sort=-committerdate --format='%(committerdate:short) %(refname:short) [%(committername)]'
