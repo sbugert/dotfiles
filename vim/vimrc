@@ -1,6 +1,7 @@
 scriptencoding utf8
 set nocompatible
 " Basics {{{
+set encoding=utf-8
 " store path to vim folder in local variable
 let s:vimdir=fnamemodify(resolve(expand('<sfile>:p')), ':h')
 " set default 'runtimepath' (without ~/.vim folders)
