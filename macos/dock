@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -e
+
+dockutil --remove all
+
+dockutil --add /Applications/System\ Preferences.app --no-restart
+dockutil --add /Applications/App\ Store.app --no-restart
+dockutil --add /Applications/Mail.app --no-restart
+dockutil --add /Applications/iTunes.app --no-restart
+dockutil --add /Applications/Ableton\ Live\ 9\ Suite.app --no-restart
+dockutil --add /Applications/Google\ Chrome.app --no-restart
+
+dockutil --add '' --type spacer --section apps --no-restart
+
+dockutil --add '~/Downloads' --view fan --display stack --no-restart
+dockutil --add '~/' --view grid --display folder --no-restart
+defaults write com.apple.dock persistent-others -array-add '{"tile-data" = {"list-type" = 1;}; "tile-type" = "recents-tile";}'
+
+killall Dock
