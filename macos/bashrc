@@ -1,4 +1,5 @@
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
 if [ -f /usr/local/share/bash-completion/bash_completion ]; then
   . /usr/local/share/bash-completion/bash_completion
 fi
@@ -6,9 +7,10 @@ fi
 # add android-sdk path installed by homebrew
 export ANDROID_HOME=/usr/local/opt/android-sdk
 
-# add repos to cd path to jump to project
+# add repos folder to cd path to jump to project
 CDPATH=".:~/repos"
 
 export PATH=$PATH:$HOME/opt/node/latest/bin
 export PATH=$PATH:/usr/local/opt/llvm/bin
-export PATH="$PATH:$HOME/Library/Python/3.6/bin"
+
+. "$DOTFILES/macos/bash_aliases"

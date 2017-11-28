@@ -1,6 +1,7 @@
 # If not running interactively, don't do anything
 if [[ $- != *i* ]]; then return; fi
 
+# get real path to dotfiles repo
 DOTFILES="$(dirname $(readlink ${BASH_SOURCE%}))/../.."
 
 # set color scheme
@@ -10,10 +11,6 @@ BASE16_SHELL="$DOTFILES/bash/${BASE16_THEME}.sh"
 
 # https://github.com/mrzool/bash-sensible
 . $DOTFILES/bash/sensible.bash
-
-# source bash aliases
-. $DOTFILES/bash/bash_aliases
-. $DOTFILES/private/bash/bash_aliases 2>/dev/null
 
 # set prompt
 export PROMPT_EMOJI=1
@@ -38,5 +35,9 @@ export EDITOR=vim
 
 . $DOTFILES/bash/fzf-config
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# source bash aliases
+. $DOTFILES/bash/bash_aliases
+. $DOTFILES/private/bash/bash_aliases 2>/dev/null
 
 unset DOTFILES
