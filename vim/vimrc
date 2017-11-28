@@ -82,6 +82,7 @@ call plug#begin(s:vimdir . '/plugged')
 Plug 'vim-airline/vim-airline' " lean & mean status/tabline for vim that's light as air
 Plug 'jacoborus/tender' " colorscheme
 Plug 'airblade/vim-gitgutter' " shows a git diff in the gutter (sign column)
+Plug 'tpope/vim-fugitive'
 Plug 'SirVer/ultisnips'
 Plug 'epilande/vim-es2015-snippets'
 Plug 'epilande/vim-react-snippets'
@@ -145,7 +146,7 @@ endif
 let g:jsx_ext_required = 0
 
 " Highlight active line
-" set cursorline
+set cursorline
 
 " Show Line numbers
 set number
@@ -186,20 +187,23 @@ let g:ale_linters = {
 \  'tex': ['chktex'],
 \  'c': [],
 \  'cpp': [],
-\  'python': ['flake8', 'pyls'],
+\  'python': ['flake8'],
 \  'java': [],
 \}
 let g:ale_fixers = {
 \  'javascript': ['prettier'],
 \  'json': ['prettier'],
+\  'markdown': ['prettier'],
 \  'cpp': ['clang-format'],
 \  'python': ['autopep8'],
 \  'sh': ['shfmt'],
 \}
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_javascript_prettier_options = '--trailing-comma es5 --single-quote'
 let g:ale_sh_shfmt_options = '-i 2 -s'
 let g:ale_c_clangformat_options = '-style="{BasedOnStyle: llvm, IndentWidth: 2, ColumnLimit: 100, AllowShortFunctionsOnASingleLine: None, KeepEmptyLinesAtTheStartOfBlocks: false}"'
-let g:ale_python_autopep8_options = '--aggressive'
+let g:ale_python_autopep8_options = '-a -a --max-line-length=100'
+let g:ale_python_flake8_options = '--max-line-length 100'
 
 nnoremap gp :ALEFix<CR>
 
@@ -207,15 +211,19 @@ let g:ale_sign_error = '✗✗'
 let g:ale_sign_warning = '∆∆'
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '']
 
+" UltiSnips
+let g:UltiSnipsSnippetsDir = s:vimdir . '/UltiSnips'
+
+
 " Airline
 
-let g:airline_extensions = ['hunks', 'whitespace', 'tabline', 'ycm', 'ale']
+" let g:airline_extensions = ['hunks', 'whitespace', 'tabline', 'ycm', 'ale']
 
-let g:airline#extensions#ycm#enabled = 1
+" let g:airline#extensions#ycm#enabled = 1
 let g:airline#extensions#ycm#error_symbol = '⨉ '
 let g:airline#extensions#ycm#warning_symbol = '⚠ '
 
-let g:airline#extensions#ale = 1
+" let g:airline#extensions#ale = 1
 let g:airline#extensions#ale#error_symbol = '⨉ '
 let g:airline#extensions#ale#warning_symbol = '⚠ '
 
@@ -380,7 +388,7 @@ nnoremap <F6> :AsyncStop<CR>:call asyncrun#quickfix_toggle(10, 0)<CR>
 augroup ASYNCRUN
     autocmd!
     " Automatically open the quickfix window
-    autocmd User AsyncRunStart call asyncrun#quickfix_toggle(10, 1)
+    autocmd User AsyncRunStart call asyncrun#quickfix_toggle(15, 1)
 augroup END
 
 function! s:compile_and_run()
@@ -394,7 +402,7 @@ function! s:compile_and_run()
   elseif &filetype ==# 'tex'
     exec 'AsyncRun latexmk % -pdf'
   elseif &filetype ==# 'python'
-    exec 'AsyncRun python3 %'
+    exec 'AsyncRun -raw python3 %'
   endif
 endfunction
 
@@ -405,19 +413,19 @@ function! RunWithNode()
   if !empty(glob(l:pkgpath))
     let l:pkg = json_decode(join(readfile(l:pkgpath), "\n"))
     if (index(keys(l:pkg), 'main') >= 0) " if there is a key 'main'
-      exec 'AsyncRun time node ' . l:prefix . '/' . l:pkg.main
+      exec 'AsyncRun -raw node ' . l:prefix . '/' . l:pkg.main
       return
     endif
   endif
   " else fallback to currently opened file
-  exec 'AsyncRun time node %<'
+  exec 'AsyncRun -raw node %<'
 endfunction
 
 function! MakeAndRun()
   if !empty(glob('Makefile')) " if a Makefile exists use it
-    exec 'AsyncRun make && time make run'
+    exec 'AsyncRun make && make run'
   else
-    exec 'AsyncRun make %< && time ./%<'
+    exec 'AsyncRun make %< && ./%<'
   endif
 endfunction
 
