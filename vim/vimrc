@@ -186,7 +186,7 @@ let g:ale_linters = {
 \  'javascript': ['eslint', 'flow'],
 \  'tex': ['chktex'],
 \  'c': [],
-\  'cpp': [],
+\  'cpp': ['clangtidy'],
 \  'python': ['flake8'],
 \  'java': [],
 \}
@@ -204,6 +204,7 @@ let g:ale_sh_shfmt_options = '-i 2 -s'
 let g:ale_c_clangformat_options = '-style="{BasedOnStyle: llvm, IndentWidth: 2, ColumnLimit: 100, AllowShortFunctionsOnASingleLine: None, KeepEmptyLinesAtTheStartOfBlocks: false}"'
 let g:ale_python_autopep8_options = '-a -a --max-line-length=100'
 let g:ale_python_flake8_options = '--max-line-length 100'
+let g:ale_cpp_clangtidy_checks = ['clang-diagnostic-*', 'clang-analyzer-*']
 
 nnoremap gp :ALEFix<CR>
 
