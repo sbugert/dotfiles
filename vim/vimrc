@@ -79,14 +79,14 @@ augroup END
 
 call plug#begin(s:vimdir . '/plugged')
 
-Plug 'vim-airline/vim-airline' " lean & mean status/tabline for vim that's light as air
-Plug 'jacoborus/tender' " colorscheme
-Plug 'airblade/vim-gitgutter' " shows a git diff in the gutter (sign column)
+Plug 'vim-airline/vim-airline'
+Plug 'jacoborus/tender'
+Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'SirVer/ultisnips'
 Plug 'epilande/vim-es2015-snippets'
 Plug 'epilande/vim-react-snippets'
-Plug 'mbbill/undotree' " undo tree
+Plug 'mbbill/undotree'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 if executable('cmake')
@@ -94,16 +94,16 @@ if executable('cmake')
                                \ 'for': [ 'cpp', 'c' ] }
   Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 endif
-Plug 'mileszs/ack.vim' " Vim plugin for the Perl module / CLI script 'ack'
 Plug 'tomtom/tcomment_vim'
-Plug 'tpope/vim-repeat' " enable repeating supported plugin maps with .
-Plug 'tpope/vim-surround' " quoting/parenthesizing made simple
-Plug 'tpope/vim-unimpaired' " pairs of handy bracket mappings
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 Plug 'wellle/targets.vim'
 Plug 'ap/vim-css-color'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'w0rp/ale'
 Plug 'sheerun/vim-polyglot'
+Plug 'lifepillar/vim-cheat40'
 
 if has('nvim')
   Plug 'Floobits/floobits-neovim'
@@ -275,15 +275,11 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-" Use The Silver Searcher for :ack if available
-if executable('ag')
-  " Use ag in ack.vim
-  let g:ackprg = 'ag --nogroup --nocolor --column'
-  " Use ag in CtrlP
-  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g "" --ignore .git'
-  " Skip caching since ag is so fast
-  let g:ctrlp_use_caching = 0
-endif
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                 <bang>0)
 
 
 " vim-unimpaired vimcasts.org/episodes/bubbling-text/
@@ -339,7 +335,6 @@ noremap <Right> <nop>
 noremap <Up> <nop>
 noremap <Down> <nop>
 
-
 " Edit user .vimrc
 nmap <Leader>v :e $MYVIMRC<CR>
 
@@ -355,7 +350,7 @@ augroup END
 " Toggle spell checking on and off with `,s`
 nmap <silent> <leader>s :set spell!<CR>
 
-" Clear search results and quicklist when hitting control-space
+" Clear search results and quicklist when hitting tab
 nnoremap <silent> <tab> :nohlsearch<Bar>:echo<CR>:ccl<CR>
 
 " Close preview window after completion
