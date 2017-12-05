@@ -9,7 +9,7 @@ installnode() {
     FILENAME="node-$NEWVERSION-linux-x64"
   fi
 
-  curl "https://nodejs.org/dist/latest/$FILENAME.tar.xz" >"$HOME/opt/node/latest.tar.xz"
+  curl "https://nodejs.org/dist/$NEWVERSION/$FILENAME.tar.xz" >"$HOME/opt/node/latest.tar.xz"
 
   # extract new node to latest/
   echo "Extracting new version..."
@@ -35,7 +35,7 @@ updatenode() {
     GLOBPKGS=$(npm list -g --depth 0 --parseable | sed -e "1d; s|$(npm root -g)/||")
 
     # make backup of old directory
-    echo "Moving old node to $HOME/opt/node/$OLDVERSION..."
+    echo "Moving installed node to $HOME/opt/node/$OLDVERSION..."
     mv "$HOME/opt/node/latest" "$HOME/opt/node/$OLDVERSION"
 
     installnode
@@ -56,8 +56,12 @@ updatenode() {
   esac
 }
 
-# find out what the newest version is
-NEWVERSION=$(wget -qO- https://nodejs.org/dist/latest/ | sed -nE 's|.*>node-(.*)\.pkg</a>.*|\1|p')
+if [[ -z $1 ]]; then
+  # find out what the newest version is
+  NEWVERSION=$(wget -qO- https://nodejs.org/dist/latest/ | sed -nE 's|.*>node-(.*)\.pkg</a>.*|\1|p')
+else
+  NEWVERSION=$1
+fi
 
 if hash node 2>/dev/null; then # if node is installed, update
   updatenode

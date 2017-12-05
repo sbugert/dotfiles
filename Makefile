@@ -15,10 +15,10 @@ unlinkdotfiles: ## Delete symlinked dotfiles
 
 installnode: ## Install Node.js
 		@printf "$(PURPLE)Installing Node.js$(RESET)\n"
-		@./bash/bin/update-node
+		@./bash/bin/update-node ${NODE_VERSION}
 
 setupvim: ## Setup vim config
-		@printf "$(PURPLE)Linking dotfiles$(RESET)\n"
+		@printf "$(PURPLE)Setting up vim$(RESET)\n"
 		@./tow link vim/vimrc
 		@vim +silent +PlugInstall +qall
 
