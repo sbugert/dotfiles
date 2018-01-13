@@ -131,6 +131,7 @@ if !empty(glob(s:vimdir . '/plugged/tender'))
   hi Visual term=reverse cterm=reverse
   hi Search guifg=#eeeeee ctermfg=255 guibg=#f43753 ctermbg=203 gui=NONE cterm=NONE
 
+  hi Conceal guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
   hi Comment cterm=italic gui=italic " Italic comments.
   hi Todo gui=italic gui=italic " Italic comments in gui.
   hi xmlAttrib cterm=italic gui=italic term=underline ctermfg=81 guifg=#73cef4
@@ -145,6 +146,8 @@ endif
 
 " Highlight active line
 set cursorline
+hi clear CursorLine
+hi CursorLineNR cterm=bold
 
 " Show Line numbers
 set number
@@ -324,6 +327,13 @@ nmap <space> :
 set pastetoggle=<leader>p " Toggle paste mode
 " Keep curson in place when using J to join two lines
 nnoremap J mzJ`z
+
+if v:version > 703 || v:version == 703 && has('patch541')
+  set formatoptions+=j
+endif
+
+" replay macro on Q instead of switching to Ex mode
+nnoremap Q @@
 
 " make Y consistent with D and C commands
 nnoremap Y y$
