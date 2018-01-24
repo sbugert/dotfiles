@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -e
+
+defaults write -g NSDocumentSaveNewDocumentsToCloud -bool false
+defaults write -app Skim SKAutoReloadFileUpdate -boolean true
+defaults write NSGlobalDomain AppleHighlightColor -string ".8156 0.501 .2156"
+defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"

@@ -24,9 +24,15 @@ brew bundle check
 if [ "$SHELL" == '/bin/bash' ]; then
   echo "> Setting up bash"
   grep -q -F "$(brew --prefix)/bin/bash" /etc/shells || echo "$(brew --prefix)/bin/bash" | sudo tee -a /etc/shells
-  sudo chsh -s "$(brew --prefix)/bin/bash" $USER
+  sudo chsh -s "$(brew --prefix)/bin/bash" "$USER"
 fi
 
 echo "> Clearing homebrew caches"
 brew cleanup
 brew cask cleanup
+
+echo "> Setting up dock"
+./dock
+
+echo "> Setting defaults"
+./defaults
