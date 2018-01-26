@@ -108,9 +108,9 @@ Plug 'w0rp/ale'
 Plug 'sheerun/vim-polyglot'
 Plug 'lifepillar/vim-cheat40'
 
-if has('nvim')
-  Plug 'Floobits/floobits-neovim'
-endif
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 
 call plug#end()
 
@@ -318,6 +318,8 @@ let g:undotree_WindowLayout = 2
 
 " activate jsx syntax highlighting for .js files
 let g:jsx_ext_required = 0
+
+let g:deoplete#enable_at_startup = 1
 
 " }}}
 " General mappings {{{
