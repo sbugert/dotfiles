@@ -301,17 +301,17 @@
 	<key>NSWindow Frame Preferences</key>
 	<string>165 315 606 456 0 0 1280 777 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
-	<string>832 607 400 129 0 0 1280 777 </string>
+	<string>204 463 400 129 0 0 1280 777 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>377 322 675 587 0 0 1920 1057 </string>
+	<string>302 143 675 587 0 0 1280 777 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>577 412 796 473 0 0 1920 1057 </string>
+	<string>177 553 796 473 0 0 1920 1057 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
-	<string>154 473 592 584 0 0 1920 1057 </string>
+	<string>688 4 592 773 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>967 20 933 1018 0 0 1920 1057 </string>
+	<string>335 157 844 710 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>1344 536 556 502 0 0 1920 1057 </string>
+	<string>1031 188 632 717 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 10</key>
 	<string>936 47 920 719 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 11</key>
@@ -329,19 +329,19 @@
 	<key>NSWindow Frame iTerm Window 17</key>
 	<string>570 105 640 719 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>20 19 1215 502 0 0 1920 1057 </string>
+	<string>183 57 1020 720 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
-	<string>1155 791 365 247 0 0 1920 1057 </string>
+	<string>20 20 1308 298 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 4</key>
-	<string>967 794 222 243 0 0 1920 1057 </string>
+	<string>1011 0 269 194 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 5</key>
-	<string>136 299 640 719 0 0 1920 1057 </string>
+	<string>384 194 439 175 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 6</key>
-	<string>1085 148 640 719 0 0 1920 1057 </string>
+	<string>1011 194 269 175 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 7</key>
-	<string>96 239 640 719 0 0 1920 1057 </string>
+	<string>384 194 896 175 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 8</key>
-	<string>160 338 640 719 0 0 1920 1057 </string>
+	<string>1011 369 269 408 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 9</key>
 	<string>36 46 1249 660 0 0 1920 1057 </string>
 	<key>NeverWarnAboutShortLivedSessions_2B6DD11D-986F-4E8D-87EE-079F51C5039E</key>
@@ -2898,7 +2898,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-01-23T22:44:05Z</date>
+	<date>2018-03-26T19:03:49Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Secure Input</key>
@@ -2909,6 +2909,8 @@
 	<false/>
 	<key>ShowFullScreenTabBar</key>
 	<true/>
+	<key>ShowMetalFPSmeter</key>
+	<false/>
 	<key>ShowPaneTitles</key>
 	<true/>
 	<key>SmartPlacement</key>
@@ -2948,7 +2950,7 @@
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
 	<key>UKCrashReporterLastCrashReportDate</key>
-	<real>1480272768</real>
+	<real>1518452096</real>
 	<key>URLHandlersByGuid</key>
 	<dict/>
 	<key>UseBorder</key>
@@ -2957,6 +2959,8 @@
 	<false/>
 	<key>UseLionStyleFullscreen</key>
 	<true/>
+	<key>UseMetal</key>
+	<false/>
 	<key>WebKitDefaultFontSize</key>
 	<integer>11</integer>
 	<key>WebKitStandardFont</key>
@@ -2974,7 +2978,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.1.5.beta.2</string>
+	<string>3.1.6beta4</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
