@@ -3,7 +3,7 @@ PURPLE=\033[35m
 YELLOW=\033[3;33m
 RESET=\033[0;0m
 
-linkdotfiles: ## Symlink dotfiles
+linkdotfiles: ## Link dotfiles
 		@printf "$(PURPLE)Linking dotfiles$(RESET)\n"
 		@./tow link bash/home git tmux/tmux.conf
 		@printf "$(PURPLE)Restart session or run $(YELLOW)source ~/.bashrc$(RESET) $(PURPLE)for changes to take effect$(RESET)\n"
@@ -21,6 +21,11 @@ setupvim: ## Setup vim config
 		@printf "$(PURPLE)Setting up vim$(RESET)\n"
 		@./tow link vim/vimrc
 		@vim +silent +PlugInstall +qall
+
+setupchunkwm: ## Setup chunkwm
+		@printf "$(PURPLE)Setting up chunkwm$(RESET)\n"
+		@./tow link chunkwm/chunkwmrc
+		@./tow link chunkwm/skhdrc
 
 setupmac: decrypt linkdotfiles installnode setupvim ## Setup MacOS
 		@printf "$(PURPLE)Setting up MacOS$(RESET)\n"
@@ -43,4 +48,4 @@ help:
 		@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "$(PURPLE)%-30s$(RESET) $(YELLOW)%s\n$(RESET)", $$1, $$2}'
 
 .DEFAULT_GOAL := help
-.PHONY: linkdotfiles unlinkdotfiles installnode setupvim setupmac uninstalldotfiles decrypt encrypt help
+.PHONY: linkdotfiles unlinkdotfiles installnode setupvim setupchunkwm setupmac uninstalldotfiles decrypt encrypt help

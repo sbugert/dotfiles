@@ -40,7 +40,7 @@ alt - w : chunkc tiling::window --close
 alt - h : chunkc tiling::window --focus west
 alt - j : chunkc tiling::window --focus south
 alt - k : chunkc tiling::window --focus north
-alt - l : chunkc tiling::window --focus east
+# alt - l : chunkc tiling::window --focus east
 
 cmd - j : chunkc tiling::window --focus prev
 cmd - k : chunkc tiling::window --focus next
