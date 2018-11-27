@@ -34,7 +34,7 @@ setupmac: decrypt linkdotfiles ## Setup MacOS
 		@curl -s -L https://iterm2.com/shell_integration/bash -o ~/.iterm2_shell_integration.bash
 		@defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "${CURDIR}/iterm2"
 		@defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
-		@tic iterm2/xterm-256color-italic.terminfo
+		@tic iterm2/xterm-256color.terminfo
 
 decrypt: ## Decrypt private directory
 		@printf "$(YELLOW)"

@@ -260,12 +260,6 @@
 	<true/>
 	<key>MaxVertically</key>
 	<false/>
-	<key>NSFontPanelAttributes</key>
-	<string>1, 4</string>
-	<key>NSNavLastRootDirectory</key>
-	<string>~/Downloads</string>
-	<key>NSNavPanelExpandedSizeForOpenMode</key>
-	<string>{712, 459}</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -274,76 +268,41 @@
 	<false/>
 	<key>NSScrollViewShouldScrollUnderTitlebar</key>
 	<false/>
-	<key>NSTableView Columns KeyBingingTable</key>
-	<array>
-		<data>
-		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
-		hAErATCG
-		</data>
-		<string>198</string>
-		<data>
-		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
-		hAErATGG
-		</data>
-		<string>330</string>
-	</array>
-	<key>NSTableView Hidden Columns KeyBingingTable</key>
-	<array/>
-	<key>NSTableView Sort Ordering KeyBingingTable</key>
-	<array/>
-	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
-	<dict>
-		<key>TB Is Shown</key>
-		<integer>1</integer>
-	</dict>
+	<key>NSTableView Columns v2 KeyBingingTable</key>
+	<data>
+	YnBsaXN0MDDUAQIDBAUGNjdYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3AS
+	AAGGoK4HCA8aGxwdHh8gJjAxMlUkbnVsbNIJCgsOWk5TLm9iamVjdHNWJGNsYXNzogwN
+	gAKACoAN0xAJChEVGVdOUy5rZXlzoxITFIADgASABaMWFxiABoAHgAiACVpJZGVudGlm
+	aWVyVVdpZHRoVkhpZGRlblEwI0BowAAAAAAACNIhIiMkWiRjbGFzc25hbWVYJGNsYXNz
+	ZXNcTlNEaWN0aW9uYXJ5oiMlWE5TT2JqZWN00xAJCicrGaMSExSAA4AEgAWjLC0YgAuA
+	DIAIgAlRMSNAdKGdsi0OVtIhIjM0Xk5TTXV0YWJsZUFycmF5ozM1JVdOU0FycmF5XxAP
+	TlNLZXllZEFyY2hpdmVy0Tg5VUFycmF5gAEACAARABoAIwAtADIANwBGAEwAUQBcAGMA
+	ZgBoAGoAbABzAHsAfwCBAIMAhQCJAIsAjQCPAJEAnACiAKkAqwC0ALUAugDFAM4A2wDe
+	AOcA7gDyAPQA9gD4APwA/gEAAQIBBAEGAQ8BFAEjAScBLwFBAUQBSgAAAAAAAAIBAAAA
+	AAAAADoAAAAAAAAAAAAAAAAAAAFM
+	</data>
+	<key>NSTableView Sort Ordering v2 KeyBingingTable</key>
+	<data>
+	YnBsaXN0MDDUAQIDBAUGFBVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3AS
+	AAGGoKMHCA1VJG51bGzSCQoLDFpOUy5vYmplY3RzViRjbGFzc6CAAtIODxARWiRjbGFz
+	c25hbWVYJGNsYXNzZXNeTlNNdXRhYmxlQXJyYXmjEBITV05TQXJyYXlYTlNPYmplY3Rf
+	EA9OU0tleWVkQXJjaGl2ZXLRFhdVQXJyYXmAAQgRGiMtMjc7QUZRWFlbYGt0g4ePmKqt
+	swAAAAAAAAEBAAAAAAAAABgAAAAAAAAAAAAAAAAAAAC1
+	</data>
+	<key>NSTableView Supports v2 KeyBingingTable</key>
+	<true/>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>361 174 672 457 0 0 1920 1057 </string>
-	<key>NSWindow Frame Preferences</key>
-	<string>165 315 606 456 0 0 1280 777 </string>
+	<string>268 181 445 77 0 0 1440 877 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
-	<string>204 463 400 129 0 0 1280 777 </string>
+	<string>520 561 400 129 0 0 1440 877 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>302 143 675 587 0 0 1280 777 </string>
+	<string>410 363 620 392 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>177 553 796 473 0 0 1920 1057 </string>
+	<string>23 412 1018 447 0 0 1440 877 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
-	<string>688 4 592 773 0 0 1280 777 </string>
+	<string>99 293 592 584 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>335 157 844 710 0 0 1920 1057 </string>
-	<key>NSWindow Frame iTerm Window 1</key>
-	<string>1031 188 632 717 0 0 1920 1057 </string>
-	<key>NSWindow Frame iTerm Window 10</key>
-	<string>936 47 920 719 0 0 1920 1057 </string>
-	<key>NSWindow Frame iTerm Window 11</key>
-	<string>554 34 640 719 0 0 1280 777 </string>
-	<key>NSWindow Frame iTerm Window 12</key>
-	<string>478 58 640 719 0 0 1280 777 </string>
-	<key>NSWindow Frame iTerm Window 13</key>
-	<string>499 58 640 719 0 0 1280 777 </string>
-	<key>NSWindow Frame iTerm Window 14</key>
-	<string>1040 338 640 719 0 0 1920 1057 </string>
-	<key>NSWindow Frame iTerm Window 15</key>
-	<string>1082 338 640 719 0 0 1920 1057 </string>
-	<key>NSWindow Frame iTerm Window 16</key>
-	<string>1256 323 640 719 0 0 1920 1057 </string>
-	<key>NSWindow Frame iTerm Window 17</key>
-	<string>570 105 640 719 0 0 1920 1057 </string>
-	<key>NSWindow Frame iTerm Window 2</key>
-	<string>183 57 1020 720 0 0 1280 777 </string>
-	<key>NSWindow Frame iTerm Window 3</key>
-	<string>20 20 1308 298 0 0 1920 1057 </string>
-	<key>NSWindow Frame iTerm Window 4</key>
-	<string>1011 0 269 194 0 0 1280 777 </string>
-	<key>NSWindow Frame iTerm Window 5</key>
-	<string>384 194 439 175 0 0 1280 777 </string>
-	<key>NSWindow Frame iTerm Window 6</key>
-	<string>1011 194 269 175 0 0 1280 777 </string>
-	<key>NSWindow Frame iTerm Window 7</key>
-	<string>384 194 896 175 0 0 1280 777 </string>
-	<key>NSWindow Frame iTerm Window 8</key>
-	<string>1011 369 269 408 0 0 1280 777 </string>
-	<key>NSWindow Frame iTerm Window 9</key>
-	<string>36 46 1249 660 0 0 1920 1057 </string>
+	<string>700 0 690 830 0 0 1440 877 </string>
 	<key>NeverWarnAboutShortLivedSessions_2B6DD11D-986F-4E8D-87EE-079F51C5039E</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_2B6DD11D-986F-4E8D-87EE-079F51C5039E_selection</key>
@@ -974,7 +933,7 @@
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
-			<integer>10000</integer>
+			<integer>0</integer>
 			<key>Scrollback With Status Bar</key>
 			<false/>
 			<key>Scrollback in Alternate Screen</key>
@@ -1116,7 +1075,7 @@
 			<key>Tags</key>
 			<array/>
 			<key>Terminal Type</key>
-			<string>xterm-256color-italic</string>
+			<string>xterm-256color</string>
 			<key>Thin Strokes</key>
 			<integer>2</integer>
 			<key>Transparency</key>
@@ -1142,7 +1101,7 @@
 			<key>Use Tab Color</key>
 			<false/>
 			<key>Vertical Spacing</key>
-			<real>0.90000000000000002</real>
+			<real>1.0194900696536144</real>
 			<key>Visual Bell</key>
 			<false/>
 			<key>Window Type</key>
@@ -1441,7 +1400,9 @@
 			<key>Hide After Opening</key>
 			<false/>
 			<key>Horizontal Spacing</key>
-			<real>0.82746611445783125</real>
+			<real>0.80002823795180722</real>
+			<key>Icon</key>
+			<integer>1</integer>
 			<key>Idle Code</key>
 			<integer>0</integer>
 			<key>Initial Text</key>
@@ -1750,7 +1711,7 @@
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
-			<integer>10000</integer>
+			<integer>0</integer>
 			<key>Scrollback With Status Bar</key>
 			<false/>
 			<key>Scrollback in Alternate Screen</key>
@@ -1891,10 +1852,14 @@
 			<string>xterm-256color</string>
 			<key>Thin Strokes</key>
 			<integer>1</integer>
+			<key>Title Components</key>
+			<integer>34</integer>
 			<key>Transparency</key>
 			<real>0.0</real>
 			<key>Triggers</key>
 			<array/>
+			<key>Unicode Version</key>
+			<integer>9</integer>
 			<key>Unlimited Scrollback</key>
 			<true/>
 			<key>Use Bold Font</key>
@@ -1916,7 +1881,7 @@
 			<key>Use Underline Color</key>
 			<false/>
 			<key>Vertical Spacing</key>
-			<real>0.96680275790662651</real>
+			<real>1.00732421875</real>
 			<key>Visual Bell</key>
 			<false/>
 			<key>Window Type</key>
@@ -2709,121 +2674,104 @@
 	</array>
 	<key>NoSyncCommandHistoryHasEverBeenUsed</key>
 	<true/>
-	<key>NoSyncConfirmBeta</key>
-	<true/>
-	<key>NoSyncDoNotWarnBeforePastingOneLineEndingInNewlineAtShellPrompt</key>
-	<true/>
-	<key>NoSyncDoNotWarnBeforePastingOneLineEndingInNewlineAtShellPrompt_selection</key>
-	<integer>1</integer>
-	<key>NoSyncHaveUsedCopyMode</key>
-	<true/>
-	<key>NoSyncHaveWarnedAboutIncompatibleSoftware</key>
-	<true/>
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
-	<string>01E9AC59-59DD-4CB9-AD47-97DA4EA08F41</string>
-	<key>NoSyncLastTipTime</key>
-	<real>522882283.6613</real>
-	<key>NoSyncNeverRemindPrefsChangesCopy</key>
-	<true/>
-	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
-	<true/>
-	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
-	<integer>0</integer>
+	<string>32211764-D006-40BF-ACDB-79A48BF31271</string>
 	<key>NoSyncPermissionToShowTip</key>
-	<true/>
-	<key>NoSyncSilenceAnnoyingBellAutomatically</key>
-	<true/>
+	<false/>
+	<key>NoSyncRecordedVariableNames</key>
+	<dict>
+		<key>1</key>
+		<array>
+			<string>session.jobName</string>
+			<string>session.id</string>
+			<string>session.badge</string>
+			<string>session.profileName</string>
+			<string>session.name</string>
+			<string>session.terminalIconName</string>
+			<string>session.tmuxClientName</string>
+			<string>session.termid</string>
+			<string>session.triggerName</string>
+			<string>session.tmuxWindowPane</string>
+			<string>session.hostname</string>
+			<string>session.username</string>
+			<string>session.tmuxStatusRight</string>
+			<string>session.tmuxRole</string>
+			<string>session.path</string>
+			<string>session.creationTimeString</string>
+			<string>session.rows</string>
+			<string>session.tmuxWindowTitle</string>
+			<string>session.autoLogId</string>
+			<string>session.tty</string>
+			<string>session.autoName</string>
+			<string>session.terminalWindowName</string>
+			<string>iterm2</string>
+			<string>session.jobPid</string>
+			<string>session.tmuxStatusLeft</string>
+			<string>session.lastCommand</string>
+			<string>session.mouseReportingMode</string>
+			<string>session.pid</string>
+			<string>session.presentationName</string>
+			<string>session.columns</string>
+			<string>session.autoNameFormat</string>
+		</array>
+		<key>16</key>
+		<array>
+			<string>currentTab.currentSession.session.jobName</string>
+			<string>currentTab.currentSession.session.tty</string>
+			<string>currentTab.currentSession.session.username</string>
+			<string>currentTab.currentSession.session.name</string>
+			<string>currentTab.currentSession.session.hostname</string>
+			<string>currentTab</string>
+			<string>currentTab.currentSession.session.pid</string>
+			<string>currentTab.currentSession.session.path</string>
+			<string>currentTab.currentSession</string>
+			<string>currentTab.currentSession.session.lastCommand</string>
+			<string>titleOverride</string>
+			<string>currentTab.currentSession.session.terminalWindowName</string>
+			<string>currentTab.currentSession.session.autoName</string>
+			<string>currentTab.currentSession.session.jobPid</string>
+			<string>iterm2</string>
+			<string>currentTab.currentSession.session.presentationName</string>
+			<string>currentTab.currentSession.session.columns</string>
+			<string>currentTab.currentSession.session.terminalIconName</string>
+			<string>currentTab.currentSession.session.rows</string>
+			<string>currentTab.currentSession.session.mouseReportingMode</string>
+		</array>
+		<key>2</key>
+		<array>
+			<string>currentSession.session.jobName</string>
+			<string>currentSession.session.termid</string>
+			<string>currentSession.session.pid</string>
+			<string>currentSession.session.hostname</string>
+			<string>currentSession.session.name</string>
+			<string>currentSession.session.mouseReportingMode</string>
+			<string>currentSession.session.jobPid</string>
+			<string>currentSession.session.presentationName</string>
+			<string>currentSession.session.username</string>
+			<string>currentSession.session.terminalIconName</string>
+			<string>currentSession.session.terminalWindowName</string>
+			<string>titleOverride</string>
+			<string>currentSession.session.rows</string>
+			<string>currentSession.session.tty</string>
+			<string>currentSession.session.path</string>
+			<string>iterm2</string>
+			<string>currentSession.session.autoName</string>
+			<string>currentSession.session.lastCommand</string>
+			<string>tmuxWindow</string>
+			<string>currentSession</string>
+			<string>currentSession.session.columns</string>
+		</array>
+		<key>4</key>
+		<array>
+			<string>pid</string>
+			<string>localhostName</string>
+			<string>effectiveTheme</string>
+		</array>
+	</dict>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>477526393.33834898</real>
-	<key>NoSyncTimeOfLastPromo</key>
-	<real>463848859.89811403</real>
-	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>477483262.44166601</real>
-	<key>NoSyncTipsToNotShow</key>
-	<array>
-		<string>000</string>
-		<string>000</string>
-		<string>000</string>
-		<string>0000</string>
-		<string>0001</string>
-		<string>0001</string>
-		<string>0002</string>
-		<string>0001</string>
-		<string>0000</string>
-		<string>0003</string>
-		<string>0004</string>
-		<string>0005</string>
-		<string>0006</string>
-		<string>0007</string>
-		<string>0008</string>
-		<string>0009</string>
-		<string>0010</string>
-		<string>0011</string>
-		<string>0012</string>
-		<string>0013</string>
-		<string>0014</string>
-		<string>0015</string>
-		<string>0016</string>
-		<string>0017</string>
-		<string>0018</string>
-		<string>0019</string>
-		<string>0020</string>
-		<string>0021</string>
-		<string>0022</string>
-		<string>0023</string>
-		<string>0024</string>
-		<string>0025</string>
-		<string>0026</string>
-		<string>0027</string>
-		<string>0028</string>
-		<string>0029</string>
-		<string>0030</string>
-		<string>0031</string>
-		<string>0032</string>
-		<string>0033</string>
-		<string>0034</string>
-		<string>0035</string>
-		<string>0036</string>
-		<string>0037</string>
-		<string>0038</string>
-		<string>0039</string>
-		<string>0040</string>
-		<string>0041</string>
-		<string>0042</string>
-		<string>0043</string>
-		<string>0044</string>
-		<string>0045</string>
-		<string>0046</string>
-		<string>0047</string>
-		<string>0048</string>
-		<string>0049</string>
-		<string>0050</string>
-		<string>0051</string>
-		<string>0052</string>
-		<string>0053</string>
-		<string>0054</string>
-		<string>0055</string>
-		<string>0056</string>
-		<string>0057</string>
-		<string>0058</string>
-		<string>0059</string>
-		<string>0060</string>
-		<string>0061</string>
-		<string>0062</string>
-		<string>0063</string>
-		<string>0064</string>
-		<string>0065</string>
-		<string>0066</string>
-		<string>0067</string>
-		<string>0068</string>
-		<string>0069</string>
-		<string>0070</string>
-		<string>0071</string>
-	</array>
-	<key>NoSyncTurnOffMouseReportingOnHostChange</key>
-	<true/>
+	<real>555507719.54888701</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -2876,7 +2824,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/simonbugert/.dotfiles/iterm2</string>
+	<string>/Users/simon/.dotfiles/iterm2</string>
 	<key>Print In Black And White</key>
 	<true/>
 	<key>PromptOnClose</key>
@@ -2894,27 +2842,29 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/testing.xml?shard=36</string>
+	<string>https://iterm2.com/appcasts/testing.xml?shard=92</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-03-26T19:03:49Z</date>
-	<key>SavePasteHistory</key>
+	<date>2018-11-18T17:45:17Z</date>
+	<key>SUSendProfileInfo</key>
 	<false/>
-	<key>Secure Input</key>
+	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
 	<false/>
 	<key>ShowBookmarkName</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<true/>
+	<false/>
 	<key>ShowMetalFPSmeter</key>
 	<false/>
+	<key>ShowNewOutputIndicator</key>
+	<true/>
 	<key>ShowPaneTitles</key>
 	<true/>
 	<key>SmartPlacement</key>
-	<false/>
+	<true/>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.12133413461538461</real>
 	<key>StretchTabsToFillBar</key>
@@ -2930,9 +2880,9 @@
 	<key>TabViewType</key>
 	<integer>0</integer>
 	<key>TerminalMargin</key>
-	<integer>1</integer>
+	<integer>30</integer>
 	<key>TerminalVMargin</key>
-	<integer>1</integer>
+	<integer>30</integer>
 	<key>ThreeFingerEmulates</key>
 	<false/>
 	<key>TmuxDashboardLimit</key>
@@ -2950,7 +2900,7 @@
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
 	<key>UKCrashReporterLastCrashReportDate</key>
-	<real>1518452096</real>
+	<real>1540929536</real>
 	<key>URLHandlersByGuid</key>
 	<dict/>
 	<key>UseBorder</key>
@@ -2960,7 +2910,7 @@
 	<key>UseLionStyleFullscreen</key>
 	<true/>
 	<key>UseMetal</key>
-	<false/>
+	<true/>
 	<key>WebKitDefaultFontSize</key>
 	<integer>11</integer>
 	<key>WebKitStandardFont</key>
@@ -2978,7 +2928,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.1.6beta4</string>
+	<string>3.2.6beta3</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
