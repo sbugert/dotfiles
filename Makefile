@@ -27,7 +27,7 @@ setupchunkwm: ## Setup chunkwm
 		@./tow link chunkwm/chunkwmrc
 		@./tow link chunkwm/skhdrc
 
-setupmac: decrypt linkdotfiles installnode setupvim ## Setup MacOS
+setupmac: decrypt linkdotfiles ## Setup MacOS
 		@printf "$(PURPLE)Setting up MacOS$(RESET)\n"
 		@./macos/setup
 		@printf "$(PURPLE)Setting up iTerm2$(RESET)\n"
