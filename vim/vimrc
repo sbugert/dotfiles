@@ -1,7 +1,9 @@
 set encoding=utf-8
 scriptencoding utf8
 set nocompatible
+
 " Basics {{{
+
 " store path to vim folder in local variable
 let s:vimdir = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 " set default 'runtimepath' (without ~/.vim folders)
@@ -64,14 +66,12 @@ let g:mapleader = ',' " Leader key
 
 set ttimeoutlen=50 "shorten pause when leaving insert mode
 
-" Open help pages in new tab
-cabbrev help tab help
 " }}}
 " Plugins {{{
+
 " Install vim-plug if not available
 augroup InstallPlug
   autocmd!
-
     if empty(glob(s:vimdir . '/autoload/plug.vim'))
      if !executable('curl') | echo 'curl needs to be installed' | quit | endif
       silent exe '!curl -fLo ' . s:vimdir . '/autoload/plug.vim --create-dirs ' .
@@ -82,10 +82,16 @@ augroup END
 
 call plug#begin(s:vimdir . '/plugged')
 
-Plug 'vim-airline/vim-airline'
-Plug 'jacoborus/tender'
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
+Plug 'w0rp/ale'
+
+" Plug 'vim-airline/vim-airline'
+Plug 'ap/vim-buftabline'
+Plug 'itchyny/lightline.vim'
+Plug 'itchyny/vim-gitbranch'
+Plug 'maximbaz/lightline-ale'
+Plug 'itchyny/vim-cursorword'
+
+Plug 'mhinz/vim-signify'
 Plug 'SirVer/ultisnips'
 Plug 'epilande/vim-es2015-snippets'
 Plug 'epilande/vim-react-snippets'
@@ -99,18 +105,18 @@ if executable('cmake')
 endif
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
+Plug 'machakann/vim-sandwich'
 Plug 'tpope/vim-unimpaired'
 Plug 'wellle/targets.vim'
-Plug 'ap/vim-css-color'
 Plug 'skywind3000/asyncrun.vim'
-Plug 'w0rp/ale'
-Plug 'sheerun/vim-polyglot'
-Plug 'lifepillar/vim-cheat40'
 
-Plug 'Shougo/deoplete.nvim'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'sheerun/vim-polyglot'
+Plug 'ap/vim-css-color'
+Plug 'hail2u/vim-css3-syntax'
+
+" Plug 'Shougo/deoplete.nvim'
+" Plug 'roxma/nvim-yarp'
+" Plug 'roxma/vim-hug-neovim-rpc'
 
 Plug 'joshdick/onedark.vim'
 
@@ -118,68 +124,64 @@ call plug#end()
 
 " Better % command
 runtime macros/matchit.vim
+
 " }}}
 " UI and colors {{{
+
 if (has('termguicolors'))
  set termguicolors
 endif
 
 " https://vi.stackexchange.com/a/12305/620
-" function! GetHighlight(group)
-"   let output = execute('hi ' . a:group)
-"   let list = split(output, '\s\+')
-"   let dict = {}
-"   for item in list
-"     if match(item, '=') > 0
-"       let splited = split(item, '=')
-"       let dict[splited[0]] = splited[1]
-"     endif
-"   endfor
-"   return dict
-" endfunction
+function! GetHighlight(group)
+  let output = execute('hi ' . a:group)
+  let list = split(output, '\s\+')
+  let dict = {}
+  for item in list
+    if match(item, '=') > 0
+      let splited = split(item, '=')
+      let dict[splited[0]] = splited[1]
+    endif
+  endfor
+  return dict
+endfunction
+
 
 " Color Scheme
-" if !empty(glob(s:vimdir . '/plugged/tender'))
-"   colorscheme tender
-"   hi clear SignColumn
-"   hi VertSplit guifg=#808080 guibg=#282828
-"   hi Visual term=reverse cterm=reverse
-"   hi Search guifg=#eeeeee ctermfg=255 guibg=#f43753 ctermbg=203 gui=NONE cterm=NONE
-"
-"   hi Conceal guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
-"   hi Comment cterm=italic gui=italic " Italic comments.
-"   hi Todo cterm=italic gui=italic "
-"   hi xmlAttrib cterm=italic gui=italic ctermfg=81 guifg=#73cef4
-"   hi Normal ctermbg=00 guibg=#181818
-" endif
-
 if !empty(glob(s:vimdir . '/plugged/onedark.vim'))
-  colorscheme onedark
   let g:onedark_terminal_italics=1
+  colorscheme onedark
   let g:airline_theme='onedark'
   hi xmlAttrib cterm=italic gui=italic
-  hi Todo cterm=italic gui=italic "
-  hi Normal ctermbg=00 guibg=#181818
+  hi Todo cterm=italic gui=italic
+  " hi Normal ctermbg=00 guibg=#181818
+  " hi Comment cterm=italic
   hi Visual term=reverse cterm=reverse
+  execute 'hi LineNr guifg=' . GetHighlight('Normal').guibg
+  execute 'hi EndOfBuffer guifg=' . GetHighlight('Normal').guibg
+  execute 'hi BufTabLineCurrent guifg=' . GetHighlight('Function').guifg
+  silent exe '!' . s:vimdir . '/../bash/bin/term_scheme "\' . GetHighlight('Normal').guibg . '"'
 endif
+" set background=light
+" colors plain
 
-if &term =~# '256color'
-  " disable Background Color Erase (BCE) so that color schemes
-  " render properly when inside 256-color tmux and GNU screen.
-  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
-  " set t_ut=
-endif
 
-" Highlight active line
+
+" Only show linenumber for active line
 set cursorline
 hi clear CursorLine
-hi CursorLineNR cterm=bold
+set numberwidth=5
+
+" always show sign column
+set signcolumn=yes
 
 " Show Line numbers
 set number
 
 " Visual line marking 80 characters
 set colorcolumn=80
+
+set cmdheight=2
 
 " Invisible characters
 augroup InvisibleCharacters
@@ -223,24 +225,73 @@ function! GitGutterDiffToggle()
   endif
 endfunction
 
+" buftabline
+let g:buftabline_show = 2
+let g:buftabline_indicators = 1
+
+" airline
+let g:lightline = {
+\ 'colorscheme': 'minimal',
+\ 'active': {
+\   'left': [ [ 'mode', 'paste', 'spell' ], [ 'gitbranch', 'readonly' ] ],
+\   'right': [ [ 'lineinfo' ], [ 'percent' ],  [ 'filetype' ], [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ] ],
+\ },
+\ 'subseparator': { 'right': '' },
+\ 'mode_map': {
+\     'n': 'NORM', 'i': 'INS', 'R': 'REP', 'v': 'VIS', 'V': 'V-L', "\<C-v>": 'V-B',
+\     'c': 'CMD', 's': 'SEL', 'S': 'S-L', "\<C-s>": 'S-B', 't': 'TERM'
+\ },
+\ 'component_function': {
+\   'gitbranch': 'gitbranch#name'
+\ },
+\ 'component_expand': {
+\   'linter_checking': 'lightline#ale#checking',
+\   'linter_warnings': 'lightline#ale#warnings',
+\   'linter_errors': 'lightline#ale#errors',
+\   'linter_ok': 'lightline#ale#ok',
+\ },
+\ 'component_type': {
+\   'linter_checking': 'left',
+\   'linter_warnings': 'warning',
+\   'linter_errors': 'error',
+\   'linter_ok': 'left',
+\ },
+\ }
+
+let g:lightline#ale#indicator_checking = ''
+let g:lightline#ale#indicator_ok = ''
+let g:lightline#ale#indicator_errors = '✗ '
+let g:lightline#ale#indicator_warnings = '∆ '
+
+" vim-coverage
+" if executable('git')
+"   let g:coverage_json_report_path = system('git rev-parse --show-toplevel')[:-2] . '/coverage/coverage-final.json'
+" endif
+
 " ale
 let g:ale_linters = {
 \  'javascript': ['eslint', 'flow'],
+\  'typescript': ['tslint', 'tsserver'],
+\  'jsx': ['stylelint', 'eslint'],
 \  'tex': ['chktex'],
 \  'c': [],
 \  'cpp': ['clangtidy'],
 \  'python': ['flake8'],
 \  'java': [],
 \}
+let g:ale_linter_aliases = {'jsx': 'typescript'}
+let g:ale_completion_enabled = 1
+
 let g:ale_fixers = {
 \  'javascript': ['prettier'],
+\  'typescript': ['prettier'],
 \  'json': ['prettier'],
 \  'markdown': ['prettier'],
 \  'cpp': ['clang-format'],
 \  'python': ['autopep8'],
 \  'sh': ['shfmt'],
 \}
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_echo_msg_format = '%linter%: %s (%severity%)'
 let g:ale_javascript_prettier_options = '--trailing-comma es5 --single-quote'
 let g:ale_sh_shfmt_options = '-i 2 -s'
 let g:ale_c_clangformat_options = '-style="{BasedOnStyle: llvm, IndentWidth: 2, ColumnLimit: 100, AllowShortFunctionsOnASingleLine: None, KeepEmptyLinesAtTheStartOfBlocks: false}"'
@@ -250,51 +301,16 @@ let g:ale_cpp_clangtidy_checks = ['clang-diagnostic-*', 'clang-analyzer-*']
 
 nnoremap gp :ALEFix<CR>
 
-let g:ale_sign_error = '✗✗'
-let g:ale_sign_warning = '∆∆'
-let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '']
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '∆'
 
 " UltiSnips
+if !isdirectory(s:vimdir . '/UltiSnips') | call mkdir(s:vimdir . '/UltiSnips') | endif
 let g:UltiSnipsSnippetsDir = s:vimdir . '/UltiSnips'
 
-
-" Airline
-let g:airline_extensions = ['hunks', 'whitespace', 'tabline', 'ycm', 'ale',
-                          \ 'branch', 'quickfix']
-
-let g:airline#extensions#ycm#enabled = 1
-let g:airline#extensions#ycm#error_symbol = '⨉ '
-let g:airline#extensions#ycm#warning_symbol = '⚠ '
-
-let g:airline#extensions#ale = 1
-let g:airline#extensions#ale#error_symbol = '⨉ '
-let g:airline#extensions#ale#warning_symbol = '⚠ '
-
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_buffers = 1
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
-nnoremap <leader>b :bp<CR>
-nnoremap <leader>f :bn<CR>
-nnoremap <leader>d :bd<CR>
-
-
-" Don't show seperators
-let g:airline_left_sep=''
-let g:airline_right_sep=''
-
 " clang-rename
-let g:clang_rename_path = '/usr/local/opt/llvm/bin/clang-rename'
-noremap <leader>ref :pyf s:vimdir . /scripts/clang-rename.py<cr>
+" let g:clang_rename_path = '/usr/local/opt/llvm/bin/clang-rename'
+" noremap <leader>ref :pyf s:vimdir . /scripts/clang-rename.py<cr>
 
 
 " fzf
@@ -345,7 +361,7 @@ let g:undotree_WindowLayout = 2
 " activate jsx syntax highlighting for .js files
 let g:jsx_ext_required = 0
 
-let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
 
 " }}}
 " General mappings {{{
@@ -359,6 +375,11 @@ nnoremap J mzJ`z
 if v:version > 703 || v:version == 703 && has('patch541')
   set formatoptions+=j
 endif
+
+" buffer navigation
+nnoremap <leader>b :bp<CR>
+nnoremap <leader>f :bn<CR>
+nnoremap <leader>d :bd<CR>
 
 " replay macro on Q instead of switching to Ex mode
 nnoremap Q @@
@@ -390,10 +411,19 @@ nmap <Leader>v :e $MYVIMRC<CR>
 augroup ReloadVimrc
   autocmd!
   autocmd bufwritepost *vimrc source $MYVIMRC |
-        \ AirlineRefresh |
+        " \ AirlineRefresh |
+        \ call lightline#init() |
+        \ call lightline#colorscheme() |
+        \ call lightline#update() |
         \ redraw |
         \ echo 'vimrc reloaded!'
 augroup END
+
+" Open help pages in new buffer using :Help
+command! -nargs=1 -complete=help H :enew | :set buftype=help | :h <args>
+command! -nargs=1 -complete=help Help :enew | :set buftype=help | :h <args>
+cabbrev help <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Help' : 'help')<CR>
+cabbrev h <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'H' : 'h')<CR>
 
 " Toggle spell checking on and off with `,s`
 nmap <silent> <leader>s :set spell!<CR>
@@ -405,9 +435,6 @@ nnoremap <silent> <tab> :nohlsearch<Bar>:echo<CR>:ccl<CR>
 augroup closeprev
   autocmd CompleteDone * pclose
 augroup END
-
-" Show current file as HTML
-nmap <Leader>h :TOhtml<CR>:w<cr>:!open %<CR>:q<CR>
 
 augroup qf
     autocmd!
@@ -441,6 +468,8 @@ function! s:compile_and_run()
   elseif &filetype ==# 'cpp'
     call MakeAndRun()
   elseif &filetype ==# 'javascript.jsx'
+    call RunWithNode()
+  elseif &filetype ==# 'typescript'
     call RunWithNode()
   elseif &filetype ==# 'tex'
     exec 'AsyncRun latexmk % -pdf'

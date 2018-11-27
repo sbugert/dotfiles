@@ -11,6 +11,7 @@ export ANDROID_HOME=/usr/local/opt/android-sdk
 CDPATH=".:~/repos"
 
 export PATH=$PATH:$HOME/opt/node/latest/bin
+export PATH=$PATH:$HOME/opt/garmin/bin
 export PATH=$PATH:/usr/local/opt/llvm/bin
 
 . "$DOTFILES/macos/bash_aliases"

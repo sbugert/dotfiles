@@ -6,13 +6,8 @@ endsnippet
 
 snippet rcc "React Class Component" b
 import React, { Component} from 'react';
-import PropTypes from 'prop-types';
 
 class ${1:`!v expand('%:t:r')`} extends Component {
-  static propTypes = {
-    children: PropTypes.node,
-  };
-
   render() {
     return (
       $3
@@ -25,15 +20,10 @@ endsnippet
 
 snippet rfc "React Functional Component" b
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const ${1:`!v expand('%:t:r')`} = ${3:props} => (
   $4
 );
-
-$1.defaultProps = {};
-
-$1.propTypes = {};
 
 export default $1;
 endsnippet

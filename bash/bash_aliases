@@ -23,7 +23,11 @@ alias gp='git push origin master'
 
 # log vim keystrokes for science
 alias vim="vim -w ~/.vimlog $@"
-alias v='vim'
+alias v="vim"
+# v() {
+#   vim "$@";
+#   $DOTFILES/bash/bin/term_scheme "#005000"
+# }
 
 swap() {
   tmpfile="$(mktemp "$(dirname "$1")/XXXXXX")"

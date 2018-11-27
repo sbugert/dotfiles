@@ -21,7 +21,7 @@ _setPromptCommand() {
   if [ ! $PROMPT_EMOJI = 0 ]; then
     # get random emoji for prompt 💩
     . "$DOTFILES/bash/emojis"
-    local -r EMOJI="$(_getRandomEmoji) "
+    local -r EMOJI="$(_getRandomEmoji)"
   fi
   # local -r EMOJI="$(_getRandomEmoji)  "
   local -r YELLOW='\001'$(tput setaf 3)'\002'

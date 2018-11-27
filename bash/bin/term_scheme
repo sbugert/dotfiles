@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -e
+
+COLOR="$1"
+
+# if [ "$TERM" == "xterm-256color" ]; then # TMUX
+if [ -n "$TMUX" ]; then
+  if [ -n "$ITERM_SESSION_ID" ]; then
+    echo -ne "\\ePtmux;\\e\\033]1337;SetColors=bg=${COLOR:1}\\a\\e\\\\"
+  else
+    echo -ne "\\ePtmux;\\e\\033]11;$COLOR\\007\\e\\\\"
+  fi
+else #  NOT TMUX
+  if [ -n "$ITERM_SESSION_ID" ]; then
+    echo -ne "\\033]1337;SetColors=bg=${COLOR:1}\\a"
+  else
+    echo -ne "\\033]11;$COLOR\\007"
+  fi
+fi

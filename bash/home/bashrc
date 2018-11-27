@@ -22,7 +22,8 @@ if [ "$(uname)" == "Darwin" ]; then
 fi
 
 # https://github.com/clvv/fasd
-if hash fasd 2>/dev/null; then :
+if hash fasd 2>/dev/null; then
+  :
 else
   # source fasd from dotfiles if not installed globally
   . "$DOTFILES/bash/fasd"

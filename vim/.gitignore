@@ -2,5 +2,5 @@
 vimrc.html
 .netrwhist
 plugged/
-autoload/
+autoload/plug.vim
 spell/
