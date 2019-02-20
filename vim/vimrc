@@ -91,6 +91,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 Plug 'maximbaz/lightline-ale'
 Plug 'itchyny/vim-cursorword'
+Plug 'thaerkh/vim-indentguides'
 
 Plug 'mhinz/vim-signify'
 Plug 'SirVer/ultisnips'
@@ -99,11 +100,11 @@ Plug 'epilande/vim-react-snippets'
 Plug 'mbbill/undotree'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-if executable('cmake')
-  Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer',
-                               \ 'for': [ 'cpp', 'c' ] }
-  Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-endif
+" if executable('cmake')
+"   Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer',
+"                                \ 'for': [ 'cpp', 'c' ] }
+"   Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+" endif
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-repeat'
 Plug 'machakann/vim-sandwich'
@@ -275,22 +276,24 @@ let g:ale_linters = {
 \  'typescript': ['tslint', 'tsserver'],
 \  'jsx': ['stylelint', 'eslint'],
 \  'tex': ['chktex'],
-\  'c': [],
+\  'c': ['clangtidy', 'clangd'],
 \  'cpp': ['clangtidy'],
 \  'python': ['flake8'],
 \  'java': [],
 \}
-let g:ale_linter_aliases = {'jsx': 'typescript'}
+let g:ale_linter_aliases = {'jsx': 'typescript', 'pgsql': 'sql'}
 let g:ale_completion_enabled = 1
 
 let g:ale_fixers = {
 \  'javascript': ['prettier'],
-\  'typescript': ['prettier'],
+\  'typescript': ['prettier', 'tslint'],
 \  'json': ['prettier'],
 \  'markdown': ['prettier'],
+\  'c': ['clang-format'],
 \  'cpp': ['clang-format'],
 \  'python': ['autopep8'],
 \  'sh': ['shfmt'],
+\  'sql': ['sqlint'],
 \}
 let g:ale_echo_msg_format = '%linter%: %s (%severity%)'
 let g:ale_javascript_prettier_options = '--trailing-comma es5 --single-quote'
@@ -341,7 +344,6 @@ command! -bang -nargs=* Ag
   \                 <bang>0 ? fzf#vim#with_preview('up:60%')
   \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
   \                 <bang>0)
-
 
 " vim-unimpaired vimcasts.org/episodes/bubbling-text/
 " Bubble single lines
