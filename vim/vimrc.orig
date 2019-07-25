@@ -83,29 +83,34 @@ augroup END
 
 call plug#begin(s:vimdir . '/plugged')
 
+<<<<<<< Updated upstream
 Plug 'christoomey/vim-tmux-navigator'
-" if executable('node')
-  let g:coc_extension_root = s:vimdir . '/coc'
-  let g:coc_global_extensions = ['coc-tsserver', 'coc-eslint', 'coc-prettier',
-        \ 'coc-html', 'coc-css', 'coc-json', 'coc-vimlsp']
-
-  let s:coc_settings_json = json_decode(readfile(s:vimdir . '/coc-settings.json'))
-
+if executable('node')
   Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
   let g:coc_global_extensions = ['coc-prettier', 'coc-eslint', 'coc-tsserver',
         \ 'coc-json', 'coc-html', 'coc-css', 'coc-python', 'coc-vimlsp',
         \ 'coc-tslint-plugin', 'coc-jest', 'coc-tabnine',
         \ 'coc-docker', 'coc-svg']
-" endif
-
+endif
+=======
 Plug 'darfink/vim-plist'
-
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+let g:coc_extension_root = s:vimdir . '/coc'
+let g:coc_global_extensions = ['coc-tsserver', 'coc-eslint', 'coc-prettier',
+      \ 'coc-html', 'coc-css', 'coc-json', 'coc-vimlsp']
+>>>>>>> Stashed changes
 
 Plug 'ap/vim-buftabline'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 Plug 'itchyny/vim-cursorword'
+<<<<<<< Updated upstream
 Plug 'thaerkh/vim-indentguides'
+=======
+Plug 'tpope/vim-vinegar'
+Plug 'thaerkh/vim-indentguides'
+Plug 'christoomey/vim-tmux-navigator'
+>>>>>>> Stashed changes
 
 Plug 'mhinz/vim-signify'
 Plug 'SirVer/ultisnips'
@@ -132,8 +137,6 @@ call plug#end()
 " Better % command
 runtime macros/matchit.vim
 
-echo s:coc_settings_json[0]
-call coc#config('', s:coc_settings_json)
 " }}}
 " UI and colors {{{
 
@@ -232,6 +235,9 @@ endfunction
 let g:buftabline_show = 2
 let g:buftabline_indicators = 1
 
+<<<<<<< Updated upstream
+" lightline
+=======
 " vim-indentguides
 let g:indentguides_ignorelist = ['text', 'markdown']
 
@@ -259,7 +265,8 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " format file
 nnoremap gp :CocCommand prettier.formatFile<CR>
 
-" lightline
+" airline
+>>>>>>> Stashed changes
 let g:lightline = {
 \ 'colorscheme': 'minimal',
 \ 'active': {
@@ -283,6 +290,8 @@ let g:lightline = {
 \   'cocerror': 'error',
 \ },
 \ }
+
+<<<<<<< Updated upstream
 
 let g:coc_status_error_sign = '✗'
 let g:coc_status_warning_sign = '∆'
@@ -318,12 +327,12 @@ endfunction
 
 autocmd User CocDiagnosticChange call lightline#update()
 
-call coc#config('diagnostic', {
-\   'errorSign'  : '●',
-\   'warningSign': '●',
-\   'infoSign'   : '●',
-\   'hintSign'   : '●'
-\ })
+  call coc#config('diagnostic', {
+  \   'errorSign'  : '●',
+  \   'warningSign': '●',
+  \   'infoSign'   : '●',
+  \   'hintSign'   : '●'
+  \ })
 
 " coc.nvim
 " Remap keys for gotos
@@ -352,12 +361,62 @@ augroup mygroup
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
+=======
+let g:lightline#ale#indicator_checking = ''
+let g:lightline#ale#indicator_ok = ''
+let g:lightline#ale#indicator_errors = '✗ '
+let g:lightline#ale#indicator_warnings = '∆ '
+
+" vim-coverage
+" if executable('git')
+"   let g:coverage_json_report_path = system('git rev-parse --show-toplevel')[:-2] . '/coverage/coverage-final.json'
+" endif
+
+" ale
+" let g:ale_linters = {
+" \  'javascript': ['eslint', 'flow'],
+" \  'typescript': ['tslint', 'tsserver'],
+" \  'jsx': ['stylelint', 'eslint'],
+" \  'tex': ['chktex', 'proselint'],
+" \  'c': [],
+" \  'cpp': ['clangtidy'],
+" \  'python': ['flake8'],
+" \  'java': [],
+" \}
+" let g:ale_linter_aliases = {'jsx': 'typescript'}
+"
+" let g:ale_fixers = {
+" \  'javascript': ['prettier'],
+" \  'typescript': ['prettier'],
+" \  'json': ['prettier'],
+" \  'markdown': ['prettier'],
+" \  'cpp': ['clang-format'],
+" \  'python': ['autopep8'],
+" \  'sh': ['shfmt'],
+" \}
+" let g:ale_echo_msg_format = '%linter%: %s (%severity%)'
+" let g:ale_javascript_prettier_options = '--trailing-comma es5 --single-quote'
+" let g:ale_sh_shfmt_options = '-i 2 -s'
+" let g:ale_c_clangformat_options = '-style="{BasedOnStyle: llvm, IndentWidth: 2, ColumnLimit: 100, AllowShortFunctionsOnASingleLine: None, KeepEmptyLinesAtTheStartOfBlocks: false}"'
+" let g:ale_python_autopep8_options = '-a -a --max-line-length=100'
+" let g:ale_python_flake8_options = '--max-line-length 100'
+" let g:ale_cpp_clangtidy_checks = ['clang-diagnostic-*', 'clang-analyzer-*']
+"
+" nnoremap gp :ALEFix<CR>
+"
+" let g:ale_sign_error = '✗'
+" let g:ale_sign_warning = '∆'
 
 let g:tcomment#filetype#guess_javascript = 1
+>>>>>>> Stashed changes
 
 " UltiSnips
 if !isdirectory(s:vimdir . '/UltiSnips') | call mkdir(s:vimdir . '/UltiSnips') | endif
 let g:UltiSnipsSnippetsDir = s:vimdir . '/UltiSnips'
+
+" coc-prettier
+" command! -nargs=0 Prettier :CocCommand prettier.formatFile
+" nnoremap gp :Prettier<CR>
 
 " clang-rename
 " let g:clang_rename_path = '/usr/local/opt/llvm/bin/clang-rename'
@@ -564,3 +623,4 @@ augroup Filetypes
     autocmd FileType json syntax match Comment +\/\/.\+$+
 augroup END
 " }}}
+" vim:foldmethod=marker:foldlevel=0

@@ -4,3 +4,4 @@ vimrc.html
 plugged/
 autoload/plug.vim
 spell/
+coc/

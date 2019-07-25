@@ -2,7 +2,7 @@
   "prettier.singleQuote": false,
   "prettier.trailingComma": "es5",
   "python.jediEnabled": false,
-  "javascript.validate.enable": false, // don't use tslint in javascript files
+  "javascript.validate.enable": false,
   "languageserver": {
     "bash": {
       "command": "bash-language-server",
