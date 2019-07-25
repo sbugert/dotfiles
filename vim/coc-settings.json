@@ -1,0 +1,26 @@
+{
+  "prettier.singleQuote": false,
+  "prettier.trailingComma": "es5",
+  "python.jediEnabled": false,
+  "javascript.validate.enable": false, // don't use tslint in javascript files
+  "languageserver": {
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    },
+    "clangd": {
+      "command": "clangd-8",
+      "args": ["--background-index"],
+      "rootPatterns": [
+        "compile_flags.txt",
+        "compile_commands.json",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ],
+      "filetypes": ["c", "cpp", "objc", "objcpp"]
+    }
+  }
+}
