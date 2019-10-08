@@ -89,7 +89,7 @@ Plug 'christoomey/vim-tmux-navigator'
   let g:coc_global_extensions = ['coc-tsserver', 'coc-eslint', 'coc-prettier',
         \ 'coc-html', 'coc-css', 'coc-json', 'coc-vimlsp']
 
-  let s:coc_settings_json = json_decode(readfile(s:vimdir . '/coc-settings.json'))
+  " let s:coc_settings_json = json_decode(readfile(s:vimdir . '/coc-settings.json'))
 
   Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
   let g:coc_global_extensions = ['coc-prettier', 'coc-eslint', 'coc-tsserver',
@@ -132,8 +132,8 @@ call plug#end()
 " Better % command
 runtime macros/matchit.vim
 
-echo s:coc_settings_json[0]
-call coc#config('', s:coc_settings_json)
+" echo s:coc_settings_json[0]
+" call coc#config('', s:coc_settings_json)
 " }}}
 " UI and colors {{{
 
@@ -257,7 +257,7 @@ inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " format file
-nnoremap gp :CocCommand prettier.formatFile<CR>
+" nnoremap gp :CocCommand prettier.formatFile<CR>
 
 " lightline
 let g:lightline = {
@@ -334,6 +334,9 @@ nmap <silent> gr <Plug>(coc-references)
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -343,7 +346,8 @@ function! s:show_documentation()
 endfunction
 
 " Remap for format selected region
-nnoremap gp  <Plug>(coc-format)
+" nnoremap gp <Plug>(coc-format)
+nmap <silent> gp <Plug>(coc-format)
 
 augroup mygroup
   autocmd!
@@ -411,15 +415,13 @@ let g:undotree_WindowLayout = 2
 " activate jsx syntax highlighting for .js files
 let g:jsx_ext_required = 0
 
-" let g:deoplete#enable_at_startup = 1
-
 " }}}
 " General mappings {{{
 
-" Saves time; maps the spacebar to colon
+" Map spacebar to colon
 nmap <space> :
 set pastetoggle=<leader>p " Toggle paste mode
-" Keep curson in place when using J to join two lines
+" Keep cursor in place when using J to join two lines
 nnoremap J mzJ`z
 
 if v:version > 703 || v:version == 703 && has('patch541')
@@ -441,7 +443,7 @@ nnoremap Y y$
 nnoremap j gj
 nnoremap k gk
 
-" In addition to <esc>, jj will exit to normal mode.
+" In addition to <esc>, jj and jk will exit to normal mode.
 inoremap jj <ESC>
 inoremap jk <ESC>
 
@@ -461,10 +463,12 @@ nmap <Leader>v :e $MYVIMRC<CR>
 augroup ReloadVimrc
   autocmd!
   autocmd bufwritepost *vimrc source $MYVIMRC |
-        " \ AirlineRefresh |
         \ call lightline#init() |
         \ call lightline#colorscheme() |
         \ call lightline#update() |
+        \ call lightline#update() |
+        \ exec 'IndentGuidesToggle' |
+        \ exec 'IndentGuidesToggle' |
         \ redraw |
         \ echo 'vimrc reloaded!'
 augroup END
@@ -558,7 +562,6 @@ augroup Filetypes
     " in makefiles, don't expand tabs to spaces
     autocmd FileType make setlocal noexpandtab shiftwidth=8 softtabstop=0
     " turn on concealing for markdonw and latex
-    autocmd FileType markdown set conceallevel=2
     autocmd FileType tex set conceallevel=2
     " jsonc
     autocmd FileType json syntax match Comment +\/\/.\+$+
