@@ -39,6 +39,17 @@ export EDITOR=vim
 . $DOTFILES/bash/fzf-config
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+# If there are multiple matches for completion, Tab should cycle through them
+bind 'TAB':menu-complete
+bind '"\e[Z":menu-complete-backward'
+
+# Display a list of the matching files
+bind "set show-all-if-ambiguous on"
+
+# Perform partial completion on the first Tab press,
+# only start cycling full results on the second Tab press
+bind "set menu-complete-display-prefix on"
+
 # source bash aliases
 . $DOTFILES/bash/bash_aliases
 . $DOTFILES/private/bash/bash_aliases 2>/dev/null
