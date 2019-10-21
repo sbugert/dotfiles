@@ -20,6 +20,7 @@ alias q='exit'
 alias c='clear'
 alias gs='git status'
 alias gp='git push origin master'
+alias gr='git rev-parse --is-inside-work-tree && cd $(git rev-parse --show-toplevel)'
 
 # log vim keystrokes for science
 alias vim="vim -w ~/.vimlog $@"

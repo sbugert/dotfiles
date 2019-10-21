@@ -48,4 +48,4 @@ help:
 		@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "$(PURPLE)%-30s$(RESET) $(YELLOW)%s\n$(RESET)", $$1, $$2}'
 
 .DEFAULT_GOAL := help
-.PHONY: linkdotfiles unlinkdotfiles installnode setupvim setupchunkwm setupmac uninstalldotfiles decrypt encrypt help
+.PHONY: linkdotfiles unlinkdotfiles installnode setupvim setupchunkwm setupmac decrypt encrypt help
