@@ -1,6 +1,6 @@
 {
-  "prettier.singleQuote": false,
-  "prettier.trailingComma": "es5",
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "all",
   "python.jediEnabled": false,
   "javascript.validate.enable": false,
   "languageserver": {
@@ -9,18 +9,6 @@
       "args": ["start"],
       "filetypes": ["sh"],
       "ignoredRootPaths": ["~"]
-    },
-    "clangd": {
-      "command": "clangd-8",
-      "args": ["--background-index"],
-      "rootPatterns": [
-        "compile_flags.txt",
-        "compile_commands.json",
-        ".vim/",
-        ".git/",
-        ".hg/"
-      ],
-      "filetypes": ["c", "cpp", "objc", "objcpp"]
     }
   }
 }

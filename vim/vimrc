@@ -12,7 +12,7 @@ let &runtimepath = printf('%s/vimfiles,%s,%s/vimfiles/after', $VIM, $VIMRUNTIME,
 let &runtimepath = printf('%s,%s,%s/after', s:vimdir, &runtimepath, s:vimdir)
 
 set hidden " Switch between buffers without saving
-set clipboard^=unnamedplus,unnamed " Share OS/XServer clipboard
+set clipboard^=unnamedplus,unnamed " Share clipboard
 set backspace=indent,eol,start " make backspace work like most other apps
 set mouse=a " Allow mouse usage in terminal vim
 if has('mouse_sgr')
@@ -33,7 +33,9 @@ set shortmess+=c " don't give |ins-completion-menu| messages.
 " h   don't restore hlsearch behavior
 " %   save and restore the buffer list
 if !isdirectory(s:vimdir . '/.tmp') | call mkdir(s:vimdir . '/.tmp') | endif
-let &viminfo="'10,\"100,:50,n" . s:vimdir . '/.tmp/viminfo'
+if !has('nvim')
+  let &viminfo="'10,\"100,:50,n" . s:vimdir . '/.tmp/viminfo'
+endif
 
 set scrolloff=5 " Scroll cursor offset
 
@@ -68,6 +70,7 @@ let g:mapleader = ',' " Leader key
 set ttimeoutlen=50 "shorten pause when leaving insert mode
 
 " }}}
+
 " Plugins {{{
 
 " Install vim-plug if not available
@@ -83,30 +86,29 @@ augroup END
 
 call plug#begin(s:vimdir . '/plugged')
 
-Plug 'christoomey/vim-tmux-navigator'
-" if executable('node')
-  let g:coc_extension_root = s:vimdir . '/coc'
-  let g:coc_global_extensions = ['coc-tsserver', 'coc-eslint', 'coc-prettier',
-        \ 'coc-html', 'coc-css', 'coc-json', 'coc-vimlsp']
-
-  let s:coc_settings_json = json_decode(readfile(s:vimdir . '/coc-settings.json'))
+if executable('node')
+  let g:coc_data_home= s:vimdir . '/coc'
+  let g:coc_config_home = s:vimdir
 
   Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
   let g:coc_global_extensions = ['coc-prettier', 'coc-eslint', 'coc-tsserver',
         \ 'coc-json', 'coc-html', 'coc-css', 'coc-python', 'coc-vimlsp',
-        \ 'coc-tslint-plugin', 'coc-jest', 'coc-tabnine',
-        \ 'coc-docker', 'coc-svg']
-" endif
-
-Plug 'darfink/vim-plist'
+        \ 'coc-tslint-plugin', 'coc-jest', 'coc-tabnine', 'coc-highlight',
+        \ 'coc-docker', 'coc-svg', 'coc-rls', 'coc-clangd', 'coc-tailwindcss']
+endif
 
 
+Plug 'andymass/vim-matchup'
+Plug 'psliwka/vim-smoothie'
+Plug 'mhinz/vim-startify'
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'ap/vim-buftabline'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 Plug 'itchyny/vim-cursorword'
 Plug 'thaerkh/vim-indentguides'
-
+Plug 'junegunn/goyo.vim'
+Plug 'darfink/vim-plist'
 Plug 'mhinz/vim-signify'
 Plug 'SirVer/ultisnips'
 Plug 'epilande/vim-es2015-snippets'
@@ -120,20 +122,14 @@ Plug 'machakann/vim-sandwich'
 Plug 'tpope/vim-unimpaired'
 Plug 'wellle/targets.vim'
 Plug 'skywind3000/asyncrun.vim'
-
 Plug 'sheerun/vim-polyglot'
 Plug 'ap/vim-css-color'
 Plug 'hail2u/vim-css3-syntax'
-
+Plug 'jxnblk/vim-mdx-js'
 Plug 'joshdick/onedark.vim'
 
 call plug#end()
 
-" Better % command
-runtime macros/matchit.vim
-
-echo s:coc_settings_json[0]
-call coc#config('', s:coc_settings_json)
 " }}}
 " UI and colors {{{
 
@@ -257,7 +253,9 @@ inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " format file
-nnoremap gp :CocCommand prettier.formatFile<CR>
+nmap <silent> gp <Plug>(coc-format)
+nmap gp <Plug>(coc-format)
+
 
 " lightline
 let g:lightline = {
@@ -342,9 +340,6 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Remap for format selected region
-nnoremap gp  <Plug>(coc-format)
-
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
@@ -363,6 +358,8 @@ let g:UltiSnipsSnippetsDir = s:vimdir . '/UltiSnips'
 " let g:clang_rename_path = '/usr/local/opt/llvm/bin/clang-rename'
 " noremap <leader>ref :pyf s:vimdir . /scripts/clang-rename.py<cr>
 
+" vim-startify
+let g:startify_custom_header = ''
 
 " fzf
 function! s:find_git_root()
@@ -557,8 +554,8 @@ augroup Filetypes
     autocmd BufEnter *.hbt set filetype=html.handlebars syntax=mustache
     " in makefiles, don't expand tabs to spaces
     autocmd FileType make setlocal noexpandtab shiftwidth=8 softtabstop=0
-    " turn on concealing for markdonw and latex
-    autocmd FileType markdown set conceallevel=2
+    " turn on concealing for markdown and latex
+    autocmd FileType markdown set conceallevel=0
     autocmd FileType tex set conceallevel=2
     " jsonc
     autocmd FileType json syntax match Comment +\/\/.\+$+
