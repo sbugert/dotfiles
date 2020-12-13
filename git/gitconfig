@@ -1,6 +1,5 @@
-[user]
-	name = Simon Bugert
-	email = simon.bugert@gmail.com
+[include]
+  path = ~/.dotfiles/private/git/config
 [core]
   editor = vim
   excludesfile = ~/.gitignore_global
