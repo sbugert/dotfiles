@@ -1,0 +1,18 @@
+export default {
+  color00: '#181818',
+  color01: '#282828',
+  color02: '#383838',
+  color03: '#585858',
+  color04: '#b8b8b8',
+  color05: '#d8d8d8',
+  color06: '#e8e8e8',
+  color07: '#f8f8f8',
+  color08: '#ab4642',
+  color09: '#dc9656',
+  color0A: '#f7ca88',
+  color0B: '#a1b56c',
+  color0C: '#86c1b9',
+  color0D: '#7cafc2',
+  color0E: '#ba8baf',
+  color0F: '#a16946',
+};

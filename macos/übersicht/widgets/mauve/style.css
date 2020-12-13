@@ -1,0 +1,8 @@
+#uebersicht {
+  margin-top: 7px;
+  display: flex;
+}
+
+.widget {
+  display: initial;
+}

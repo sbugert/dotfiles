@@ -1,0 +1,76 @@
+#!/usr/bin/env sh
+
+# global settings
+yabai -m config mouse_follows_focus          off
+yabai -m config focus_follows_mouse          autofocus
+yabai -m config window_placement             second_child
+yabai -m config window_topmost               off
+yabai -m config window_opacity               off
+yabai -m config window_shadow                float
+yabai -m config active_window_opacity        1.0
+yabai -m config normal_window_opacity        0.90
+yabai -m config split_ratio                  0.50
+yabai -m config auto_balance                 off
+yabai -m config mouse_modifier               fn
+yabai -m config mouse_action1                move
+yabai -m config mouse_action2                resize
+
+# general space settings
+yabai -m config layout                       bsp
+yabai -m config top_padding                  30
+yabai -m config bottom_padding               20
+yabai -m config left_padding                 20
+yabai -m config right_padding                20
+yabai -m config window_gap                   20
+
+# terminal space
+yabai -m config --space 1 top_padding        100
+yabai -m config --space 1 bottom_padding     100
+yabai -m config --space 1 left_padding       100
+yabai -m config --space 1 right_padding      100
+yabai -m config --space 1 window_gap         20
+
+# Live/Lightroom space
+yabai -m config --space 5 top_padding        20
+yabai -m config --space 5 bottom_padding     0
+yabai -m config --space 5 left_padding       0
+yabai -m config --space 5 right_padding      0
+yabai -m config --space 5 window_gap         0
+
+# app rules
+yabai -m rule --add app="^System Preferences$"         manage=off
+yabai -m rule --add app="^Activity Monitor$"           manage=off
+yabai -m rule --add app="^LICEcap"                     manage=off
+
+yabai -m rule --add app="^iTerm2$"                     space=^1
+yabai -m rule --add app="^Google Chrome$"              space=2
+yabai -m rule --add app="^Mail$"                       space=^3
+yabai -m rule --add app="^Messages$"                   space=^3
+yabai -m rule --add app="^iTunes$"                     space=^4
+yabai -m rule --add app="^Spotify$"                    space=^4
+# yabai -m rule --add app="^VLC$"                        space=8
+yabai -m rule --add app="^Live$"                       space=^5
+yabai -m rule --add app="^Lightroom Classic$"          space=^5
+yabai -m rule --add app="^Photoshop CC$"               space=^5
+yabai -m rule --add app="^Adobe Illustrator 2019$"     space=^5
+yabai -m rule --add app="^Adobe Premiere Pro CC 2019$" space=^5
+yabai -m rule --add app="^Obsidian$"                   space=^6
+
+REFRESH_WORKSPACE='tell application "Übersicht" to refresh widget id "mauve-workspace-jsx"'
+REFRESH_WINDOW='tell application "Übersicht" to refresh widget id "mauve-window-jsx"'
+
+# signals
+yabai -m signal --add event=space_changed \
+  action="if pgrep bersicht; then osascript -e '$REFRESH_WORKSPACE'; fi"
+yabai -m signal --add event=application_activated  \
+  action="if pgrep bersicht; then osascript -e '$REFRESH_WINDOW'; fi"
+yabai -m signal --add event=window_focused \
+  action="if pgrep bersicht; then osascript -e '$REFRESH_WINDOW'; fi"
+yabai -m signal --add event=space_changed \
+  action="if pgrep bersicht; then osascript -e '$REFRESH_WINDOW'; fi"
+yabai -m signal --add event=window_title_changed \
+  action="if pgrep bersicht; then osascript -e '$REFRESH_WINDOW'; fi"
+
+echo "yabai configuration loaded.."
+
+YABAI_CERT=yabai-cert sh -c "$(curl -sSL "https://git.io/update-yabai")" &

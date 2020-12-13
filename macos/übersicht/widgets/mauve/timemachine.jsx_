@@ -1,0 +1,44 @@
+import { getWidgetStyles } from './lib/widgets';
+import Box from './lib/Box';
+import palette from './lib/palette';
+
+// const parseOutput = plist =>
+//   plist
+//     .split('{')[1]
+//     .split('}')[0]
+//     .split('\n')
+//     .slice(1, -1)
+//     .map(line => line.trim())
+//     .reduce(
+//       (acc, curr) => ({
+//         ...acc,
+//         [curr.split('=')[0].trim()]: curr
+//           .split('=')[1]
+//           .slice(0, -1)
+//           .trim(),
+//       }),
+//       {}
+//     );
+
+export const command = `
+  tmutil status | awk -F'"' '/_raw_Percent/ {print $4*100}'
+`;
+
+export const refreshFrequency = 30000;
+
+export const render = ({ output }) => {
+  console.log(output);
+  if (output.trim().length) {
+    return (
+      <Box backgroundColor={palette.color0F}>
+        {parseFloat(output).toFixed(0)}%
+      </Box>
+    );
+  } else {
+    return null;
+  }
+};
+
+export const className = `
+  ${getWidgetStyles('timemachine')};
+`;

@@ -15,3 +15,6 @@ export PATH=$PATH:$HOME/opt/garmin/bin
 export PATH=$PATH:/usr/local/opt/llvm/bin
 
 . "$DOTFILES/macos/bash_aliases"
+
+gpgconf --launch gpg-agent
+export SSH_AUTH_SOCKET=$HOME/.gnupg/S.gpg-agent.ssh
