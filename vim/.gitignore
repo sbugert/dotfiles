@@ -5,3 +5,5 @@ plugged/
 autoload/plug.vim
 spell/
 coc/
+memos.json
+history.json

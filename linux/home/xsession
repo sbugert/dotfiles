@@ -1,0 +1,8 @@
+xset r rate 200 25
+xsetroot -solid "#000000"
+
+# xmodmap -e "clear lock" #disable caps lock switch
+# xmodmap -e "keysym Caps_Lock = Escape" #set caps_lock as escape
+
+# xmodmap -e "clear Lock"
+# xmodmap -e "keysym Caps_Lock = Caps_Lock Control_L"
