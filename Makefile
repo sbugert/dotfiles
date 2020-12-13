@@ -22,10 +22,10 @@ setupvim: ## Setup vim config
 		@./tow link vim/vimrc
 		@vim +silent +PlugInstall +qall
 
-setupchunkwm: ## Setup chunkwm
-		@printf "$(PURPLE)Setting up chunkwm$(RESET)\n"
-		@./tow link chunkwm/chunkwmrc
-		@./tow link chunkwm/skhdrc
+setupyabai: ## Setup yabai
+		@printf "$(PURPLE)Setting up yabai and skhd$(RESET)\n"
+		@./tow link macos/yabai/yabairc
+		@./tow link macos/yabai/skhdrc
 
 setupmac: decrypt linkdotfiles ## Setup MacOS
 		@printf "$(PURPLE)Setting up MacOS$(RESET)\n"
@@ -35,6 +35,10 @@ setupmac: decrypt linkdotfiles ## Setup MacOS
 		@defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "${CURDIR}/iterm2"
 		@defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
 		@tic iterm2/xterm-256color.terminfo
+
+setupubuntu: ## Setup Ubuntu
+		@printf "$(PURPLE)Setting up Ubuntu$(RESET)\n"
+		@./tow link ubuntu/home
 
 decrypt: ## Decrypt private directory
 		@printf "$(YELLOW)"
@@ -48,4 +52,4 @@ help:
 		@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "$(PURPLE)%-30s$(RESET) $(YELLOW)%s\n$(RESET)", $$1, $$2}'
 
 .DEFAULT_GOAL := help
-.PHONY: linkdotfiles unlinkdotfiles installnode setupvim setupchunkwm setupmac uninstalldotfiles decrypt encrypt help
+.PHONY: linkdotfiles unlinkdotfiles installnode setupvim setupyabai setupmac uninstalldotfiles decrypt encrypt help

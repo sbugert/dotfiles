@@ -17,7 +17,7 @@ alias ll='ls -alh'
 alias l='ls -a'
 alias l1='ls -1'
 alias q='exit'
-alias c='clear'
+alias c="clear; printf '\e[3J'"
 alias gs='git status'
 alias gp='git push origin master'
 
