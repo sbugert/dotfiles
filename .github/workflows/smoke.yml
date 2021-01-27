@@ -1,0 +1,16 @@
+name: Smoke Test CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: macOS-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup macOS
+        run: make setupmac
+
+      - name: Setup vim
+        run: make setupvim
